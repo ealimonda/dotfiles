@@ -1,0 +1,31 @@
+#!/bin/bash
+#*******************************************************************************************************************
+#* Config files                                                                                                    *
+#*******************************************************************************************************************
+#* File:             tmuxrc.stuff                                                                                  *
+#* Copyright:        (c) 2011-2012 alimonda.com; Emanuele Alimonda                                                 *
+#*                   Public Domain                                                                                 *
+#*******************************************************************************************************************
+
+tmux start-server
+
+if ! tmux has -t stuff; then
+	echo "Session not found"
+	exit 1
+fi
+
+# Host-specific commands
+
+if [ -f "${HOME}/.tmux.d/tmuxrc.stuff.$(hostname)" ]; then
+	. "${HOME}/.tmux.d/tmuxrc.stuff.$(hostname)"
+fi
+
+#If I wanted logging:
+#tmux pipe-pane -t session:window 'cat > log'
+# pipe-pane [-o] [-t target-pane] [shell-command]
+#   (alias: pipep)
+#     Pipe any output sent by the program in target-pane to a shell command.  A pane may only be piped to one command at a time, any existing pipe
+#     is closed before shell-command is executed.  The shell-command string may contain the special character sequences supported by the
+#     status-left command.  If no shell-command is given, the current pipe (if any) is closed.
+#     The -o option only opens a new pipe if no previous pipe exists, allowing a pipe to be toggled with a single key, for example:
+#         bind-key C-p pipe-pane -o 'cat >>~/output.#I-#P'

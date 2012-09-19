@@ -1,0 +1,56 @@
+#*******************************************************************************************************************
+##* Config files                                                                                                    *
+##*******************************************************************************************************************
+##* File:             .gitconfig                                                                                    *
+##* Copyright:        (c) 2011-2012 alimonda.com; Emanuele Alimonda                                                 *
+##*                   Public Domain                                                                                 *
+##*******************************************************************************************************************
+
+[core]
+	quotepath = false
+#	askpass = ~/bin/git-password
+	excludesfile = ~/.gitignore_global
+
+[color]
+	# Let's use some colors
+	ui = auto
+
+[difftool]
+	# Don't ask annoying questions when I run difftool
+	prompt = false
+
+[mergetool]
+	# Remove old files
+	keepBackup = true
+
+# SourceTree.app's default backup tool (Araxis Merge)
+[difftool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/araxiscompare-w.sh -2 \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/araxisgitmerge-w.sh \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
+	trustExitCode = true
+
+# vim, autoselect console or gui
+[difftool "vvim"]
+	cmd = vvimdiff -f \"$LOCAL\" \"$REMOTE\"
+[mergetool "vvim"]
+	cmd = vvim -f -d -c "wincmd J" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+
+# vim, force gui
+[difftool "mvim"]
+	cmd = mvimdiff -f \"$LOCAL\" \"$REMOTE\"
+[mergetool "mvim"]
+	cmd = mvim -f -d -c "wincmd J" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+
+# vin, force console
+[difftool "cvim"]
+	cmd = vimdiff -f \"$LOCAL\" \"$REMOTE\"
+[mergetool "cvim"]
+	cmd = vim -f -d -c "wincmd J" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+
+# Some aliases for quick access
+[alias]
+	vvimdiff = difftool -t vvim
+	mvimdiff = difftool -t mvim
+	vimdiff = difftool -t cvim
