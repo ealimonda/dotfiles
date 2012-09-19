@@ -1,0 +1,42 @@
+#!/bin/bash
+#*******************************************************************************************************************
+#* Scripts                                                                                                         *
+#*******************************************************************************************************************
+#* File:             tmuxattach                                                                                    *
+#* Copyright:        (c) 2011-2012 alimonda.com; Emanuele Alimonda                                                 *
+#*                   Public Domain                                                                                 *
+#*******************************************************************************************************************
+
+if [ "$1" == "--onlystart" ]; then
+	DETACHEDMODE="true"
+	shift
+else
+	iTermColorize.pl --notmux 0.7 0.4
+fi
+
+
+if [ -z "$1" ]; then
+	TMUXNAME="stuff"
+else
+	TMUXNAME="$1"
+fi
+
+if [ -n "$TMUX" ]; then
+	echo "Bad, bad idea."
+else
+	if [ "$TERM" == "xterm-color" ]; then
+		# xterm-color doesn't seem to be working properly with F1 as prefix
+		export TERM=xterm
+	fi
+
+	# Try attaching to an attached session
+	if ! tmux has -t "${TMUXNAME}" >&- 2>&-; then
+		# Start a new session
+		tmux new-session -d -s "${TMUXNAME}"
+		TMUXRC="${HOME}/.tmux.d/tmuxrc.${TMUXNAME}"
+		if [ -f "${TMUXRC}" ]; then
+			. "${TMUXRC}"
+		fi
+	fi
+	[ -z "$DETACHEDMODE" ] && tmux attach-session -t "${TMUXNAME}"
+fi

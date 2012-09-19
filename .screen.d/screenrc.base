@@ -1,0 +1,8 @@
+source $HOME/.screenrc
+
+hardstatus alwayslastline
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}]%=[%l][%{B} %y-%m-%d %{W}%C %{g}]'
+#hardstatus string '%{= kG}[%{W}%H%{g}][%=%{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%=%{g}][%{B}%y-%m-%d %{W}%C%{g}][%{W}%l%{g}]'
+hardstatus string '%{= kG}[%{W}%H%{g}][%=%{= kw}%?%-Lw%?%{r}%n*%f%{W}%t%?(%u)%?%{w}%?%+Lw%?%?%=%{g}][%{B}%y-%m-%d%{W} %0C%a%{g}][%{W}%l%{g}]'
+
+# vim: set ft=screen:

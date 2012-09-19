@@ -1,0 +1,4 @@
+#termcapinfo screen* ks=\E=:ke=\E>
+#termcapinfo screen* ks@:ke@
+defutf8 on
+defencoding utf8

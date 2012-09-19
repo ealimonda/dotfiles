@@ -1,0 +1,29 @@
+#!/bin/bash
+#*******************************************************************************************************************
+#* Scripts                                                                                                         *
+#*******************************************************************************************************************
+#* File:             attachscreen                                                                                  *
+#* Copyright:        (c) 2011 alimonda.com; Emanuele Alimonda                                                      *
+#*                   Public Domain                                                                                 *
+#*******************************************************************************************************************
+
+if [ -z "$1" ]; then
+	SCREENNAME="stuff"
+else
+	SCREENNAME="$1"
+fi
+
+if [ "${STY##*.}" == "${SCREENNAME}" ]; then
+	echo "Bad, bad idea."
+else
+	# Try attaching to an attached screen
+	if ! screen -dr "${SCREENNAME}" >&- 2>&-; then
+		# Start a new screen
+		SCREENCFG="${HOME}/.screen.d/screenrc.${SCREENNAME}"
+		if [ -f "${SCREENCFG}" ]; then
+			screen -S "${SCREENNAME}" -c "${HOME}/.screen.d/screenrc.${SCREENNAME}"
+		else
+			screen -S "${SCREENNAME}"
+		fi
+	fi
+fi
