@@ -11,6 +11,7 @@ if [ "$1" == "weekly" ]; then
 	CAP=95
 else
 	CAP=90
+fi
 
 for i in `df -lP|grep -v Mounted|awk '{print $1 ":" $5}'`; do
 	if [ `echo $i|cut -d':' -f2|sed 's/%//'` -gt $CAP ]; then

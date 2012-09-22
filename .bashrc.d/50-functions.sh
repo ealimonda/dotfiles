@@ -7,6 +7,7 @@
 #*******************************************************************************************************************
 
 # Check for Mac OS X (it actually also catches Darwin, but I don't use that anyways)
+UNAME="$(uname)"
 if [ "$UNAME" == "Darwin" ]; then
 	# Load mactrash if available
 	[[ -f ~/.mactrash ]] && . ~/.mactrash
