@@ -1,0 +1,12 @@
+#!/bin/bash
+
+REPOS_CLONED=()
+while read LINE; do
+	REPOS_CLONED+=("$LINE")
+done < <( vcsh list )
+
+for EACH_REPO in "${REPOS_CLONED[@]}"; do
+	echo "Using repository $EACH_REPO:"
+	vcsh "$EACH_REPO" $@
+done
+
