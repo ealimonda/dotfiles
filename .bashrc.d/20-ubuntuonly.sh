@@ -137,3 +137,4 @@ if grep -q -s DISTRIB_ID=Ubuntu /etc/lsb-release; then
 	fi
 fi
 
+# vim: ts=4 sw=4

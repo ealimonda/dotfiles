@@ -15,9 +15,13 @@ if ! tmux has -t stuff; then
 fi
 
 # Host-specific commands
-
-if [ -f "${HOME}/.tmux.d/tmuxrc.stuff.$(hostname)" ]; then
-	. "${HOME}/.tmux.d/tmuxrc.stuff.$(hostname)"
+if [ "$(uname)" == "Darwin" ]; then
+	HN="$(hostname -s)"
+else
+	HN="$(hostname)"
+fi
+if [ -f "${HOME}/.tmux.d/tmuxrc.stuff.$HN" ]; then
+	. "${HOME}/.tmux.d/tmuxrc.stuff.$HN"
 fi
 
 #If I wanted logging:

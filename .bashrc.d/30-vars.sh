@@ -13,3 +13,4 @@ export EDITOR=vim
 # Append ~/bin to $PATH
 export PATH="$PATH:$HOME/bin"
 
+# vim: ts=4 sw=4

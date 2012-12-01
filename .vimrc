@@ -121,3 +121,6 @@ if has("autocmd")
 else
 	set autoindent		" always set autoindenting on
 endif " has("autocmd")
+
+" prevent swapfiles in the current directory, since dropbox is broken
+set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//

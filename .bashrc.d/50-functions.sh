@@ -94,3 +94,4 @@ function growl {
 	echo -e $'\e]9;'"${1}"'\007'
 	return
 }
+# vim: ts=4 sw=4

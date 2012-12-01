@@ -8,11 +8,27 @@
 
 # Probe for Mac OS X
 if [ "$(uname)" == "Darwin" ]; then
+	# http://blog.warrenmoore.net/blog/2010/01/09/make-terminal-follow-aliases-like-symlinks/
+	function cd {
+		if [ ${#1} == 0 ]; then
+			builtin cd
+		elif [ -d "${1}" ]; then
+			builtin cd "${1}"
+		elif [[ -f "${1}" || -L "${1}" ]]; then
+			path=$(getTrueName "$1")
+			builtin cd "$path"
+		else
+			builtin cd "${1}"
+		fi
+	}
+
 	#export TERM='xterm-256color'
 	# Use a nice-looking $PS1
 	export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+	shopt -s checkwinsize
 	export CLICOLOR=1
 	# Append homebrew to the $PATH
 	export PATH=$PATH:/usr/local/bin:/usr/local/sbin
 fi
 
+# vim: ts=4 sw=4

@@ -12,3 +12,4 @@
 # If we're inside a vcsh (and which repository it belongs to)
 [ -n "$VCSH_REPO_NAME" ] && export PS1="\[\033[01;33m\](${VCSH_REPO_NAME}) ${PS1}"
 
+# vim: ts=4 sw=4

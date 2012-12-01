@@ -24,6 +24,7 @@ fi
 if [ -n "$TMUX" ]; then
 	echo "Bad, bad idea."
 else
+	cd
 	if [ "$TERM" == "xterm-color" ]; then
 		# xterm-color doesn't seem to be working properly with F1 as prefix
 		export TERM=xterm
