@@ -1,0 +1,303 @@
+## Expressions
+# screenOriginX	 	= target screen's top left x coordinate (should not be used in Window Hints configs)
+# screenOriginY  	= target screen's top left y coordinate (should not be used in Window Hints configs)
+# screenSizeX	 	= target screen's width
+# screenSizeY	 	= target screen's height
+# windowTopLeftX 	= window's current top left x coordinate (should not be used in Window Hints configs)
+# windowTopLeftY 	= window's current top left y coordinate (should not be used in Window Hints configs)
+# windowSizeX 	 	= window's width
+# windowSizeY 	 	= window's height
+# newWindowSizeX 	= window's new width (after resize, only usable in topLeftX and topLeftY, should not be
+#                     used in configs)
+# newWindowSizeY    = window's new height (after resize, only usable in topLeftX and topLeftY, should not be
+#                     used in configs)
+# windowHintsWidth  = the value of the windowHintsWidth config (only usable in windowHintsTopLeftX and
+#                     windowHintsTopLeftY)
+# windowHintsHeight = the value of the windowHintsHeight config (only usable in windowHintsTopLeftX and
+#                     windowHintsTopLeftY)
+## Operators
+# +         e.g. 1+1 = 2
+# -         e.g. 1-1 = 0
+# *         e.g. 2*2 = 4
+# /         e.g. 4/2 = 2
+# **        e.g. 3**2 = 9
+# sum       e.g. sum({1,2,3}) = 6
+# count     e.g. count({4,5,6}) = 3
+# min       e.g. min({1,3,5}) = 1
+# max       e.g. max({1,3,5}) = 5
+# average   e.g. average({1,2,3,4}) = 2.5
+# median    e.g. median({1,2,3,10,15}) = 3
+# stddev    e.g. stddev({1,2,3,4,5}) = 1.4142135623730951
+# sqrt      e.g. sqrt(9) = 3.0
+# log       e.g. log(100) = 2.0
+# ln        e.g. ln(8) = 2.0794415416798357
+# exp       e.g. exp(2) = 7.3890560989306504 (this is "e**parameter")
+# floor     e.g. floor(1.9) = 1.0
+# ceiling   e.g. ceiling(1.1) = 2.0
+# abs       e.g. abs(-1) = 1
+# trunc     e.g. trunc(1.1123123123) = 1.0
+# random	e.g. random() = 0.20607629744336009 (random float between 0 and 1)
+# randomn   e.g. randomn(10) = 4 (random integer between 0 and parameter-1)
+## Config
+# Boolean. true causes all bindings to default to the current screen if the screen they reference does not exist.
+# 	false causes only bindings that do not specify a screen to default to the current screen while bindings that
+#   reference screens that do not exist simply do nothing.
+config defaultToCurrentScreen true
+# String. Will use this value for the nudge percent calculation. Possible values are windowSize and screenSize.
+config nudgePercentOf screenSize
+# String. Will use this value for the resize percent calculation. Possible values are windowSize and screenSize.
+config resizePercentOf screenSize
+# String. Comma separated list of operations that should repeat when the hotkey is held.
+#config repeatOnHoldOps resize,nudge
+# Number. The number of seconds before repeating starts (for ops in repeatOnHoldOps)
+#config secondsBeforeRepeat 0.4
+# Number. The number of seconds between repeats (for ops in repeatOnHoldOps)
+#config secondsBetweenRepeat 0.1
+# Boolean. true causes the default directives to be checked/triggered after any configuration load
+config checkDefaultsOnLoad true
+# Integer. The width (in pixels) of the rectangle used to check directions in the focus directive.
+#	Only used for right, left, up, above, down, and below directions. The larger this is, the futher away focus
+#	will check for adjacent windows. Consequently, the larger this is, the more irritatingly stupid focus can be.
+#config focusCheckWidth 100
+# Integer. If set to anything above focusCheckWidth, the focus option will keep expanding the rectangle used to
+#	check directions by focusCheckWidth if it does not find a window until it either finds a window or the width
+#	of the rectangle is greater than focusCheckWidthMax
+#config focusCheckWidthMax 100
+# Boolean. When this is true, the focus operation will always choose a window in the same app to focus if it exists
+#	in the check width regardless of intersection size. When this is false, focus will treat all application windows
+#	the same and choose the largest intersection size
+#config focusPreferSameApp true
+# Boolean. When this is true, monitors will be ordered from left to right by X coordinate (if two X coordiates are
+#	the same, then the lowest Y coordinate will be first). When this is false, screens will be ordered according to
+#	the internal Mac OS X ordering which changes depending on which screen was plugged in first. If this is false,
+#	you can force ordering of screens by prefixing the screen ID with ordered:
+#config orderScreensLeftToRight true
+# Semicolon Separated Array of Floats. The background color for Window Hints as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is
+#	a number between 0.0 and 1.0
+#config windowHintsBackgroundColor 50;53;58;0.9
+# Expression. The width of the Window Hints ovelay in pixels.
+#config windowHintsWidth 100
+# Expression. The height of the Window Hints overlay in pixels.
+#config windowHintsHeight 100
+# Semicolon Separated Array of Floats. The font color for Window Hints as an array in the form Red;Green;Blue;Alpha
+#	where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number between 0.0 and 1.0
+#config windowHintsFontColor 255;255;255;1.0
+# String. The name of the Window Hints font
+#config windowHintsFontName Helvetica
+# Integer. The size of the Window Hints font
+#config windowHintsFontSize 40
+# Number. The number of seconds that Window Hints will display for
+#config windowHintsDuration 3
+# Integer. The size of the rounded corners of the Window Hints. Set this to 0 if you do not want rounded corners
+#config windowHintsRoundedCornerSize 5
+# Boolean. If this is set to true, window hints will not show for windows that are hidden. Hints will show for all
+#	windows if this is false. A window is hidden if the window under the point at the center of where the hint overlay
+#	would show is not the window in question.
+config windowHintsIgnoreHiddenWindows false
+# Semicolon Separated Array of Expressions. The X offset for window hints from the window's top left point (right is
+#	positive, left is negative). If windowHintsIgnoreHiddenWindows is set to true, the hint operation will try each
+#	expression in this array (using the Y coordinate from the same index in windowHintsTopLeftY) sequetially to see
+#	if it represents a point that is visible. The hint operation will display a hint at the first visible point. Note
+#	that the number of elements in this array must equal the number of elements in windowHintsTopLeftY or all hint
+#	bindings will fail validation.
+#config windowHintsTopLeftX (windowSizeX/2)-(windowHintsWidth/2);0
+# Semicolon Separated Array of Expressions. The Y offset for window hints from the window's top left point (down is
+#	positive, up is negative). If windowHintsIgnoreHiddenWindows is set to true, the hint operation will try each
+#	expression in this array (using the X coordinate from the same index in windowHintsTopLeftX) sequetially to see
+#	if it represents a point that is visible. The hint operation will display a hint at the first visible point. Note
+#	that the number of elements in this array must equal the number of elements in windowHintsTopLeftX or all hint
+#	bindings will fail validation.
+#config windowHintsTopLeftY (windowSizeY/2)-(windowHintsHeight/2);0
+# none, persist, leftToRight, or rightToLeft. Specifies the ordering of windows for Window Hints. If none, hints
+#	will be seemingly randomly ordered. If persist, hints will be randomly ordered but will remain the same throughout
+#	the life of the window (Currently does not work if windows have the same title). If leftToRight, hints will be
+#	ordered from the left of the screen to the right of the screen. If rightToLeft, hints will be ordered from the
+#	right of the screen to the left of the screen
+#config windowHintsOrder leftToRight
+# Boolean. If true, the application's icon will be shown as a background for the letter instead of the rectangle.
+#	This is useful if windowHintsIgnoreHiddenWindows is false so that you can know which application a hint for a
+#	hidden window belongs to.
+config windowHintsShowIcons true
+# Boolean, hints in the same place will be spread out vertically. This is useful if windowHintsIgnoreHiddenWindows is
+#	false so that multiple windows with the same center will have distinct hints.
+config windowHintsSpread true
+# Number. The width in pixels of the search box for hint collisions. Other hints within this box will be spread down.
+#config windowHintsSpreadSearchWidth 40
+# Number. The height in pixels of the search box for hint collisions. Other hints within this box will be spread down.
+#config windowHintsSpreadSearchHeight 40
+# Number. The pading between hint boxes which have been spread downwards.
+#config windowHintsSpreadPadding 20
+# Number. The size of the application icons for the switch operation
+#config switchIconSize 100
+# Number. The padding around the application icons for the switch operation
+#config switchIconPadding 5
+# Semicolon Separated Array of Floats. The background color for the switch operation as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#between 0.0 and 1.0
+#config switchBackgroundColor 50;53;58;0.3
+# Semicolon Separated Array of Floats. The selected background color for the switch operation as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#	between 0.0 and 1.0
+#config switchSelectedBackgroundColor 50;53;58;0.9
+# Semicolon Separated Array of Floats. The selected border color for the switch operation as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#	between 0.0 and 1.0
+#config switchSelectedBorderColor 230;230;230;0.9
+# Number. The size of the selected border of the switch operation. Set this to 0 if you do not a border
+#config switchSelectedBorderSize 2
+# Number. The size of the rounded corners of the switch operation. Set this to 0 if you do not want rounded corners
+#config switchRoundedCornerSize 5
+# horiztonal or vertical. Which direction to grow the application switcher.
+#config switchOrientation horizontal
+# Number. The number of seconds before repeating starts for forward/back keypresses for the switch operation
+#config switchSecondsBeforeRepeat 0.4
+# Number. The number of seconds between repeating the forward/back keypresses for the switch operation.
+#config switchSecondsBetweenRepeat 0.05
+# Boolean. If true, when holding down the switch operation forward/back keys repeats will trigger until the selected
+#	app reaches the end/beginning of the list. If false, holding down the switch operation forward/back keys will
+#	cycle through the app list without stopping
+#config switchStopRepeatAtEdge true
+# Boolean. If true, the switch operation will only bring the main window of the selected app forward. If false, the
+#	switch operation will work similar to the default application switcher and bring all windows of the selected app
+#	forward.
+#config switchOnlyFocusMainWindow true
+# Boolean. If true, the switch operation will show the title of the items in the list as well.
+config switchShowTitles true
+# Semicolon Separated Array of Floats. The font color for the switch operation as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#	between 0.0 and 1.0
+#config switchFontColor 255;255;255;1.0
+# String. The name of the switch operation title font
+#config switchFontName Helvetica
+# Number. The size of the switch operation font
+#config switchFontSize 14
+# app or window. [UNIMPLEMENTED - coming in 1.1] If app, the switch operation will present a list of applications
+#	ordered by last focus. If window the switch operation will present a list of windows ordered by last focus.
+#config switchType app
+# Number. The size of the padding betweeen the edge of the switch window and the edge of the selected app selected
+#	background
+#config switchSelectedPadding 10
+# dvorak, colemak or qwerty. The keyboard layout you are using.
+#config keyboardLayout qwerty
+# levenshtein or sequential. The algorithm to use when determining if titles match or not for the snapshot operation.
+#	If levenshtein, the titles with the lowest levenshtein distance will be matched, if sequential, the titles with
+#	the maximum common prefix length will be matched. Note that this will change the algorithm for all apps. If you
+#	would like to change the algorithm for only one app use snapshotTitleMatch:'APP_NAME' for example to change the
+#	algorithm for only iTerm, use the following directive: config snapshotTitleMatch:'iTerm' sequential.
+#config snapshotTitleMatch levenshtein
+# Integer. The size of the stack to keep when creating snapshots using the stack option. If <= 0, the size of the
+#	stack will be unlimited.
+#config snapshotMaxStackSize 0
+# Semicolon Separated Array of Floats. The background color for the grid operation as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#	between 0.0 and 1.0
+#config gridBackgroundColor 75;77;81;1.0
+# Number. The size of the rounded corners of the grid operation's background. Set this to 0 if you do not want
+#	rounded corners
+#config gridRoundedCornerSize 5
+# Semicolon Separated Array of Floats. The background color for the grid operation's cells as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#	between 0.0 and 1.0
+#config gridCellBackgroundColor 75;77;81;1.0
+# Semicolon Separated Array of Floats. The selected color for the grid operation's cells as an array in the form
+#	Red;Green;Blue;Alpha where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number
+#	between 0.0 and 1.0
+#config gridCellSelectedColor 75;77;81;1.0
+# Number. The size of the rounded corners of the grid operation's cells. Set this to 0 if you do not want
+#	rounded corners
+#config gridCellRoundedCornerSize 5
+# Boolean. If true, activating a layout will focus all windows touched by the layout. The order in which they will be
+#	focused is the order in which the Applications occur in the slate file. Thus, the last Application configured in
+#	the slate file will be the foremost application after the layout is triggered. If set to false, activating a layout
+#	will not focus any of the windows touched. Thus the foremost application after the layout is triggered will be the
+#	foremost application before the layout was triggered.
+#config layoutFocusOnActivate false
+# Integer. The size of the stack to keep when creating undo snapshots. If <= 0, the size of the stack will be unlimited.
+#	This is effectively the number of times you can use the undo binding to undo Slate operations.
+#config undoMaxStackSize 10
+# String. The list of undoable operations. Any operation in this list will take a snapshot before activation to allow
+#	undoing it. This may decrease performance. Snapshots will only be taken if an undo operation exists in your config.
+#config undoOps activate-snapshot,chain,grid,layout,move,resize,sequence,shell
+
+
+## Monitor Aliases
+alias mon-mbp 1280x800
+alias mon-benq 1280x1024
+alias mon-imac 2560x1440
+alias mon-proj 1024x768
+
+alias pos-mbp-full            move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-mbp}
+alias pos-benq-full           move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-benq}
+alias pos-benqleft-itunesmini move screenOriginX+880;screenOriginY                          400;800                   ${mon-benq}
+alias pos-mbp-itunesmini      move screenOriginX;screenOriginY                              250;600                   ${mon-mbp}
+
+alias pos-left                move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY
+alias pos-right               move screenOriginX+screenSizeX/2;screenOriginY                screenSizeX/2;screenSizeY
+alias pos-top                 move screenOriginX;screenOriginY                              screenSizeX;screenSizeY/2
+alias pos-bottom              move screenOriginX;screenOriginY+screenSizeY/2                screenSizeX;screenSizeY/2
+alias pos-full                move screenOriginX;screenOriginY                              screenSizeX;screenSizeY
+alias pos-center              move screenOriginX+screenSizeX/8;screenOriginY+screenSizeY/10 6*screenSizeX/8;8*screenSizeY/10
+alias pos-topleft             move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY/2
+alias pos-bottomleft          move screenOriginX;screenOriginY+screenSizeY/2                screenSizeX/2;screenSizeY/2
+alias pos-topright            move screenOriginX+screenSizeX/2;screenOriginY                screenSizeX/2;screenSizeY/2
+alias pos-bottomright         move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2  screenSizeX/2;screenSizeY/2
+
+## Layouts
+layout 1-mbp 'iTerm':REPEAT ${pos-mbp-full}
+layout 1-mbp 'Nightly':IGNORE_FAIL ${pos-mbp-full}
+layout 1-mbp 'iTunes':MAIN_LAST ${pos-mbp-itunesmini}
+layout 2-benqleft 'iTerm':REPEAT ${pos-mbp-full}
+layout 2-benqleft 'iTunes':MAIN_LAST ${pos-benqleft-itunesmini}
+layout 2-benqleft 'Nightly':IGNORE_FAIL ${pos-benq-full}
+
+## Default layouts
+default 1-mbp resolutions:${mon-mbp}
+default 2-benqleft resolutions:${mon-benq};${mon-mbp}
+default 2-benqright resolutions:${mon-mbp};${mon-benq}
+
+## Key bindings
+# Trow windows to screens [by screen name]
+bind f1:f1,shift throw ${mon-benq}
+bind f2:f1,shift throw ${mon-mbp}
+bind f3:f1,shift throw ${mon-imac}
+bind f4:f1,shift throw ${mon-benq} resize
+bind f5:f1,shift throw ${mon-mbp} resize
+
+# Move windows around [current screen]
+bind pad1:f1,shift ${pos-bottomleft}
+bind pad2:f1,shift ${pos-bottom}
+bind pad3:f1,shift ${pos-bottomright}
+bind pad4:f1,shift ${pos-left}
+bind pad5:f1,shift ${pos-full}
+bind pad6:f1,shift ${pos-right}
+bind pad7:f1,shift ${pos-topleft}
+bind pad8:f1,shift ${pos-top}
+bind pad9:f1,shift ${pos-topright}
+bind pad0:f1,shift ${pos-center}
+
+# Force singlescreen layout
+bind q:f1,shift layout 1-mbp
+
+# Window switching and resizing grid
+# Commented out until the switch command is fixed
+#bind tab:f1,shift switch
+
+#Bug: https://github.com/jigish/slate/issues/175 (so I'm using shift-f2 instead of f1 for the tiem being)
+bind esc:f2,shift hint QWERTYUIOPASDFGHJKLZXCVBNM
+
+bind `:f1,shift grid padding:5 ${mon-mbp}:6,3 ${mon-benq}:6,4
+
+# Direct switching to apps
+bind 1:f1,shift focus 'iTerm'
+bind 2:f1,shift focus 'MacVim'
+bind 3:f1,shift focus 'Nightly'
+bind 0:f1,shift focus 'iTunes'
+
+# Snapshots, undo, restart
+bind m:f1,shift snapshot mark
+bind ':f1,shift activate-snapshot mark
+bind u:f1,shift undo
+bind delete:f1,shift relaunch
+
+# vim: sw=4 ts=4 ft=config
