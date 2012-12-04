@@ -243,6 +243,12 @@ alias pos-bottomleft          move screenOriginX;screenOriginY+screenSizeY/2    
 alias pos-topright            move screenOriginX+screenSizeX/2;screenOriginY                screenSizeX/2;screenSizeY/2
 alias pos-bottomright         move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2  screenSizeX/2;screenSizeY/2
 
+alias pos-onethirdleft         move screenOriginX;screenOriginY                              screenSizeX/3;screenSizeY
+alias pos-onethirdcenter       move screenOriginX+screenSizeX/3;screenOriginY                screenSizeX/3;screenSizeY
+alias pos-onethirdright        move screenOriginX+2*screenSizeX/3;screenOriginY              screenSizeX/3;screenSizeY
+alias pos-verticalexpand       move windowTopLeftX;screenOriginY                             windowSizeX;screenSizeY
+alias pos-verticalcontract     move windowTopLeftX;screenOriginY+screenSizeY/8               windowSizeX;6*screenSizeY/8
+
 ## Layouts
 layout 1-mbp 'iTerm':REPEAT ${pos-mbp-full}
 layout 1-mbp 'Nightly':IGNORE_FAIL ${pos-mbp-full}
@@ -265,6 +271,13 @@ bind f4:f1,shift throw ${mon-benq} resize
 bind f5:f1,shift throw ${mon-mbp} resize
 
 # Move windows around [current screen]
+bind padClear:f1,shift ${pos-onethirdleft}
+bind pad=:f1,shift ${pos-onethirdcenter}
+bind pad/:f1,shift ${pos-onethirdright}
+
+bind pad-:f1,shift ${pos-verticalcontract}
+bind pad+:f1,shift ${pos-verticalexpand}
+
 bind pad1:f1,shift ${pos-bottomleft}
 bind pad2:f1,shift ${pos-bottom}
 bind pad3:f1,shift ${pos-bottomright}
@@ -275,6 +288,17 @@ bind pad7:f1,shift ${pos-topleft}
 bind pad8:f1,shift ${pos-top}
 bind pad9:f1,shift ${pos-topright}
 bind pad0:f1,shift ${pos-center}
+
+#bind :f1,shift ${pos-bottomleft}
+bind j:f1,shift ${pos-bottom}
+#bind :f1,shift ${pos-bottomright}
+bind h:f1,shift ${pos-left}
+#bind :f1,shift ${pos-full}
+bind l:f1,shift ${pos-right}
+#bind :f1,shift ${pos-topleft}
+bind k:f1,shift ${pos-top}
+#bind :f1,shift ${pos-topright}
+#bind :f1,shift ${pos-center}
 
 # Force singlescreen layout
 bind q:f1,shift layout 1-mbp
