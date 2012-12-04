@@ -10,8 +10,9 @@
 # from  the  file  /etc/profile,  if that file exists.  After reading that file, it looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that
 # order, and reads and executes commands from the first one that exists and is readable.  The --noprofile option  may  be  used  when  the  shell  is
 # started to inhibit this behavior.
+__hostname="$(hostname)"
 
-if [[ "$(hostname)" =~ ^freya[a-z.-]* ]]; then
+if [[ "$__hostname" =~ ^freya[a-z.-]* ]]; then
 	UNISONLOCALHOSTNAME=Freya.local
 fi
 
@@ -19,6 +20,8 @@ fi
 # runs your .bashrc and is recommended by the bash info pages.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-if [[ "$(hostname)" =~ quetzal[a-z.]* ]]; then
+if [[ "$__hostname" =~ quetzal[a-z.]* ]]; then
 	fortune starwars bofh-excuses off/linux kernelcookies
 fi
+
+unset __hostname
