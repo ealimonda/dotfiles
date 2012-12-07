@@ -1,1 +1,1 @@
-/Users/syao/.bash_it/plugins/available/extract.plugin.bash
+../available/extract.plugin.bash

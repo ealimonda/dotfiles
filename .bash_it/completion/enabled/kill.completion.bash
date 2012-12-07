@@ -1,1 +1,1 @@
-/Users/syao/.bash_it/completion/available/kill.completion.bash
+../available/kill.completion.bash

@@ -1,1 +1,1 @@
-/Users/syao/.bash_it/completion/available/git.completion.bash
+../available/git.completion.bash

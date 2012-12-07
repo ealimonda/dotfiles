@@ -1,1 +1,1 @@
-/Users/syao/.bash_it/plugins/available/git.plugin.bash
+../available/git.plugin.bash
