@@ -19,6 +19,32 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
+#### bash-it
+# Path to the bash it configuration
+export BASH_IT=$HOME/.bash_it
+
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+#export BASH_IT_THEME='bobby'
+export BASH_IT_THEME='emi'
+
+# Your place for hosting Git repos. I use this for private repos.
+#export GIT_HOSTING='git.example.com'
+
+# Set my editor and git editor
+#export EDITOR="/usr/bin/mate -w"
+#export GIT_EDITOR='/usr/bin/mate -w'
+
+# Change this to your console based IRC client of choice.
+#export IRC_CLIENT='irssi'
+
+# Set this to the command you use for todo.txt-cli
+#export TODO="t"
+
+# Load Bash It
+[ -f "$BASH_IT/bash_it.sh" ] && . $BASH_IT/bash_it.sh
+#### end bash-it
+
 # Put your fun stuff here.
 
 # Source all files in ~/.bashrc.d/
@@ -26,4 +52,13 @@ for eachFile in ${HOME}/.bashrc.d/*.sh; do
 	source "${eachFile}"
 done
 
-
+if [ "${BASH_VERSION%%\.*}" -ge 4 ]; then
+	if type brew >/dev/null 2>&1; then
+		BASHCOMPLOADER="$(brew --prefix)/share/bash-completion/bash_completion"
+	else
+		BASHCOMPLOADER="/etc/profile.d/bash-completion.sh"
+	fi
+	if [ -f "${BASHCOMPLOADER}" ]; then
+		. "${BASHCOMPLOADER}"
+	fi
+fi

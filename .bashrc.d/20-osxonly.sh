@@ -22,9 +22,19 @@ if [ "$(uname)" == "Darwin" ]; then
 		fi
 	}
 
+	function intmux {
+		[ -n "$1" -a -d "$1" ] && cd "$1"
+		# Check for session
+		if ! tmux has -t stuff >&- 2>&-; then
+			# Start a new session
+			tmuxattach --onlystart
+		fi
+		tmux new-window -t stuff
+	}
+
 	#export TERM='xterm-256color'
 	# Use a nice-looking $PS1
-	export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+	#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
 	shopt -s checkwinsize
 	export CLICOLOR=1
 	# Append homebrew to the $PATH
