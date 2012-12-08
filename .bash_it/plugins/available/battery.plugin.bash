@@ -99,7 +99,8 @@ battery_charge(){
 
   case $BATTERY_PERC in
     no)
-      echo ""
+      echo "${FULL_COLOR}⚡${normal}"
+      #echo ""
       ;;
     9*)
       echo "${FULL_COLOR}${F_C}${F_C}${F_C}${F_C}${F_C}${normal}"
