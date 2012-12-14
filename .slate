@@ -252,9 +252,9 @@ alias pos-verticalcontract     move windowTopLeftX;screenOriginY+screenSizeY/8  
 ## Layouts
 layout 1-mbp 'iTerm':REPEAT ${pos-mbp-full}
 layout 1-mbp 'Nightly':IGNORE_FAIL ${pos-mbp-full}
-layout 1-mbp 'iTunes':MAIN_LAST ${pos-mbp-itunesmini}
+layout 1-mbp 'iTunes':TITLE_ORDER='MiniPlayer' ${pos-mbp-itunesmini}
 layout 2-benqleft 'iTerm':REPEAT ${pos-mbp-full}
-layout 2-benqleft 'iTunes':MAIN_LAST ${pos-benqleft-itunesmini}
+layout 2-benqleft 'iTunes':TITLE_ORDER='MiniPlayer' ${pos-benqleft-itunesmini}
 layout 2-benqleft 'Nightly':IGNORE_FAIL ${pos-benq-full}
 
 ## Default layouts
