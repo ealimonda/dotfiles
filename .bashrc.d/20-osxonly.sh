@@ -32,6 +32,15 @@ if [ "$(uname)" == "Darwin" ]; then
 		tmux new-window -t stuff
 	}
 
+	function dequarantine {
+		while [ $# -gt 0 ]; do
+			THISFILE="$1"
+			shift
+			[ -z "$THISFILE" -o ! -e "$THISFILE" ] && continue
+			xattr -d com.apple.quarantine "$THISFILE" 2>/dev/null
+		done
+	}
+
 	#export TERM='xterm-256color'
 	# Use a nice-looking $PS1
 	#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
