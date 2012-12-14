@@ -203,7 +203,8 @@ abstracts = {
   # default background for all statusbars. You can also give
   # the default foreground color for statusbar items.
   #sb_background = "%4%w";
-  sb_background = "%0%w";
+  #sb_background = "%0%w";
+  sb_background = "%N";
   # default backround for "default" statusbar group
   #sb_default_bg = "%4";
   # background for prompt / input line
@@ -214,6 +215,7 @@ abstracts = {
   # background for topicbar (same default)
   #sb_topic_bg = "%4";
   sb_topic_bg = "%0%w";
+  sb_window_bg = "%0%w";
   # text at the beginning of statusbars. sb-item already puts
   # space there,so we don't use anything by default.
   sbstart = "";
