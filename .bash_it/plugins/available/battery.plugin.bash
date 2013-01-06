@@ -80,26 +80,41 @@ battery_percentage(){
 battery_charge(){
   about 'graphical display of your battery charge'
   group 'battery'
-
-  # Full char
-  local F_C='▸'
-  # Depleted char
-  local D_C='▹'
   local DEPLETED_COLOR="${normal}"
   local FULL_COLOR="${green}"
   local HALF_COLOR="${yellow}"
   local DANGER_COLOR="${red}"
-  local BATTERY_OUTPUT="${DEPLETED_COLOR}${D_C}${D_C}${D_C}${D_C}${D_C}"
   local BATTERY_STATUS=$(battery_percentage chargestatus)
   local BATTERY_PERC=${BATTERY_STATUS#*|}
-  if [ "${BATTERY_STATUS%|*}" == "N" ]; then
-	  F_C='■'
-	  D_C='□'
+  # Full char
+  local F_C=""
+  # Depleted char
+  local D_C=""
+  # A/C char
+  local AC_C=""
+  if [ "$BASH_IT_SAFE_CHARSET" == "true" ]; then
+    if [ "${BATTERY_STATUS%|*}" == "N" ]; then
+      F_C="+"
+      D_C="-"
+    else
+      F_C='#'
+      D_C='>'
+    fi
+    AC_C="z"
+  else
+    if [ "${BATTERY_STATUS%|*}" == "N" ]; then
+      F_C='■'
+      D_C='□'
+    else
+      F_C='▸'
+      D_C='▹'
+    fi
+    AC_C='⚡'
   fi
 
   case $BATTERY_PERC in
     no)
-      echo "${FULL_COLOR}⚡${normal}"
+      echo "${FULL_COLOR}${AC_C}${normal}"
       #echo ""
       ;;
     9*)
@@ -145,7 +160,7 @@ battery_charge(){
       echo "${HALF_COLOR}${F_C}${DEPLETED_COLOR}${D_C}${D_C}${D_C}${D_C}${normal}"
       ;;
     *)
-      echo "${FULL_COLOR}⚡${normal}"
+      echo "${FULL_COLOR}${AC_C}${normal}"
       #echo "${DANGER_COLOR}UNPLG${normal}"
       ;;
   esac

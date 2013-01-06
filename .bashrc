@@ -27,6 +27,11 @@ export BASH_IT=$HOME/.bash_it
 # location /.bash_it/themes/
 #export BASH_IT_THEME='bobby'
 export BASH_IT_THEME='emi'
+if [[ "$TERM_PROGRAM" != "iTerm.app" || ! $TERM =~ [a-z]*-256color ]]; then
+	export BASH_IT_SAFE_CHARSET="true"
+else
+	unset BASH_IT_SAFE_CHARSET
+fi
 
 # Your place for hosting Git repos. I use this for private repos.
 #export GIT_HOSTING='git.example.com'
