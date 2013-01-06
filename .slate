@@ -221,35 +221,44 @@ config switchShowTitles true
 #config undoOps activate-snapshot,chain,grid,layout,move,resize,sequence,shell
 
 
-## Monitor Aliases
+### Monitor Aliases
 alias mon-mbp 1280x800
 alias mon-benq 1280x1024
 alias mon-imac 2560x1440
 alias mon-proj 1024x768
 
+### Position Aliases
+## Some fixed screen/position settings I often use
 alias pos-mbp-full            move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-mbp}
 alias pos-benq-full           move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-benq}
 alias pos-benqleft-itunesmini move screenOriginX+880;screenOriginY                          400;800                   ${mon-benq}
 alias pos-mbp-itunesmini      move screenOriginX;screenOriginY                              250;600                   ${mon-mbp}
 
+## Generic positions (1/2)
 alias pos-left                move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY
 alias pos-right               move screenOriginX+screenSizeX/2;screenOriginY                screenSizeX/2;screenSizeY
 alias pos-top                 move screenOriginX;screenOriginY                              screenSizeX;screenSizeY/2
 alias pos-bottom              move screenOriginX;screenOriginY+screenSizeY/2                screenSizeX;screenSizeY/2
-alias pos-full                move screenOriginX;screenOriginY                              screenSizeX;screenSizeY
-alias pos-center              move screenOriginX+screenSizeX/8;screenOriginY+screenSizeY/10 6*screenSizeX/8;8*screenSizeY/10
 alias pos-topleft             move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY/2
 alias pos-bottomleft          move screenOriginX;screenOriginY+screenSizeY/2                screenSizeX/2;screenSizeY/2
 alias pos-topright            move screenOriginX+screenSizeX/2;screenOriginY                screenSizeX/2;screenSizeY/2
 alias pos-bottomright         move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2  screenSizeX/2;screenSizeY/2
 
-alias pos-onethirdleft         move screenOriginX;screenOriginY                              screenSizeX/3;screenSizeY
-alias pos-onethirdcenter       move screenOriginX+screenSizeX/3;screenOriginY                screenSizeX/3;screenSizeY
-alias pos-onethirdright        move screenOriginX+2*screenSizeX/3;screenOriginY              screenSizeX/3;screenSizeY
-alias pos-verticalexpand       move windowTopLeftX;screenOriginY                             windowSizeX;screenSizeY
-alias pos-verticalcontract     move windowTopLeftX;screenOriginY+screenSizeY/8               windowSizeX;6*screenSizeY/8
+## Generic positions (1/3)
+alias pos-onethirdleft        move screenOriginX;screenOriginY                              screenSizeX/3;screenSizeY
+alias pos-onethirdcenter      move screenOriginX+screenSizeX/3;screenOriginY                screenSizeX/3;screenSizeY
+alias pos-onethirdright       move screenOriginX+2*screenSizeX/3;screenOriginY              screenSizeX/3;screenSizeY
 
-## Layouts
+## Generic positions (vertical expand/contract to 3/4)
+alias pos-verticalexpand      move windowTopLeftX;screenOriginY                             windowSizeX;screenSizeY
+alias pos-verticalcontract    move windowTopLeftX;screenOriginY+screenSizeY/8               windowSizeX;6*screenSizeY/8
+
+## Other positions
+alias pos-full                move screenOriginX;screenOriginY                              screenSizeX;screenSizeY
+alias pos-center-resize       move screenOriginX+screenSizeX/8;screenOriginY+screenSizeY/10 6*screenSizeX/8;8*screenSizeY/10
+alias pos-center              move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2  windowSizeX;windowSizeY
+
+### Layouts
 layout 1-mbp 'iTerm':REPEAT ${pos-mbp-full}
 layout 1-mbp 'Nightly':IGNORE_FAIL ${pos-mbp-full}
 layout 1-mbp 'iTunes':TITLE_ORDER='MiniPlayer' ${pos-mbp-itunesmini}
@@ -262,46 +271,64 @@ default 1-mbp resolutions:${mon-mbp}
 default 2-benqleft resolutions:${mon-benq};${mon-mbp}
 default 2-benqright resolutions:${mon-mbp};${mon-benq}
 
-## Key bindings
-# Trow windows to screens [by screen name]
+### Key bindings
+## Trow windows to screens [by screen name]
 bind f1:f1,shift throw ${mon-benq}
 bind f2:f1,shift throw ${mon-mbp}
 bind f3:f1,shift throw ${mon-imac}
-bind f4:f1,shift throw ${mon-benq} resize
-bind f5:f1,shift throw ${mon-mbp} resize
+bind f5:f1,shift throw ${mon-benq} resize
+bind f6:f1,shift throw ${mon-mbp} resize
+bind f7:f1,shift throw ${mon-imac} resize
 
-# Move windows around [current screen]
+## Move windows around [current screen]
+# 1/3 vertical
 bind padClear:f1,shift ${pos-onethirdleft}
 bind pad=:f1,shift ${pos-onethirdcenter}
 bind pad/:f1,shift ${pos-onethirdright}
+bind r:f1,shift ${pos-onethirdleft}
+bind t:f1,shift ${pos-onethirdcenter}
+bind y:f1,shift ${pos-onethirdright}
 
+# Resize vertically
 bind pad-:f1,shift ${pos-verticalcontract}
 bind pad+:f1,shift ${pos-verticalexpand}
+bind -:f1,shift ${pos-verticalcontract}
+bind =:f1,shift ${pos-verticalexpand}
 
+# 1/2 vertical/horizontal
 bind pad1:f1,shift ${pos-bottomleft}
 bind pad2:f1,shift ${pos-bottom}
 bind pad3:f1,shift ${pos-bottomright}
 bind pad4:f1,shift ${pos-left}
-bind pad5:f1,shift ${pos-full}
 bind pad6:f1,shift ${pos-right}
 bind pad7:f1,shift ${pos-topleft}
 bind pad8:f1,shift ${pos-top}
 bind pad9:f1,shift ${pos-topright}
-bind pad0:f1,shift ${pos-center}
+bind z:f1,shift ${pos-bottomleft}
+bind x:f1,shift ${pos-bottom}
+bind c:f1,shift ${pos-bottomright}
+bind a:f1,shift ${pos-left}
+bind d:f1,shift ${pos-right}
+bind q:f1,shift ${pos-topleft}
+bind w:f1,shift ${pos-top}
+bind e:f1,shift ${pos-topright}
 
-#bind :f1,shift ${pos-bottomleft}
-bind j:f1,shift ${pos-bottom}
-#bind :f1,shift ${pos-bottomright}
-bind h:f1,shift ${pos-left}
-#bind :f1,shift ${pos-full}
-bind l:f1,shift ${pos-right}
-#bind :f1,shift ${pos-topleft}
-bind k:f1,shift ${pos-top}
-#bind :f1,shift ${pos-topright}
-#bind :f1,shift ${pos-center}
+# Full, center
+bind pad5:f1,shift ${pos-full}
+bind pad0:f1,shift ${pos-center-resize}
+bind g:f1,shift ${pos-center-resize}
+bind pad.:f1,shift ${pos-center}
+bind f:f1,shift ${pos-center}
+bind s:f1,shift ${pos-full}
+
+# Push window without resizing
+bind h:f1,shift push left
+bind j:f1,shift push down
+bind k:f1,shift push up
+bind l:f1,shift push right
 
 # Force singlescreen layout
-bind q:f1,shift layout 1-mbp
+bind f1:f2,shift layout 1-mbp
 
 # Window switching and resizing grid
 # Commented out until the switch command is fixed
@@ -313,10 +340,10 @@ bind esc:f2,shift hint QWERTYUIOPASDFGHJKLZXCVBNM
 bind `:f1,shift grid padding:5 ${mon-mbp}:6,3 ${mon-benq}:6,4
 
 # Direct switching to apps
-bind 1:f1,shift focus 'iTerm'
-bind 2:f1,shift focus 'MacVim'
-bind 3:f1,shift focus 'Nightly'
-bind 0:f1,shift focus 'iTunes'
+bind 1:f2,shift focus 'iTerm'
+bind 2:f2,shift focus 'MacVim'
+bind 3:f2,shift focus 'Nightly'
+bind 0:f2,shift focus 'iTunes'
 
 # Snapshots, undo, restart
 bind m:f1,shift snapshot mark
