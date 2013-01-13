@@ -63,6 +63,12 @@ bind '"' choose-window
 #unbind BTab
 #bind BTab up-pane
 
+# Some vim-like bindings
+bind P paste-buffer
+bind -t vi-copy v begin-selection
+bind -t vi-copy y copy-selection
+bind -t vi-copy Escape cancel
+
 set-option -g default-terminal "screen-256color"
 set-option -g mouse-select-pane on
 set-option -g mouse-resize-pane on
