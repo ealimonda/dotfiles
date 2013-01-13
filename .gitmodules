@@ -7,3 +7,27 @@
 [submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	url = git://github.com/tpope/vim-markdown.git
+[submodule "/Users/syao/.vim/bundle/Tagbar"]
+	path = /Users/syao/.vim/bundle/Tagbar
+	url = git://github.com/vim-scripts/Tagbar.git
+[submodule "/Users/syao/.vim/bundle/syntastic"]
+	path = /Users/syao/.vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "/Users/syao/.vim/bundle/tabbar.vim"]
+	path = /Users/syao/.vim/bundle/tabbar.vim
+	url = git://github.com/jordanchen/tabbar.vim.git
+[submodule "/Users/syao/.vim/bundle/undotree"]
+	path = /Users/syao/.vim/bundle/undotree
+	url = git://github.com/mbbill/undotree.git
+[submodule "/Users/syao/.vim/bundle/vim-commentary"]
+	path = /Users/syao/.vim/bundle/vim-commentary
+	url = git://github.com/tpope/vim-commentary.git
+[submodule "/Users/syao/.vim/bundle/vim-repeat"]
+	path = /Users/syao/.vim/bundle/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "/Users/syao/.vim/bundle/vim-speeddating"]
+	path = /Users/syao/.vim/bundle/vim-speeddating
+	url = git://github.com/tpope/vim-speeddating.git
+[submodule "/Users/syao/.vim/bundle/vim-surround"]
+	path = /Users/syao/.vim/bundle/vim-surround
+	url = git://github.com/tpope/vim-surround.git
