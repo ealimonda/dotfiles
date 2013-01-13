@@ -127,3 +127,25 @@ endif " has("autocmd")
 
 " prevent swapfiles in the current directory, since dropbox is broken
 set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
+
+" -- TAGBAR --
+" map C-L to toggle the tagbar list
+nmap <C-L> :TagbarToggle<CR>
+"let g:tagbar_type_css = {
+"\ 'ctagstype' : 'Css',
+"	\ 'kinds' : [
+"		\ 'c:classes',
+"		\ 's:selectors',
+"		\ 'i:identities'
+"	\ ]
+"\ }
+let g:tagbar_type_markdown = {
+\ 'ctagstype' : 'markdown',
+	\ 'kinds' : [
+		\ 'h:Heading_L1',
+		\ 'i:Heading_L2',
+		\ 'k:Heading_L3'
+	\ ]
+\ }
+" -- UNDOTREE --
+nmap <C-U> :UndotreeToggle<CR>
