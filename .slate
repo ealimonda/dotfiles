@@ -77,12 +77,12 @@ config checkDefaultsOnLoad true
 #	a number between 0.0 and 1.0
 #config windowHintsBackgroundColor 50;53;58;0.9
 # Expression. The width of the Window Hints ovelay in pixels.
-#config windowHintsWidth 100
+config windowHintsWidth 64
 # Expression. The height of the Window Hints overlay in pixels.
-#config windowHintsHeight 100
+config windowHintsHeight 64
 # Semicolon Separated Array of Floats. The font color for Window Hints as an array in the form Red;Green;Blue;Alpha
 #	where Red, Green, and Blue are numbers between 0.0 and 255.0 and Alpha is a number between 0.0 and 1.0
-#config windowHintsFontColor 255;255;255;1.0
+config windowHintsFontColor 255;100;0;1.0
 # String. The name of the Window Hints font
 #config windowHintsFontName Helvetica
 # Integer. The size of the Window Hints font
@@ -102,6 +102,7 @@ config windowHintsIgnoreHiddenWindows false
 #	that the number of elements in this array must equal the number of elements in windowHintsTopLeftY or all hint
 #	bindings will fail validation.
 #config windowHintsTopLeftX (windowSizeX/2)-(windowHintsWidth/2);0
+config windowHintsTopLeftX (windowSizeX/2)-(windowHintsWidth/2);0
 # Semicolon Separated Array of Expressions. The Y offset for window hints from the window's top left point (down is
 #	positive, up is negative). If windowHintsIgnoreHiddenWindows is set to true, the hint operation will try each
 #	expression in this array (using the X coordinate from the same index in windowHintsTopLeftX) sequetially to see
@@ -109,6 +110,8 @@ config windowHintsIgnoreHiddenWindows false
 #	that the number of elements in this array must equal the number of elements in windowHintsTopLeftX or all hint
 #	bindings will fail validation.
 #config windowHintsTopLeftY (windowSizeY/2)-(windowHintsHeight/2);0
+# Changed to make the small mbp screen fit more vertically-spreaded hints...
+config windowHintsTopLeftY (windowSizeY/3)-(windowHintsHeight/2);0
 # none, persist, leftToRight, or rightToLeft. Specifies the ordering of windows for Window Hints. If none, hints
 #	will be seemingly randomly ordered. If persist, hints will be randomly ordered but will remain the same throughout
 #	the life of the window (Currently does not work if windows have the same title). If leftToRight, hints will be
@@ -124,10 +127,13 @@ config windowHintsShowIcons true
 config windowHintsSpread true
 # Number. The width in pixels of the search box for hint collisions. Other hints within this box will be spread down.
 #config windowHintsSpreadSearchWidth 40
+config windowHintsSpreadSearchWidth 60
 # Number. The height in pixels of the search box for hint collisions. Other hints within this box will be spread down.
 #config windowHintsSpreadSearchHeight 40
+config windowHintsSpreadSearchHeight 60
 # Number. The pading between hint boxes which have been spread downwards.
 #config windowHintsSpreadPadding 20
+config windowHintsSpreadPadding 5
 # Number. The size of the application icons for the switch operation
 #config switchIconSize 100
 # Number. The padding around the application icons for the switch operation
