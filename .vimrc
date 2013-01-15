@@ -130,7 +130,7 @@ set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
 
 " -- TAGBAR --
 " map C-L to toggle the tagbar list
-nmap <C-L> :TagbarToggle<CR>
+nmap <leader>l :TagbarToggle<CR>
 "let g:tagbar_type_css = {
 "\ 'ctagstype' : 'Css',
 "	\ 'kinds' : [
@@ -148,4 +148,6 @@ let g:tagbar_type_markdown = {
 	\ ]
 \ }
 " -- UNDOTREE --
-nmap <C-U> :UndotreeToggle<CR>
+nmap <leader>u :UndotreeToggle<CR>
+nmap <leader>t :TbToggle<CR>
+nmap <leader>q :bdelete<CR>
