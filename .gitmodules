@@ -13,9 +13,6 @@
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule ".vim/bundle/tabbar.vim"]
-	path = .vim/bundle/tabbar.vim
-	url = git://github.com/jordanchen/tabbar.vim.git
 [submodule ".vim/bundle/undotree"]
 	path = .vim/bundle/undotree
 	url = git://github.com/mbbill/undotree.git
@@ -34,3 +31,6 @@
 [submodule ".vim/bundle/clang_complete"]
 	path = .vim/bundle/clang_complete
 	url = git://github.com/Rip-Rip/clang_complete.git
+[submodule ".vim/bundle/bufexplorer.zip"]
+	path = .vim/bundle/bufexplorer.zip
+	url = git://github.com/vim-scripts/bufexplorer.zip.git

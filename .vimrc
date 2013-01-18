@@ -125,8 +125,14 @@ else
 	set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
+" Tab-completion mode
+set wildmenu
+set wildmode=longest:full,list
+
 " prevent swapfiles in the current directory, since dropbox is broken
 set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
+
+nmap <leader>q :bdelete<CR>
 
 " -- TAGBAR --
 " map C-L to toggle the tagbar list
@@ -149,5 +155,7 @@ let g:tagbar_type_markdown = {
 \ }
 " -- UNDOTREE --
 nmap <leader>u :UndotreeToggle<CR>
-nmap <leader>t :TbToggle<CR>
-nmap <leader>q :bdelete<CR>
+
+" -- BUFEXPLORER --
+let g:bufExplorerSortBy='fullpath' " Sort by full file path name.
+nmap <leader>t :BufExplorer<CR>
