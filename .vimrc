@@ -127,7 +127,7 @@ endif " has("autocmd")
 
 " Tab-completion mode
 set wildmenu
-set wildmode=longest:full,list
+set wildmode=longest:full,list,full
 
 " prevent swapfiles in the current directory, since dropbox is broken
 set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
@@ -159,3 +159,11 @@ nmap <leader>u :UndotreeToggle<CR>
 " -- BUFEXPLORER --
 let g:bufExplorerSortBy='fullpath' " Sort by full file path name.
 nmap <leader>t :BufExplorer<CR>
+
+" -- CLANG_COMPLETE --
+let g:clang_auto_select = 1
+let g:clang_close_preview = 1
+"let g:clang_use_library = 1
+imap <M-Tab> <C-X><C-U>
+
+
