@@ -3,12 +3,19 @@
 #* Config files                                                                                                    *
 #*******************************************************************************************************************
 #* File:             checkcrc32.sh                                                                                 *
-#* Copyright:        (c) 2011-2012 alimonda.com; Emanuele Alimonda                                                 *
+#* Copyright:        (c) 2011-2013 alimonda.com; Emanuele Alimonda                                                 *
 #*                   Public Domain                                                                                 *
 #*******************************************************************************************************************
 
+if [ "$1" == "-r" ]; then
+	RECURSIVE="yes"
+	shift
+else
+	RECURSIVE="no"
+fi
+
 if [ $# -lt 1 ]; then
-	echo "usage: $0 <filename>"
+	echo "usage: $0 [-r] <filename>"
 	exit
 fi
 
@@ -17,7 +24,7 @@ WARNINGS=0
 SKIPPED=0
 MAXLENGTH=0
 
-while [ $# -gt 0 ]; do
+function handlefile {
 	FILENAME="$1"
 	NAMELENGTH="$(basename "${FILENAME}" | wc -c | sed 's/ //g')"
 	if [ $NAMELENGTH -gt $MAXLENGTH ]; then
@@ -25,7 +32,7 @@ while [ $# -gt 0 ]; do
 	fi
 	echo -n $FILENAME
 	if [ -f "$1" ]; then
-		NAME_CRC="$(echo "${FILENAME}" | sed -n -e 's/.*\[\([0-9A-Fa-f]\{8\}\)\].*/\1/p' | tr '[a-f]' '[A-F]')"
+		NAME_CRC="$(basename "${FILENAME}" | sed -n -e 's/.*\[\([0-9A-Fa-f]\{8\}\)\].*/\1/p' | tr '[a-f]' '[A-F]')"
 		REAL_CRC="$(crc32 "${FILENAME}" | cut -d' ' -f1 | sed -n -e 's/^\([0-9A-Fa-f]\{8\}\).*$/\1/p' | tr '[a-f]' '[A-F]')"
 		if [ -n "$REAL_CRC" ]; then
 			if [ -n "$NAME_CRC" ]; then
@@ -44,10 +51,21 @@ while [ $# -gt 0 ]; do
 			echo "  [ ERR  ]: Unable to calculate crc32"
 			((WARNINGS++))
 		fi
+	elif [ -d "$1" ]; then
+		echo " [ DIR ]"
+		if [ "$RECURSIVE" == "yes" ]; then
+			for i in "$1"/*; do
+				handlefile "$i"
+			done
+		fi
 	else
 		echo "  [ ERR  ]: File not found"
 		((ERRORS++))
 	fi
+}
+
+while [ $# -gt 0 ]; do
+	handlefile "$1"
 	shift
 done
 
