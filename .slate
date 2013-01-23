@@ -359,4 +359,18 @@ bind delete:f1,shift relaunch
 bind ':f1,shift activate-snapshot mark
 ##'##(reset vim highlighting)
 
+# Some open-in-finder commands
+bind h:f3,shift shell path:~ '/usr/bin/open .'
+bind b:f3,shift shell path:~/Dropbox '/usr/bin/open .'
+bind x:f3,shift shell path:/data '/usr/bin/open .'
+bind d:f3,shift shell path:~/Documents '/usr/bin/open .'
+bind l:f3,shift shell path:~/Library '/usr/bin/open .'
+bind p:f3,shift shell path:~/Pictures '/usr/bin/open .'
+bind f:f3,shift shell path:~/Downloads '/usr/bin/open .'
+bind t:f3,shift shell path:~/Desktop '/usr/bin/open .'
+bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/open -a frontmostpath.app . --args open'
+bind tab:f3,shift shell path:~/.scripts/slate '/bin/bash fpathintmux.sh'
+#bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/osascript DoWithFrontmostPath.scpt "open"'
+#bind tab:f3,shift shell path:~/.scripts/slate '/usr/bin/osascript DoWithFrontmostPath.scpt ./intmux.sh'
+
 # vim: sw=4 ts=4 ft=config
