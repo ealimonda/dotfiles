@@ -225,6 +225,7 @@ config switchShowTitles true
 # String. The list of undoable operations. Any operation in this list will take a snapshot before activation to allow
 #	undoing it. This may decrease performance. Snapshots will only be taken if an undo operation exists in your config.
 #config undoOps activate-snapshot,chain,grid,layout,move,resize,sequence,shell
+config undoOps activate-snapshot,chain,grid,layout,move,resize,sequence
 
 
 ### Monitor Aliases
@@ -339,11 +340,11 @@ bind f1:f2,shift layout 1-mbp
 # Window switching and resizing grid
 # Commented out until the switch command is fixed
 #bind tab:f1,shift switch
-
-#Bug: https://github.com/jigish/slate/issues/175 (so I'm using shift-f2 instead of f1 for the tiem being)
+#bind tab:ctrl,cmd switch
+#Bug: https://github.com/jigish/slate/issues/175 (so I'm using shift-f2 instead of f1 for the time being)
 bind esc:f2,shift hint QWERTYUIOPASDFGHJKLZXCVBNM
-
 bind `:f1,shift grid padding:5 ${mon-mbp}:6,3 ${mon-benq}:6,4
+##`##(reset vim highlighting)
 
 # Direct switching to apps
 bind 1:f2,shift focus 'iTerm'
@@ -353,8 +354,9 @@ bind 0:f2,shift focus 'iTunes'
 
 # Snapshots, undo, restart
 bind m:f1,shift snapshot mark
-bind ':f1,shift activate-snapshot mark
 bind u:f1,shift undo
 bind delete:f1,shift relaunch
+bind ':f1,shift activate-snapshot mark
+##'##(reset vim highlighting)
 
 # vim: sw=4 ts=4 ft=config
