@@ -44,9 +44,9 @@
 #   reference screens that do not exist simply do nothing.
 config defaultToCurrentScreen true
 # String. Will use this value for the nudge percent calculation. Possible values are windowSize and screenSize.
-config nudgePercentOf screenSize
+#config nudgePercentOf screenSize
 # String. Will use this value for the resize percent calculation. Possible values are windowSize and screenSize.
-config resizePercentOf screenSize
+#config resizePercentOf screenSize
 # String. Comma separated list of operations that should repeat when the hotkey is held.
 #config repeatOnHoldOps resize,nudge
 # Number. The number of seconds before repeating starts (for ops in repeatOnHoldOps)
@@ -88,7 +88,7 @@ config windowHintsFontColor 255;100;0;1.0
 # Integer. The size of the Window Hints font
 #config windowHintsFontSize 40
 # Number. The number of seconds that Window Hints will display for
-#config windowHintsDuration 3
+config windowHintsDuration 5
 # Integer. The size of the rounded corners of the Window Hints. Set this to 0 if you do not want rounded corners
 #config windowHintsRoundedCornerSize 5
 # Boolean. If this is set to true, window hints will not show for windows that are hidden. Hints will show for all
@@ -186,6 +186,10 @@ config switchShowTitles true
 #config switchSelectedPadding 10
 # dvorak, colemak or qwerty. The keyboard layout you are using.
 #config keyboardLayout qwerty
+# This is the keystroke that will end modal mode (in addition to the keystroke that started modal mode itself).
+#   For example setting this to esc will allow you to press esc after entering modal mode to exit modal mode.
+#   You may specify an entire keystroke with modifiers here e.g. esc:ctrl.
+#config modalEscapeKey "" (empty string)
 # levenshtein or sequential. The algorithm to use when determining if titles match or not for the snapshot operation.
 #	If levenshtein, the titles with the lowest levenshtein distance will be matched, if sequential, the titles with
 #	the maximum common prefix length will be matched. Note that this will change the algorithm for all apps. If you
@@ -348,8 +352,14 @@ bind `:f1,shift grid padding:5 ${mon-mbp}:6,3 ${mon-benq}:6,4
 
 # Direct switching to apps
 bind 1:f2,shift focus 'iTerm'
-bind 2:f2,shift focus 'MacVim'
-bind 3:f2,shift focus 'Nightly'
+bind 2:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt skuld'
+bind 3:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt serenity'
+bind 4:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt s1'
+bind 5:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt s2'
+bind 6:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt oberon'
+bind 7:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt ks21'
+bind 8:f2,shift focus 'MacVim'
+bind 9:f2,shift focus 'Nightly'
 bind 0:f2,shift focus 'iTunes'
 
 # Snapshots, undo, restart
@@ -360,14 +370,15 @@ bind ':f1,shift activate-snapshot mark
 ##'##(reset vim highlighting)
 
 # Some open-in-finder commands
-bind h:f3,shift shell path:~ '/usr/bin/open .'
-bind b:f3,shift shell path:~/Dropbox '/usr/bin/open .'
-bind x:f3,shift shell path:/data '/usr/bin/open .'
-bind d:f3,shift shell path:~/Documents '/usr/bin/open .'
-bind l:f3,shift shell path:~/Library '/usr/bin/open .'
-bind p:f3,shift shell path:~/Pictures '/usr/bin/open .'
-bind f:f3,shift shell path:~/Downloads '/usr/bin/open .'
 bind t:f3,shift shell path:~/Desktop '/usr/bin/open .'
+bind p:f3,shift shell path:~/Pictures '/usr/bin/open .'
+bind a:f3,shift shell path:/Applications '/usr/bin/open .'
+bind d:f3,shift shell path:~/Documents '/usr/bin/open .'
+bind f:f3,shift shell path:~/Downloads '/usr/bin/open .'
+bind h:f3,shift shell path:~ '/usr/bin/open .'
+bind l:f3,shift shell path:~/Library '/usr/bin/open .'
+bind x:f3,shift shell path:/data '/usr/bin/open .'
+bind b:f3,shift shell path:~/Dropbox '/usr/bin/open .'
 bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/open -a frontmostpath.app . --args open'
 bind tab:f3,shift shell path:~/.scripts/slate '/bin/bash fpathintmux.sh'
 #bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/osascript DoWithFrontmostPath.scpt "open"'
