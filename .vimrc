@@ -80,6 +80,9 @@ if has("gui_macvim")
 	set eb " errorbell
 	set sel=inclusive "selection mode
 	set go+=b " guicursor
+	set go-=T " Remove toolbar
+	set go+=h " horizontal scrollbar sized on the current line only (snappier)
+	set stal=2 " Force tab bar display
 	" Use GUI vimpager
 	let vimpager_use_gvim = 1
 	" Confirm
