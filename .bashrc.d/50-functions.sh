@@ -23,6 +23,17 @@ if [ "$UNAME" == "Darwin" ]; then
 		/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user
 	}
 
+	# Kill thumbnails cache
+	function thumbcacherebuild {
+		if [ "$TERM_PROGRAM" == "DTerm" ]; then
+			echo "No, please don't.  You need a tty."
+		else
+			qlmanage -r cache
+			sudo find /private/var/folders -name "thumbnails.data" -delete
+			echo "Please restart (at least Finder.)"
+		fi
+	}
+
 	# Terminate all wineskin child processes, in case of runaways
 	function grimreapws {
 		killall wine
