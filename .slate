@@ -384,4 +384,8 @@ bind tab:f3,shift shell path:~/.scripts/slate '/bin/bash fpathintmux.sh'
 #bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/osascript DoWithFrontmostPath.scpt "open"'
 #bind tab:f3,shift shell path:~/.scripts/slate '/usr/bin/osascript DoWithFrontmostPath.scpt ./intmux.sh'
 
+# Extras
+# Growl current track
+bind esc:f1,shift shell path:~/Library/Scripts/Applications/iTunes '/usr/bin/osascript Growl-iTunes-track.scpt'
+
 # vim: sw=4 ts=4 ft=config
