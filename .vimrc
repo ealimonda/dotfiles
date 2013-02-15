@@ -128,6 +128,11 @@ else
 	set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
+" Folding for c files
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+
 " Tab-completion mode
 set wildmenu
 set wildmode=longest:full,list,full
