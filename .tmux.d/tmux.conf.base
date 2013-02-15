@@ -1,0 +1,173 @@
+#*******************************************************************************************************************
+#* Config files                                                                                                    *
+#*******************************************************************************************************************
+#* File:             tmux.conf.osx                                                                                 *
+#* Copyright:        (c) 2011 alimonda.com; Emanuele Alimonda                                                      *
+#*                   Public Domain                                                                                 *
+#*******************************************************************************************************************
+
+## Note: This file uses folding.  If you're in vim and you don't know how to unfold, press zR
+
+### Prefix Settings
+# {{{
+# Use F1 as prefix
+set-option -g prefix F1
+bind F1 send-prefix
+
+# Disable F2 as prefix
+unbind F2
+
+# Alternate prefix
+unbind-key C-b
+set-option -g prefix2 C-b
+bind C-b send-prefix -2
+# }}}
+
+### General Keybindings
+# {{{
+# C-x: Kill pane (default was: x)
+unbind ^X
+bind ^X confirm-before kill-pane
+
+# x: Lock Screen
+unbind x
+bind x lock-server
+
+# *: List clients
+unbind *
+bind * list-clients
+
+# Tab, C-a: Alternate last window
+unbind C-a
+bind C-a last-window
+unbind Tab
+bind Tab last-window
+
+# \: Quit
+unbind \
+bind \ confirm-before "kill-server"
+
+# k: Kill window
+unbind k
+bind k confirm-before "kill-window"
+
+# &: Delete buffer
+unbind &
+bind & delete-buffer
+
+# |,-: Split (left/right, top/bottom
+unbind |
+bind | split-window -h
+unbind -
+bind - split-window -v
+
+# ": Windowlist
+unbind '"'
+bind '"' choose-window
+
+# Some vim-like bindings
+# P: Paste
+bind P paste-buffer
+# (copy)v: begin selection
+bind -t vi-copy v begin-selection
+# (copy)y: yank
+bind -t vi-copy y copy-selection
+# (copy)Esc: cancel
+bind -t vi-copy Escape cancel
+# }}}
+
+### General Settings
+# {{{
+# TERM
+set-option -g default-terminal "screen-256color"
+# Mouse settings
+set-option -g mouse-select-pane on
+set-option -g mouse-resize-pane on
+set-option -g mouse-select-window on
+setw -g mode-mouse copy-mode
+# Bells
+set-option -g bell-action any
+set-option -g visual-bell off
+# Terminal emulator window title
+set-option -g set-titles on
+set-option -g set-titles-string '#H:#S.#I.#P #W #T' # Hostname:session.window.pane WindowName Title
+# Vi-style
+set-option -g status-keys vi
+setw -g mode-keys vi
+# Monitor other windows for activity
+setw -g monitor-activity on
+# History
+set -g history-limit 4096
+# }}}
+
+### Statusbar
+# {{{
+# Settings
+set-option -g status-utf8 on
+set-option -g status-justify centre
+set-option -g status-interval 15
+set-option -g status-left-length 40
+set-option -g status-right-length 40
+# Colors
+set-option -g status-bg black
+set-option -g status-fg white
+set-option -g pane-active-border-fg green
+set-option -g pane-active-border-bg black
+set-option -g pane-border-fg white
+set-option -g pane-border-bg black
+set-option -g message-fg black
+set-option -g message-bg yellow
+setw -g window-status-bg black
+setw -g window-status-current-fg green
+#setw -g window-status-alert-attr default
+#setw -g window-status-alert-fg yellow
+setw -g window-status-bell-attr default
+setw -g window-status-bell-fg red
+setw -g window-status-content-attr default
+setw -g window-status-content-fg cyan
+setw -g window-status-activity-attr default
+setw -g window-status-activity-fg yellow
+
+# Strings to display
+set -g status-left '#[fg=red]#(hostname -s)#[fg=green]:#[fg=white]#S#[fg=green]][#[default]'
+set -g status-right '#[fg=green]][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[fg=green]][#[fg=white]#(cat /proc/loadavg |cut -d" " -f1,2,3,4)#[default]'
+# }}}
+
+### Extra settings and bindings
+# {{{
+# Clock
+setw -g clock-mode-colour blue
+setw -g clock-mode-style 12
+
+setw -g alternate-screen off
+
+set -g lock-command '/usr/bin/vlock'
+# F5: Lock show fullscreen analog clock
+unbind F5
+bind F5 set lock-command 'clockywock' \; lock-client \; set lock-command '/usr/bin/vlock'
+# F6: Blank screen
+unbind F6
+bind F6 set lock-command 'tput civis && read -s -n1' \; lock-client \; set lock-command '/usr/bin/vlock'
+
+# Toggle mouse reporting (handy for iSSH)
+unbind m
+bind m set -g mouse-select-pane off\; set -g mouse-resize-pane off\; set -g mouse-select-window off\; set -g mode-mouse off
+unbind M
+bind M set -g mouse-select-pane on \; set -g mouse-resize-pane on \; set -g mouse-select-window on \; set -g mode-mouse copy-mode
+
+# Zoom pane to its own window (info: http://tangledhelix.com/blog/2012/07/16/tmux-and-mouse-mode/)
+unbind +
+bind + \
+  new-window -d -n tmux-zoom 'clear && echo TMUX ZOOM && read' \;\
+  swap-pane -s tmux-zoom.0 \;\
+  select-window -t tmux-zoom
+
+# Zoom back
+unbind =
+bind = \
+  last-window \;\
+  swap-pane -s tmux-zoom.0 \;\
+  kill-window -t tmux-zoom
+# }}}
+
+# vim: set ft=conf foldmethod=marker foldenable :
