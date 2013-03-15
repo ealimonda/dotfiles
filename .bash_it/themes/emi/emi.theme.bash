@@ -36,12 +36,12 @@ export MYSQL_PS1="(\u@\h) [\d]> "
 emi_scm_prompt() {
   scm_prompt_char
   if [ "$SCM_CHAR" == "$SCM_NONE_CHAR" ]; then
-    echo "$SCM_CHAR|"
+    echo "$SCM_CHAR"
     return
   elif [ $SCM_CHAR = $SCM_GIT_CHAR ]; then
-    echo "$SCM_CHAR:$(git_prompt_status)|"
+    echo "$SCM_CHAR:$(git_prompt_status)"
   else
-    echo "$SCM_CHAR:$(scm_prompt_info)|"
+    echo "$SCM_CHAR:$(scm_prompt_info)"
   fi
 }
 
@@ -65,7 +65,8 @@ local PREPS1
 [ -n "$VIMRUNTIME" ] && PREPS1="${yellow}v${normal}|"
 #[ -n "$PREPS1" ] && PREPS1="$PREPS1 "
 
-PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)$(battery_charge)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
+#PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)$(battery_charge)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
+PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
 }
 
 PROMPT_COMMAND=prompt_setter
