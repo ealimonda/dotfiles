@@ -243,7 +243,7 @@ alias mon-proj 1024x768
 alias pos-mbp-full            move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-mbp}
 alias pos-benq-full           move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-benq}
 alias pos-benqleft-itunesmini move screenOriginX+880;screenOriginY                          400;800                   ${mon-benq}
-alias pos-mbp-itunesmini      move screenOriginX;screenOriginY                              250;600                   ${mon-mbp}
+alias pos-mbp-itunesmini      move screenOriginX;screenOriginY                              310;640                   ${mon-mbp}
 
 ## Generic positions (1/2)
 alias pos-left                move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY
@@ -375,10 +375,14 @@ bind p:f3,shift shell path:~/Pictures '/usr/bin/open .'
 bind a:f3,shift shell path:/Applications '/usr/bin/open .'
 bind d:f3,shift shell path:~/Documents '/usr/bin/open .'
 bind f:f3,shift shell path:~/Downloads '/usr/bin/open .'
+bind g:f3,shift shell path:/data/git '/usr/bin/open .'
 bind h:f3,shift shell path:~ '/usr/bin/open .'
 bind l:f3,shift shell path:~/Library '/usr/bin/open .'
 bind x:f3,shift shell path:/data '/usr/bin/open .'
+bind v:f3,shift shell path:/data/nobackup/fromLeviathan/VisualNovels '/usr/bin/open .'
 bind b:f3,shift shell path:~/Dropbox '/usr/bin/open .'
+bind n:f3,shift shell path:/data/nobackup/fromLeviathan/anime '/usr/bin/open .'
+bind m:f3,shift shell path:/data/nobackup/fromLeviathan/manga '/usr/bin/open .'
 bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/open -a frontmostpath.app . --args open'
 bind tab:f3,shift shell path:~/.scripts/slate '/bin/bash fpathintmux.sh'
 #bind return:f3,shift shell path:~/.scripts/slate '/usr/bin/osascript DoWithFrontmostPath.scpt "open"'
