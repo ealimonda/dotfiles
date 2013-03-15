@@ -29,7 +29,7 @@ if [ "$(uname)" == "Darwin" ]; then
 			# Start a new session
 			tmuxattach --onlystart
 		fi
-		tmux new-window -t stuff
+		tmux new-window -t stuff && tmux rename-window -t stuff "($(basename "$PWD"))"
 	}
 
 	function dequarantine {
