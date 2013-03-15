@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/bufexplorer.zip"]
 	path = .vim/bundle/bufexplorer.zip
 	url = git://github.com/vim-scripts/bufexplorer.zip.git
+[submodule ".vim/bundle/DirDiff.vim"]
+	path = .vim/bundle/DirDiff.vim
+	url = git://github.com/grota/DirDiff.vim.git
