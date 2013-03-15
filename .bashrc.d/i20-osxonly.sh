@@ -46,8 +46,6 @@ if [ "$(uname)" == "Darwin" ]; then
 	#export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
 	shopt -s checkwinsize
 	export CLICOLOR=1
-	# Append homebrew to the $PATH
-	export PATH=$PATH:/usr/local/bin:/usr/local/sbin
 fi
 
 # vim: ts=4 sw=4

@@ -14,6 +14,12 @@
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
 # outputting anything in those cases.
+
+# Source all files starting with a in ~/.bashrc.d/
+for eachFile in ${HOME}/.bashrc.d/a*.sh; do
+	source "${eachFile}"
+done
+
 if [[ $- != *i* ]] ; then
 	# Shell is non-interactive.  Be done now!
 	return
@@ -52,8 +58,8 @@ fi
 
 # Put your fun stuff here.
 
-# Source all files in ~/.bashrc.d/
-for eachFile in ${HOME}/.bashrc.d/*.sh; do
+# Source all files starting with i in ~/.bashrc.d/
+for eachFile in ${HOME}/.bashrc.d/i*.sh; do
 	source "${eachFile}"
 done
 

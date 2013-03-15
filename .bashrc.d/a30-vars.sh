@@ -13,4 +13,10 @@ export EDITOR=vim
 # Append ~/bin to $PATH
 export PATH="$PATH:$HOME/bin"
 
+## OS X Only
+if [ "$(uname)" == "Darwin" ]; then
+	# Append homebrew to the $PATH
+	export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+fi
+
 # vim: ts=4 sw=4
