@@ -214,8 +214,21 @@ nmap <leader>t :BufExplorer<CR>
 
 " -- CLANG_COMPLETE --
 let g:clang_auto_select = 1
+let g:clang_snippets = 1
+let g:clang_trailing_placeholder = 1
 let g:clang_close_preview = 1
+let g:clang_complete_macros = 1
 "let g:clang_use_library = 1
 imap <M-Tab> <C-X><C-U>
 
+set tabpagemax=50
 
+let g:syntastic_c_config_file = '.clang_complete'
+let g:syntastic_c_compiler = 'clang++'
+let g:syntastic_c_check_header = 1
+let g:syntastic_c_auto_refresh_includes = 1
+let g:syntastic_cpp_config_file = '.clang_complete'
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_auto_refresh_includes = 1
+let g:syntastic_auto_loc_list = 1

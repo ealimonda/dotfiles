@@ -37,3 +37,6 @@
 [submodule ".vim/bundle/DirDiff.vim"]
 	path = .vim/bundle/DirDiff.vim
 	url = git://github.com/grota/DirDiff.vim.git
+[submodule ".vim/bundle/vim-unimpaired"]
+	path = .vim/bundle/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git

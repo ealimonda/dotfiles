@@ -123,98 +123,105 @@ syn keyword	athOperator	getd setd set getvariableofnpc getarg mes
 syn keyword	athOperator	setarray cleararray copyarray deletearray getarraysize getelementofarray
 syn keyword	athOperator	strcharinfo strnpcinfo readparam getcharid getnpcid getstrlen
 
-syn keyword	athStructure	script warp monster areamonster duplicate shop cashshop rpshop mapflag function callfunc callsub
+syn keyword	athStructure	script warp monster areamonster duplicate shop cashshop rpshop mapflag function callfunc
+syn keyword	athStructure	callsub
 
 syn keyword	athConstant	Job_Novice Job_Swordman Job_Mage Job_Archer Job_Acolyte Job_Merchant Job_Thief
 syn keyword	athConstant	Job_Knight Job_Priest Job_Wizard Job_Blacksmith Job_Hunter Job_Assassin Job_Knight2
 syn keyword	athConstant	Job_Crusader Job_Monk Job_Sage Job_Rogue Job_Alchem Job_Alchemist Job_Bard Job_Dancer
-syn keyword	athConstant	Job_Crusader2 Job_Wedding Job_SuperNovice Job_Gunslinger Job_Ninja Job_Xmas
-syn keyword	athConstant	Job_Novice_High Job_Swordman_High Job_Mage_High Job_Archer_High Job_Acolyte_High
-syn keyword	athConstant	Job_Merchant_High Job_Thief_High Job_Lord_Knight Job_High_Priest Job_High_Wizard
-syn keyword	athConstant	Job_Whitesmith Job_Sniper Job_Assassin_Cross Job_Lord_Knight2 Job_Paladin Job_Champion
-syn keyword	athConstant	Job_Professor Job_Stalker Job_Creator Job_Clown Job_Gypsy Job_Paladin2 Job_Baby
-syn keyword	athConstant	Job_Baby_Swordman Job_Baby_Mage Job_Baby_Archer Job_Baby_Acolyte Job_Baby_Merchant
-syn keyword	athConstant	Job_Baby_Thief Job_Baby_Knight Job_Baby_Priest Job_Baby_Wizard Job_Baby_Blacksmith
-syn keyword	athConstant	Job_Baby_Hunter Job_Baby_Assassin Job_Baby_Knight2 Job_Baby_Crusader Job_Baby_Monk
-syn keyword	athConstant	Job_Baby_Sage Job_Baby_Rogue Job_Baby_Alchem Job_Baby_Alchemist Job_Baby_Bard
-syn keyword	athConstant	Job_Baby_Dancer Job_Baby_Crusader2 Job_Super_Baby Job_Taekwon Job_Star_Gladiator
-syn keyword	athConstant	Job_Star_Gladiator2 Job_Soul_Linker Job_Rune_Knight Job_Warlock Job_Ranger
-syn keyword	athConstant	Job_Arch_Bishop Job_Mechanic Job_Guillotine_Cross Job_Rune_Knight_T Job_Warlock_T
-syn keyword	athConstant	Job_Ranger_T Job_Arch_Bishop_T Job_Mechanic_T Job_Guillotine_Cross_T Job_Royal_Guard
-syn keyword	athConstant	Job_Sorcerer Job_Minstrel Job_Wanderer Job_Sura Job_Genetic Job_Shadow_Chaser
-syn keyword	athConstant	Job_Royal_Guard_T Job_Sorcerer_T Job_Minstrel_T Job_Wanderer_T Job_Sura_T
-syn keyword	athConstant	Job_Genetic_T Job_Shadow_Chaser_T Job_Rune_Knight2 Job_Rune_Knight_T2
-syn keyword	athConstant	Job_Royal_Guard2 Job_Royal_Guard_T2 Job_Ranger2 Job_Ranger_T2 Job_Mechanic2
-syn keyword	athConstant	Job_Mechanic_T2 Job_Baby_Rune Job_Baby_Warlock Job_Baby_Ranger Job_Baby_Bishop
-syn keyword	athConstant	Job_Baby_Mechanic Job_Baby_Cross Job_Baby_Guard Job_Baby_Sorcerer Job_Baby_Minstrel
-syn keyword	athConstant	Job_Baby_Wanderer Job_Baby_Sura Job_Baby_Genetic Job_Baby_Chaser Job_Baby_Rune2
-syn keyword	athConstant	Job_Baby_Guard2 Job_Baby_Ranger2 Job_Baby_Mechanic2
-syn keyword	athConstant	EAJL_2_1 EAJL_2_2 EAJL_2 EAJL_UPPER EAJL_BABY EAJL_3 EAJ_UPPERMASK EAJ_BASEMASK
+syn keyword	athConstant	Job_Crusader2 Job_Wedding Job_SuperNovice Job_Gunslinger Job_Ninja Job_Xmas Job_Summer
+syn keyword	athConstant	Job_Hanbok Job_Novice_High Job_Swordman_High Job_Mage_High Job_Archer_High
+syn keyword	athConstant	Job_Acolyte_High Job_Merchant_High Job_Thief_High Job_Lord_Knight Job_High_Priest
+syn keyword	athConstant	Job_High_Wizard Job_Whitesmith Job_Sniper Job_Assassin_Cross Job_Lord_Knight2
+syn keyword	athConstant	Job_Paladin Job_Champion Job_Professor Job_Stalker Job_Creator Job_Clown Job_Gypsy
+syn keyword	athConstant	Job_Paladin2 Job_Baby Job_Baby_Swordman Job_Baby_Mage Job_Baby_Archer Job_Baby_Acolyte
+syn keyword	athConstant	Job_Baby_Merchant Job_Baby_Thief Job_Baby_Knight Job_Baby_Priest Job_Baby_Wizard
+syn keyword	athConstant	Job_Baby_Blacksmith Job_Baby_Hunter Job_Baby_Assassin Job_Baby_Knight2 Job_Baby_Crusader
+syn keyword	athConstant	Job_Baby_Monk Job_Baby_Sage Job_Baby_Rogue Job_Baby_Alchem Job_Baby_Alchemist
+syn keyword	athConstant	Job_Baby_Bard Job_Baby_Dancer Job_Baby_Crusader2 Job_Super_Baby Job_Taekwon
+syn keyword	athConstant	Job_Star_Gladiator Job_Star_Gladiator2 Job_Soul_Linker Job_Gangsi Job_Death_Knight
+syn keyword	athConstant	Job_Dark_Collector Job_Rune_Knight Job_Warlock Job_Ranger Job_Arch_Bishop Job_Mechanic
+syn keyword	athConstant	Job_Guillotine_Cross Job_Rune_Knight_T Job_Warlock_T Job_Ranger_T Job_Arch_Bishop_T
+syn keyword	athConstant	Job_Mechanic_T Job_Guillotine_Cross_T Job_Royal_Guard Job_Sorcerer Job_Minstrel
+syn keyword	athConstant	Job_Wanderer Job_Sura Job_Genetic Job_Shadow_Chaser Job_Royal_Guard_T Job_Sorcerer_T
+syn keyword	athConstant	Job_Minstrel_T Job_Wanderer_T Job_Sura_T Job_Genetic_T Job_Shadow_Chaser_T
+syn keyword	athConstant	Job_Rune_Knight2 Job_Rune_Knight_T2 Job_Royal_Guard2 Job_Royal_Guard_T2 Job_Ranger2
+syn keyword	athConstant	Job_Ranger_T2 Job_Mechanic2 Job_Mechanic_T2 Job_Baby_Rune Job_Baby_Warlock
+syn keyword	athConstant	Job_Baby_Ranger Job_Baby_Bishop Job_Baby_Mechanic Job_Baby_Cross Job_Baby_Guard
+syn keyword	athConstant	Job_Baby_Sorcerer Job_Baby_Minstrel Job_Baby_Wanderer Job_Baby_Sura Job_Baby_Genetic
+syn keyword	athConstant	Job_Baby_Chaser Job_Baby_Rune2 Job_Baby_Guard2 Job_Baby_Ranger2 Job_Baby_Mechanic2
+syn keyword	athConstant	Job_Super_Novice_E Job_Super_Baby_E Job_Kagerou Job_Oboro
+syn keyword	athConstant	EAJL_2_1 EAJL_2_2 EAJL_2 EAJL_UPPER EAJL_BABY EAJL_THIRD EAJ_UPPERMASK EAJ_BASEMASK
 syn keyword	athConstant	EAJ_NOVICE EAJ_SWORDMAN EAJ_MAGE EAJ_ARCHER EAJ_ACOLYTE EAJ_MERCHANT EAJ_THIEF
-syn keyword	athConstant	EAJ_TAEKWON EAJ_GUNSLINGER EAJ_NINJA EAJ_SUPER_NOVICE EAJ_KNIGHT EAJ_WIZARD EAJ_HUNTER
-syn keyword	athConstant	EAJ_PRIEST EAJ_BLACKSMITH EAJ_ASSASSIN EAJ_STAR_GLADIATOR EAJ_CRUSADER EAJ_SAGE
-syn keyword	athConstant	EAJ_BARDDANCER EAJ_MONK EAJ_ALCHEMIST EAJ_ROGUE EAJ_SOUL_LINKER EAJ_RUNE_KNIGHT
-syn keyword	athConstant	EAJ_WARLOCK EAJ_RANGER EAJ_ARCH_BISHOP EAJ_MECHANIC EAJ_GUILLOTINE_CROSS EAJ_ROYAL_GUARD
-syn keyword	athConstant	EAJ_SORCERER EAJ_MINSTRELWANDERER EAJ_SURA EAJ_GENETIC EAJ_SHADOW_CHASER
-syn keyword	athConstant	EAJ_RUNE_KNIGHT_T EAJ_WARLOCK_T EAJ_RANGER_T EAJ_ARCH_BISHOP_T EAJ_MECHANIC_T
-syn keyword	athConstant	EAJ_GUILLOTINE_CROSS_T EAJ_ROYAL_GUARD_T EAJ_SORCERER_T EAJ_MINSTRELWANDERER_T
-syn keyword	athConstant	EAJ_SURA_T EAJ_GENETIC_T EAJ_SHADOW_CHASER_T EAJ_NOVICE_HIGH EAJ_SWORDMAN_HIGH
-syn keyword	athConstant	EAJ_MAGE_HIGH EAJ_ARCHER_HIGH EAJ_ACOLYTE_HIGH EAJ_MERCHANT_HIGH EAJ_THIEF_HIGH
-syn keyword	athConstant	EAJ_LORD_KNIGHT EAJ_HIGH_WIZARD EAJ_SNIPER EAJ_HIGH_PRIEST EAJ_WHITESMITH
-syn keyword	athConstant	EAJ_ASSASSIN_CROSS EAJ_PALADIN EAJ_PROFESSOR EAJ_CLOWNGYPSY EAJ_CHAMPION EAJ_CREATOR
-syn keyword	athConstant	EAJ_STALKER EAJ_BABY EAJ_BABY_SWORDMAN EAJ_BABY_MAGE EAJ_BABY_ARCHER EAJ_BABY_ACOLYTE
-syn keyword	athConstant	EAJ_BABY_MERCHANT EAJ_BABY_THIEF EAJ_SUPER_BABY EAJ_BABY_KNIGHT EAJ_BABY_WIZARD
-syn keyword	athConstant	EAJ_BABY_HUNTER EAJ_BABY_PRIEST EAJ_BABY_BLACKSMITH EAJ_BABY_ASSASSIN EAJ_BABY_CRUSADER
-syn keyword	athConstant	EAJ_BABY_SAGE EAJ_BABY_BARDDANCER EAJ_BABY_MONK EAJ_BABY_ALCHEMIST EAJ_BABY_ROGUE
-syn keyword	athConstant	EAJ_BABY_RUNE EAJ_BABY_WARLOCK EAJ_BABY_RANGER EAJ_BABY_BISHOP EAJ_BABY_MECHANIC
-syn keyword	athConstant	EAJ_BABY_CROSS EAJ_BABY_GUARD EAJ_BABY_SURA EAJ_BABY_GENETIC EAJ_BABY_CHASER EAJ_THIRD
-syn keyword	athConstant	EAJ_THIRDMASK
+syn keyword	athConstant	EAJ_TAEKWON EAJ_GUNSLINGER EAJ_NINJA EAJ_GANGSI EAJ_SUPER_NOVICE EAJ_KNIGHT EAJ_WIZARD
+syn keyword	athConstant	EAJ_HUNTER EAJ_PRIEST EAJ_BLACKSMITH EAJ_ASSASSIN EAJ_STAR_GLADIATOR EAJ_KAGEROUOBORO
+syn keyword	athConstant	EAJ_DEATH_KNIGHT EAJ_CRUSADER EAJ_SAGE EAJ_BARDDANCER EAJ_MONK EAJ_ALCHEMIST EAJ_ROGUE
+syn keyword	athConstant	EAJ_SOUL_LINKER EAJ_DARK_COLLECTOR EAJ_RUNE_KNIGHT EAJ_WARLOCK EAJ_RANGER
+syn keyword	athConstant	EAJ_ARCH_BISHOP EAJ_MECHANIC EAJ_GUILLOTINE_CROSS EAJ_ROYAL_GUARD EAJ_SORCERER
+syn keyword	athConstant	EAJ_MINSTRELWANDERER EAJ_SURA EAJ_GENETIC EAJ_SHADOW_CHASER EAJ_RUNE_KNIGHT_T
+syn keyword	athConstant	EAJ_WARLOCK_T EAJ_RANGER_T EAJ_ARCH_BISHOP_T EAJ_MECHANIC_T EAJ_GUILLOTINE_CROSS_T
+syn keyword	athConstant	EAJ_ROYAL_GUARD_T EAJ_SORCERER_T EAJ_MINSTRELWANDERER_T EAJ_SURA_T EAJ_GENETIC_T
+syn keyword	athConstant	EAJ_SHADOW_CHASER_T EAJ_NOVICE_HIGH EAJ_SWORDMAN_HIGH EAJ_MAGE_HIGH EAJ_ARCHER_HIGH
+syn keyword	athConstant	EAJ_ACOLYTE_HIGH EAJ_MERCHANT_HIGH EAJ_THIEF_HIGH EAJ_LORD_KNIGHT EAJ_HIGH_WIZARD
+syn keyword	athConstant	EAJ_SNIPER EAJ_HIGH_PRIEST EAJ_WHITESMITH EAJ_ASSASSIN_CROSS EAJ_PALADIN EAJ_PROFESSOR
+syn keyword	athConstant	EAJ_CLOWNGYPSY EAJ_CHAMPION EAJ_CREATOR EAJ_STALKER EAJ_BABY EAJ_BABY_SWORDMAN
+syn keyword	athConstant	EAJ_BABY_MAGE EAJ_BABY_ARCHER EAJ_BABY_ACOLYTE EAJ_BABY_MERCHANT EAJ_BABY_THIEF
+syn keyword	athConstant	EAJ_SUPER_BABY EAJ_BABY_KNIGHT EAJ_BABY_WIZARD EAJ_BABY_HUNTER EAJ_BABY_PRIEST
+syn keyword	athConstant	EAJ_BABY_BLACKSMITH EAJ_BABY_ASSASSIN EAJ_BABY_CRUSADER EAJ_BABY_SAGE
+syn keyword	athConstant	EAJ_BABY_BARDDANCER EAJ_BABY_MONK EAJ_BABY_ALCHEMIST EAJ_BABY_ROGUE EAJ_SUPER_NOVICE_E
+syn keyword	athConstant	EAJ_SUPER_BABY_E EAJ_BABY_RUNE EAJ_BABY_WARLOCK EAJ_BABY_RANGER EAJ_BABY_BISHOP
+syn keyword	athConstant	EAJ_BABY_CROSS EAJ_BABY_MECHANIC EAJ_BABY_GUARD EAJ_BABY_SORCERER
+syn keyword	athConstant	EAJ_BABY_MINSTRELWANDERER EAJ_BABY_SURA EAJ_BABY_GENETIC EAJ_BABY_CHASER
 syn keyword	athConstant	Option_Wedding Option_Xmas Option_Summer Option_Wug Option_Wugrider
+syn keyword	athConstant	Option_Hanbok Option_Mounting
 syn keyword	athConstant	bc_all bc_map bc_area bc_self bc_pc bc_npc bc_yellow bc_blue bc_woe
 syn keyword	athConstant	mf_nomemo mf_noteleport mf_nosave mf_nobranch mf_nopenalty mf_nozenypenalty mf_pvp
 syn keyword	athConstant	mf_pvp_noparty mf_pvp_noguild mf_gvg mf_gvg_noparty mf_notrade mf_noskill mf_nowarp
 syn keyword	athConstant	mf_partylock mf_noicewall mf_snow mf_fog mf_sakura mf_leaves mf_rain mf_nogo mf_clouds
 syn keyword	athConstant	mf_clouds2 mf_fireworks mf_gvg_castle mf_gvg_dungeon mf_nightenabled mf_nobaseexp
-syn keyword	athConstant	mf_nojobexp mf_nomobloot mf_nomvploot mf_noreturn mf_nowarpto mf_nonightmaredrop
+syn keyword	athConstant	mf_nojobexp mf_nomobloot mf_nomvploot mf_noreturn mf_nowarpto mf_nightmaredrop
 syn keyword	athConstant	mf_restricted mf_nocommand mf_nodrop mf_jexp mf_bexp mf_novending mf_loadevent
 syn keyword	athConstant	mf_nochat mf_noexppenalty mf_guildlock mf_town mf_autotrade mf_allowks
-syn keyword	athConstant	mf_monster_noteleport mf_pvp_nocalcrank mf_battleground mf_noitemconsume mf_gvg_noguild
+syn keyword	athConstant	mf_monster_noteleport mf_pvp_nocalcrank mf_battleground mf_reset mf_channoautojoin
+syn keyword	athConstant	mf_nousecart mf_noitemconsumption mf_sumstartmiracle mf_nomineeffect mf_nolockon
+syn keyword	athConstant	mf_noitemconsume mf_gvg_noguild
 syn keyword	athConstant	cell_walkable cell_shootable cell_water cell_npc cell_basilica cell_landprotector
 syn keyword	athConstant	cell_novending cell_nochat cell_chkwall cell_chkwater cell_chkcliff cell_chkpass
 syn keyword	athConstant	cell_chkreach cell_chknopass cell_chknoreach cell_chknpc cell_chkbasilica
 syn keyword	athConstant	cell_chklandprotector cell_chknovending cell_chknochat
 syn keyword	athConstant	StatusPoint BaseLevel SkillPoint Class Upper Zeny Sex Weight MaxWeight JobLevel BaseExp
 syn keyword	athConstant	JobExp Karma Manner NextBaseExp NextJobExp Hp MaxHp Sp MaxSp BaseJob BaseClass killerrid
-syn keyword	athConstant	killedrid bMaxHP bMaxSP
-syn keyword	athConstant	bStr bAgi bVit bInt bDex bLuk bAtk bAtk2 bDef bDef2 bMdef bMdef2 bHit bFlee bFlee2
-syn keyword	athConstant	bCritical bAspd bFame bUnbreakable bAtkRange bAtkEle bDefEle bCastrate bMaxHPrate
-syn keyword	athConstant	bMaxSPrate bUseSPrate bAddEle bAddRace bAddSize bSubEle bSubRace bAddEff bResEff
-syn keyword	athConstant	bBaseAtk bAspdRate bHPrecovRate bSPrecovRate bSpeedRate bCriticalDef bNearAtkDef
-syn keyword	athConstant	bLongAtkDef bDoubleRate bDoubleAddRate bSkillHeal bMatkRate bIgnoreDefEle
-syn keyword	athConstant	bIgnoreDefRace bAtkRate bSpeedAddRate bSPRegenRate bMagicAtkDef bMiscAtkDef
-syn keyword	athConstant	bIgnoreMdefEle bIgnoreMdefRace bMagicAddEle bMagicAddRace bMagicAddSize
-syn keyword	athConstant	bPerfectHitRate bPerfectHitAddRate bCriticalRate bGetZenyNum bAddGetZenyNum
-syn keyword	athConstant	bAddDamageClass bAddMagicDamageClass bAddDefClass bAddMdefClass bAddMonsterDropItem
-syn keyword	athConstant	bDefRatioAtkEle bDefRatioAtkRace bUnbreakableGarment bHitRate bFleeRate bFlee2Rate
-syn keyword	athConstant	bDefRate bDef2Rate bMdefRate bMdef2Rate bSplashRange bSplashAddRange bAutoSpell
-syn keyword	athConstant	bHPDrainRate bSPDrainRate bShortWeaponDamageReturn bLongWeaponDamageReturn
-syn keyword	athConstant	bWeaponComaEle bWeaponComaRace bAddEff2 bBreakWeaponRate bBreakArmorRate bAddStealRate
-syn keyword	athConstant	bMagicDamageReturn bAllStats bAgiVit bAgiDexStr bPerfectHide bNoKnockback bClassChange
-syn keyword	athConstant	bHPDrainValue bSPDrainValue bWeaponAtk bWeaponAtkRate bDelayrate bHPDrainRateRace
-syn keyword	athConstant	bSPDrainRateRace bIgnoreMdefRate bIgnoreDefRate bSkillHeal2 bAddEffOnSkill bHealPower
-syn keyword	athConstant	bHealPower2 bRestartFullRecover bNoCastCancel bNoSizeFix bNoMagicDamage bNoWeaponDamage
-syn keyword	athConstant	bNoGemStone bNoCastCancel2 bNoMiscDamage bUnbreakableWeapon bUnbreakableArmor
-syn keyword	athConstant	bUnbreakableHelm bUnbreakableShield bLongAtkRate bCritAtkRate bCriticalAddRace bNoRegen
-syn keyword	athConstant	bAddEffWhenHit bAutoSpellWhenHit bSkillAtk bUnstripable bAutoSpellOnSkill bSPGainValue
-syn keyword	athConstant	bHPRegenRate bHPLossRate bAddRace2 bHPGainValue bSubSize bHPDrainValueRace
-syn keyword	athConstant	bAddItemHealRate bSPDrainValueRace bExpAddRace bSPGainRace bSubRace2 bUnbreakableShoes
-syn keyword	athConstant	bUnstripableWeapon bUnstripableArmor bUnstripableHelm bUnstripableShield bIntravision
-syn keyword	athConstant	bAddMonsterDropItemGroup bSPLossRate bAddSkillBlow bSPVanishRate bMagicSPGainValue
-syn keyword	athConstant	bMagicHPGainValue bAddClassDropItem bMatk bSPGainRaceAttack bHPGainRaceAttack
-syn keyword	athConstant	bSkillCooldown bSkillFixedCast bSkillVariableCast bFixedCastrate bVariableCastrate
-syn keyword	athConstant	bSkillUseSP bSkillUseSPrate bMagicAtkEle
+syn keyword	athConstant	killedrid Sitting CharMoves
+syn keyword	athConstant	bMaxHP bMaxSP bStr bAgi bVit bInt bDex bLuk bAtk bAtk2 bDef bDef2 bMdef bMdef2 bHit
+syn keyword	athConstant	bFlee bFlee2 bCritical bAspd bFame bUnbreakable bAtkRange bAtkEle bDefEle bCastrate
+syn keyword	athConstant	bMaxHPrate bMaxSPrate bUseSPrate bAddEle bAddRace bAddSize bSubEle bSubRace bAddEff
+syn keyword	athConstant	bResEff bBaseAtk bAspdRate bHPrecovRate bSPrecovRate bSpeedRate bCriticalDef bNearAtkDef
+syn keyword	athConstant	bLongAtkDef bDoubleRate bDoubleAddRate bSkillHeal bMatkRate bIgnoreDefEle bIgnoreDefRace
+syn keyword	athConstant	bAtkRate bSpeedAddRate bSPRegenRate bMagicAtkDef bMiscAtkDef bIgnoreMdefEle
+syn keyword	athConstant	bIgnoreMdefRace bMagicAddEle bMagicAddRace bMagicAddSize bPerfectHitRate
+syn keyword	athConstant	bPerfectHitAddRate bCriticalRate bGetZenyNum bAddGetZenyNum bAddDamageClass
+syn keyword	athConstant	bAddMagicDamageClass bAddDefClass bAddMdefClass bAddMonsterDropItem bDefRatioAtkEle
+syn keyword	athConstant	bDefRatioAtkRace bUnbreakableGarment bHitRate bFleeRate bFlee2Rate bDefRate bDef2Rate
+syn keyword	athConstant	bMdefRate bMdef2Rate bSplashRange bSplashAddRange bAutoSpell bHPDrainRate bSPDrainRate
+syn keyword	athConstant	bShortWeaponDamageReturn bLongWeaponDamageReturn bWeaponComaEle bWeaponComaRace bAddEff2
+syn keyword	athConstant	bBreakWeaponRate bBreakArmorRate bAddStealRate bMagicDamageReturn bAllStats bAgiVit
+syn keyword	athConstant	bAgiDexStr bPerfectHide bNoKnockback bClassChange bHPDrainValue bSPDrainValue bWeaponAtk
+syn keyword	athConstant	bWeaponAtkRate bDelayrate bHPDrainRateRace bSPDrainRateRace bIgnoreMdefRate
+syn keyword	athConstant	bIgnoreDefRate bSkillHeal2 bAddEffOnSkill bHealPower bHealPower2 bRestartFullRecover
+syn keyword	athConstant	bNoCastCancel bNoSizeFix bNoMagicDamage bNoWeaponDamage bNoGemStone bNoCastCancel2
+syn keyword	athConstant	bNoMiscDamage bUnbreakableWeapon bUnbreakableArmor bUnbreakableHelm bUnbreakableShield
+syn keyword	athConstant	bLongAtkRate bCritAtkRate bCriticalAddRace bNoRegen bAddEffWhenHit bAutoSpellWhenHit
+syn keyword	athConstant	bSkillAtk bUnstripable bAutoSpellOnSkill bSPGainValue bHPRegenRate bHPLossRate bAddRace2
+syn keyword	athConstant	bHPGainValue bSubSize bHPDrainValueRace bAddItemHealRate bSPDrainValueRace bExpAddRace
+syn keyword	athConstant	bSPGainRace bSubRace2 bUnbreakableShoes bUnstripableWeapon bUnstripableArmor
+syn keyword	athConstant	bUnstripableHelm bUnstripableShield bIntravision bAddMonsterDropItemGroup bSPLossRate
+syn keyword	athConstant	bAddSkillBlow bSPVanishRate bMagicSPGainValue bMagicHPGainValue bAddClassDropItem bMatk
+syn keyword	athConstant	bSPGainRaceAttack bHPGainRaceAttack bSkillCooldown bSkillFixedCast bSkillVariableCast
+syn keyword	athConstant	bFixedCastrate bVariableCastrate bSkillUseSP bSkillUseSPrate bMagicAtkEle bFixedCast
+syn keyword	athConstant	bVariableCast
 syn keyword	athConstant	EQI_HEAD_TOP EQI_ARMOR EQI_HAND_L EQI_HAND_R EQI_GARMENT EQI_SHOES EQI_ACC_L EQI_ACC_R
-syn keyword	athConstant	EQI_HEAD_MID EQI_HEAD_LOW
+syn keyword	athConstant	EQI_HEAD_MID EQI_HEAD_LOW EQI_COSTUME_HEAD_LOW EQI_COSTUME_HEAD_MID EQI_COSTUME_HEAD_TOP
+syn keyword	athConstant	EQI_COSTUME_GARMENT
 syn keyword	athConstant	LOOK_BASE LOOK_HAIR LOOK_WEAPON LOOK_HEAD_BOTTOM LOOK_HEAD_TOP LOOK_HEAD_MID
 syn keyword	athConstant	LOOK_HAIR_COLOR LOOK_CLOTHES_COLOR LOOK_SHIELD LOOK_SHOES LOOK_BODY LOOK_FLOOR LOOK_ROBE
 syn keyword	athConstant	Eff_Stone Eff_Freeze Eff_Stun Eff_Sleep Eff_Poison Eff_Curse Eff_Silence Eff_Confusion
@@ -348,7 +355,6 @@ syn keyword	athConstant	ALL_CLIENT ALL_SAMEMAP AREA AREA_WOS AREA_WOC AREA_WOSC 
 syn keyword	athConstant	PARTY PARTY_WOS PARTY_SAMEMAP PARTY_SAMEMAP_WOS PARTY_AREA PARTY_AREA_WOS GUILD
 syn keyword	athConstant	GUILD_WOS GUILD_SAMEMAP GUILD_SAMEMAP_WOS GUILD_AREA GUILD_AREA_WOS GUILD_NOBG DUEL
 syn keyword	athConstant	DUEL_WOS CHAT_MAINCHAT SELF BG BG_WOS BG_SAMEMAP BG_SAMEMAP_WOS BG_AREA BG_AREA_WOS
-syn keyword	athConstant	CHAT_ALLYCHAT CHAT_WOECHAT CHAT_IRCCHAT 
 syn keyword	athConstant	ARCH_MERC_GUILD SPEAR_MERC_GUILD SWORD_MERC_GUILD
 syn keyword	athConstant	EF_NONE EF_HIT1 EF_HIT2 EF_HIT3 EF_HIT4 EF_HIT5 EF_HIT6 EF_ENTRY EF_EXIT EF_WARP
 syn keyword	athConstant	EF_ENHANCE EF_COIN EF_ENDURE EF_BEGINSPELL EF_GLASSWALL EF_HEALSP EF_SOULSTRIKE EF_BASH
@@ -775,22 +781,24 @@ syn keyword	athCommand	soundeffectall pvpon pvpoff atcommand charcommand unitski
 syn keyword	athCommand	night defpattern activatepset deactivatepset deletepset pow sqrt distance query_sql
 syn keyword	athCommand	query_logsql escape_sql setitemscript atoi axtoi compare charisalpha petskillbonus
 syn keyword	athCommand	petrecovery petloot petskillsupport petheal petskillattack petskillattack2 bpet makepet
-syn keyword	athCommand	openmail openauction homshuffle setcell md5 autobonus autobonus2 autobonus3 cooking
-syn keyword	athCommand	getmobdrops getmapflag ascii setiteminfo checkcell setwall delwall mercenary_create
-syn keyword	athCommand	mercenary_heal mercenary_sc_start mercenary_get_calls mercenary_get_faith
-syn keyword	athCommand	mercenary_set_calls mercenary_set_faith readbook setfont areamobuseskill progressbar
-syn keyword	athCommand	agitstart2 agitend2 agitcheck2 waitingroom2bg waitingroom2bg_single bg_team_setxy
-syn keyword	athCommand	bg_warp bg_monster bg_monster_set_team bg_leave bg_destroy areapercentheal bg_get_data
-syn keyword	athCommand	bg_getareausers bg_updatescore instance_create instance_destroy instance_attachmap
-syn keyword	athCommand	instance_detachmap instance_attach instance_id instance_set_timeout instance_init
-syn keyword	athCommand	instance_announce instance_npcname has_instance instance_warpall setquest erasequest
-syn keyword	athCommand	completequest checkquest changequest charrename searchitem showevent playbgm playbgmall
-syn keyword	athCommand	masteropenstorage expmission globalexpmission mapswarmmission pushpc buyingstore
-syn keyword	athCommand	searchstores showdigit charisupper charislower charat setchar insertchar delchar
-syn keyword	athCommand	strtoupper strtolower substr explode implode makerune checkdragon setdragon ismounting
-syn keyword	athCommand	setmounting sprintf sscanf strpos replacestr countstr getstatus getgroupid
-syn keyword	athCommand	instance_check_party getargcount is_function freeloop get_revision checkwug hommutate
-syn keyword	athCommand	bindatcmd unbindatcmd useatcmd checkre repairall getrandgroupitem checkweight2 getcharip
+syn keyword	athCommand	checkidle openmail openauction homshuffle setcell md5 autobonus autobonus2 autobonus3
+syn keyword	athCommand	cooking getmobdrops getmapflag ascii setiteminfo checkcell setwall delwall
+syn keyword	athCommand	mercenary_create mercenary_heal mercenary_sc_start mercenary_get_calls
+syn keyword	athCommand	mercenary_get_faith mercenary_set_calls mercenary_set_faith readbook setfont
+syn keyword	athCommand	areamobuseskill progressbar agitstart2 agitend2 agitcheck2 waitingroom2bg
+syn keyword	athCommand	waitingroom2bg_single bg_team_setxy bg_warp bg_monster bg_monster_set_team bg_leave
+syn keyword	athCommand	bg_destroy areapercentheal bg_get_data bg_getareausers bg_updatescore instance_create
+syn keyword	athCommand	instance_destroy instance_attachmap instance_detachmap instance_attach instance_id
+syn keyword	athCommand	instance_set_timeout instance_init instance_announce instance_npcname has_instance
+syn keyword	athCommand	instance_warpall setquest erasequest completequest checkquest changequest charrename
+syn keyword	athCommand	searchitem showevent playbgm playbgmall masteropenstorage expmission globalexpmission
+syn keyword	athCommand	mapswarmmission pushpc buyingstore searchstores showdigit charisupper charislower charat
+syn keyword	athCommand	setchar insertchar delchar strtoupper strtolower substr explode implode makerune
+syn keyword	athCommand	checkdragon setdragon ismounting setmounting sprintf sscanf strpos replacestr countstr
+syn keyword	athCommand	getstatus getgroupid instance_check_party getargcount is_function freeloop get_revision
+syn keyword	athCommand	checkwug hommutate bindatcmd unbindatcmd useatcmd checkre repairall getrandgroupitem
+syn keyword	athCommand	checkweight2 getcharip cleanmap cleanarea npcskill consumeitem delequip sit stand
+syn keyword	athCommand	morhpembryo checkhomcall
 
 syn region	athPreCondit	start="^\s*\(npc\|delnpc\)\>" skip="\\$" end="$" end="//"me=s-1 contains=athIncluded,athComment,athString,athCharacter,athParenError,athNumbers,athCommentError,athSpaceError
 syn region	athIncluded	display contained start=+"+ skip=+\\\\\|\\"+ end=+"+
@@ -864,5 +872,5 @@ hi def link athTodo		Todo
 
 let b:current_syntax = "ath"
 
-" vim: ts=8
+" vim: ts=8 tw=120
 
