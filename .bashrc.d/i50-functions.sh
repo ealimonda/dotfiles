@@ -38,6 +38,8 @@ if [ "$UNAME" == "Darwin" ]; then
 	function grimreapws {
 		killall wine
 		killall quartz-wm
+		rm -rf /private/tmp/Wineskin
+		rm -rf /private/tmp/.wine-*
 	}
 fi
 

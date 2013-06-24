@@ -12,6 +12,11 @@ export LANG='en_US.UTF-8'
 export EDITOR=vim
 # Append ~/bin to $PATH
 export PATH="$PATH:$HOME/bin"
+# Make various commands a bit more colorful
+export GREP_OPTIONS='--color=auto'
+export LESS="-RM"
+#R:Raw color codes in output (don't remove color codes);
+#M:Long prompts ("Line X of Y")
 
 ## OS X Only
 if [ "$(uname)" == "Darwin" ]; then
