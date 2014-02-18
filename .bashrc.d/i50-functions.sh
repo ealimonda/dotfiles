@@ -89,6 +89,17 @@ if ! type treedir >/dev/null 2>&1; then
 	}
 fi
 
+if ! type truncate >/dev/null 2>&1; then
+	function truncate {
+		if [ -f "$1" ]; then
+			dd if=/dev/null of="$1" >/dev/null 2>&1 || return 1
+			return
+		fi
+		echo "File not found"
+		return 1
+	}
+fi
+
 # rsync over ssh with restore options.  And caffeinated in case we're on a Mac we don't want to sleep dorung the process
 function safersync {
 	if [ -z "$1" -o -z "$2" ]; then
@@ -96,9 +107,9 @@ function safersync {
 		return 1
 	fi
 	if ! type caffeinate >/dev/null 2>&1; then
-		rsync -avP --progress -e ssh "$1" "$2"
+		rsync -avzP --progress -e ssh "$1" "$2"
 	else
-		caffeinate -s rsync -avP --progress -e ssh "$1" "$2"
+		caffeinate -s rsync -avzP --progress -e ssh "$1" "$2"
 	fi
 }
 

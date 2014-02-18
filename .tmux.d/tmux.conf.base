@@ -44,7 +44,7 @@ unbind Tab
 bind Tab last-window
 
 # \: Quit
-unbind \
+unbind "\"
 bind \ confirm-before "kill-server"
 
 # k: Kill window

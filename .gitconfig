@@ -25,7 +25,7 @@
 
 # SourceTree.app's default backup tool (Araxis Merge)
 [difftool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/araxiscompare-w.sh -2 \"$LOCAL\" \"$REMOTE\"
+	cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/araxisgitmerge-w.sh \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
@@ -54,3 +54,10 @@
 	vvimdiff = difftool -t vvim
 	mvimdiff = difftool -t mvim
 	vimdiff = difftool -t cvim
+	vim-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; vim `f`"
+	mvim-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; mvim `f`"
+
+[push]
+	default = upstream
+[rerere]
+	enabled = true
