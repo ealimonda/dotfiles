@@ -46,75 +46,145 @@ emi_scm_prompt() {
 }
 
 function prompt_setter() {
-# Save history
-#history -a
-#history -c
-#history -r
-if [ $? -ne 0 ]; then
-  local LASTSTATUS="$STATUSERR_CHAR"
-else
-  local LASTSTATUS="$STATUSOK_CHAR"
-fi
-# Prepend some useful info to the $PS1
-local PREPS1
-# If we're inside ranger (and how many levels)
-[ -n "$RANGER_LEVEL" ] && PREPS1="${bold_yellow}R${RANGER_LEVEL}${normal}|"
-# If we're inside a vcsh (and which repository it belongs to)
-[ -n "$VCSH_REPO_NAME" ] && PREPS1="${bold_yellow}(${VCSH_REPO_NAME})${normal}|"
-# vim shell
-[ -n "$VIMRUNTIME" ] && PREPS1="${yellow}v${normal}|"
-#[ -n "$PREPS1" ] && PREPS1="$PREPS1 "
+  # Save history
+  #history -a
+  #history -c
+  #history -r
+  if [ $? -ne 0 ]; then
+    local LASTSTATUS="$STATUSERR_CHAR"
+  else
+    local LASTSTATUS="$STATUSOK_CHAR"
+  fi
+  # Prepend some useful info to the $PS1
+  local PREPS1
+  # If we're inside ranger (and how many levels)
+  [ -n "$RANGER_LEVEL" ] && PREPS1="${bold_yellow}R${RANGER_LEVEL}${normal}|"
+  # If we're inside a vcsh (and which repository it belongs to)
+  [ -n "$VCSH_REPO_NAME" ] && PREPS1="${bold_yellow}(${VCSH_REPO_NAME})${normal}|"
+  # vim shell
+  [ -n "$VIMRUNTIME" ] && PREPS1="${yellow}v${normal}|"
+  #[ -n "$PREPS1" ] && PREPS1="$PREPS1 "
 
-#PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)$(battery_charge)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
-PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
+  #PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)$(battery_charge)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
+  PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
 }
 
 PROMPT_COMMAND=prompt_setter
 
 git_prompt_status() {
-  local git_status_output
-  git_status_output=$(git status 2> /dev/null )
-  if [ -n "$(echo $git_status_output | grep 'Changes not staged')" ]; then
-    git_status="${bold_red}$(scm_prompt_info) ${SCM_DIRTY_CHAR}"
-  elif [ -n "$(echo $git_status_output | grep 'Changes to be committed')" ]; then
-    git_status="${bold_yellow}$(scm_prompt_info) ^"
-  elif [ -n "$(echo $git_status_output | grep 'Untracked files')" ]; then
-    git_status="${bold_cyan}$(scm_prompt_info) +"
-  elif [ -n "$(echo $git_status_output | grep 'nothing to commit')" ]; then
-    git_status="${bold_green}$(scm_prompt_info) ${green}${SCM_CLEAN_CHAR}"
-  else
-    git_status="$(scm_prompt_info)"
+  SCM_GIT_AHEAD=''
+  SCM_GIT_BEHIND=''
+  SCM_GIT_STASH=''
+  local git_status_output=$(git status -bs --porcelain 2> /dev/null )
+  local git_status_branch=$(grep ^# <<< "${git_status_output}")
+  local git_color=''
+  local git_char=''
+  git_status_output=$(grep -v ^# <<< "${git_status_output}")
+  if [[ $(grep '^.[MADRCU]' <<< "${git_status_output}") ]]; then # Unstaged
+    git_color="${bold_red}"
+    git_char=" ${red}${SCM_DIRTY_CHAR}${normal}"
+  elif [[ $(grep '^[MADRCU] ' <<< "${git_status_output}") ]]; then # uncommitted
+    git_color="${bold_yellow}"
+    git_char=" ${yellow}^${normal}"
+  elif [[ $(grep '^\?\?' <<< "${git_status_output}") ]]; then # untracked
+    git_color="${bold_cyan}"
+    git_char=" ${cyan}+${normal}"
+  elif [[ ! $(grep '^.' <<< "${git_status_output}") ]]; then # nothing to commit
+    git_color="${bold_green}"
+    git_char=" ${green}${SCM_CLEAN_CHAR}${normal}"
   fi
-  echo "$git_status${normal}"
+
+  local ahead_re='.+ahead ([0-9]+).+'
+  local behind_re='.+behind ([0-9]+).+'
+  [[ "${git_status_branch}" =~ ${ahead_re} ]] && SCM_GIT_AHEAD="|${yellow}a:${SCM_GIT_AHEAD_CHAR}${BASH_REMATCH[1]}${normal}"
+  [[ "${git_status_branch}" =~ ${behind_re} ]] && SCM_GIT_BEHIND="|${green}b:${SCM_GIT_BEHIND_CHAR}${BASH_REMATCH[1]}${normal}"
+  local stash_count="$(git stash list | wc -l | tr -d ' ')"
+  [[ "${stash_count}" -gt 0 ]] && SCM_GIT_STASH=" {${stash_count}}"
+  echo "${git_color}$(scm_prompt_info)${normal}${SCM_GIT_AHEAD}${SCM_GIT_BEHIND}${SCM_GIT_STASH}${git_char}"
 }
 
 function svn_prompt_info {
-svn_prompt_vars
-echo -e "$SCM_PREFIX$SCM_BRANCH$SCM_CHANGE$SCM_STATE$SCM_SUFFIX"
+  svn_prompt_vars
+  echo -e "$SCM_PREFIX$SCM_BRANCH$SCM_CHANGE$SCM_STATE$SCM_SUFFIX"
 }
 
 function svn_prompt_vars {
-if [[ -n $(svn status 2> /dev/null) ]]; then
-  SCM_DIRTY=1
-  SCM_STATE=${SVN_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
-else
-  SCM_DIRTY=0
-  SCM_STATE=${SVN_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
-fi
-SCM_PREFIX=${SVN_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
-SCM_SUFFIX=${SVN_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
-SCM_BRANCH=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
-SCM_CHANGE=$(svn info 2> /dev/null | sed -ne 's#^Revision: #@#p' )
+  if [[ -n $(svn status 2> /dev/null) ]]; then
+    SCM_DIRTY=1
+    SCM_STATE=${SVN_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
+  else
+    SCM_DIRTY=0
+    SCM_STATE=${SVN_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
+  fi
+  SCM_PREFIX=${SVN_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
+  SCM_SUFFIX=${SVN_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
+  SCM_BRANCH=$(svn info 2> /dev/null | awk -F/ '/^URL:/ { for (i=0; i<=NF; i++) { if ($i == "branches" || $i == "tags" ) { print $(i+1); break }; if ($i == "trunk") { print $i; break } } }') || return
+  SCM_CHANGE=$(svn info 2> /dev/null | sed -ne 's#^Revision: #@#p' )
 }
 
 function git_prompt_vars { 
-SCM_DIRTY=0;
-SCM_STATE=''
-SCM_PREFIX=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX};
-SCM_SUFFIX=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX};
-local ref=$(git symbolic-ref HEAD 2> /dev/null);
-SCM_BRANCH=${ref#refs/heads/};
-SCM_CHANGE=$(git rev-parse HEAD 2>/dev/null)
+  SCM_DIRTY=0;
+  SCM_STATE=''
+  SCM_PREFIX=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX};
+  SCM_SUFFIX=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX};
+  #SCM_CHANGE=$(git rev-parse HEAD 2>/dev/null)
+  local g="$(git rev-parse --git-dir)"
+  if [ -n "$g" ]; then
+    local b=''
+    local operation=''
+    local step=''
+    local total=''
+    if [ -d "$g/rebase-merge" ]; then
+      local ref="$(cat "$g/rebase-merge/head-name")"
+      SCM_BRANCH=${ref#refs/heads/};
+      step=$(cat "$g/rebase-merge/msgnum")
+      total=$(cat "$g/rebase-merge/end")
+      if [ -f "$g/rebase-merge/interactive" ]; then
+        operation="REBASE-i"
+      else
+        operation="REBASE-m"
+      fi
+    else
+      local ref=$(git symbolic-ref HEAD 2> /dev/null);
+      SCM_BRANCH=${ref#refs/heads/};
+      if [ -d "$g/rebase-apply" ]; then
+        step=$(cat "$g/rebase-apply/next")
+        total=$(cat "$g/rebase-apply/last")
+        if [ -f "$g/rebase-apply/rebasing" ]; then
+          operation="REBASE"
+        elif [ -f "$g/rebase-apply/applying" ]; then
+          operation="AM"
+        else
+          operation="AM/REBASE"
+        fi
+      elif [ -f "$g/MERGE_HEAD" ]; then
+        operation="MERGE"
+      elif [ -f "$g/CHERRY_PICK_HEAD" ]; then
+        operation="CHERRY-PICK"
+      elif [ -f "$g/REVERT_HEAD" ]; then
+        operation="REVERT"
+      elif [ -f "$g/BISECT_LOG" ]; then
+        operation="BISECT"
+      fi
+      if [ -z "$SCM_BRANCH" ]; then
+        #SCM_BRANCH="$(git describe --contains HEAD)" || SCM_BRANCH="$(cut -c1-7 "$g/HEAD" 2>/dev/null)..." || SCM_BRANCH="unknown"
+        #SCM_BRANCH="$(git describe --contains --all HEAD)" || SCM_BRANCH="$(cut -c1-7 "$g/HEAD" 2>/dev/null)..." || SCM_BRANCH="unknown"
+        #SCM_BRANCH="$(git describe HEAD)" || SCM_BRANCH="$(cut -c1-7 "$g/HEAD" 2>/dev/null)..." || SCM_BRANCH="unknown"
+        SCM_BRANCH="$(git describe --tags --exact-match HEAD 2>/dev/null)" || SCM_BRANCH="$(cut -c1-7 "$g/HEAD" 2>/dev/null)..." || SCM_BRANCH="unknown"
+        SCM_BRANCH="($SCM_BRANCH)"
+      fi
+    fi
+    if [ -n "$step" ] && [ -n "$total" ]; then
+      operation="${operation}[${step}/${total}]"
+    fi
+    if [ -n "$operation" ]; then
+      SCM_BRANCH="${operation}:${SCM_BRANCH}"
+    fi
+  else
+    local ref=$(git symbolic-ref HEAD 2> /dev/null);
+    SCM_BRANCH=${ref#refs/heads/};
+  fi
+
 }
 
 # vim: set ts=2 sw=2 et: #

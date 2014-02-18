@@ -8,7 +8,7 @@ Includes autocompletion, themes, aliases, custom functions, a few stolen pieces 
 
 ## Install
 
-1. Check a clone of this repo: `git clone http://github.com/revans/bash-it.git ~/.bash_it`
+1. Check a clone of this repo: `git clone https://github.com/revans/bash-it.git ~/.bash_it`
 2. Run `~/.bash_it/install.sh` (it automatically backs up your `~/.bash_profile`)
 3. Edit your `~/.bash_profile` file in order to customize bash-it.
 
@@ -41,6 +41,8 @@ Anything in the custom directory will be ignored, with the exception of `custom/
 ## Themes
 
 There are a few bash it themes.  If you've created your own custom prompts, I'd love it if you shared with everyone else!  Just submit a Pull Request to me (revans).
+
+You can see the theme screenshots  [here](https://github.com/revans/bash-it/tree/master/theme-screenshots)
 
 ## Help out
 
