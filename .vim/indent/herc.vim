@@ -1,7 +1,7 @@
 " Vim indent file
-" Language:    Athena Script
+" Language:    Hercules/*Athena Script
 " Maintainer:  Haru <haru@dotalux.com>
-" Last Change: 2013-12-18
+" Last Change: 2013-12-11
 
 
 " Only load this indent file when no other was loaded.

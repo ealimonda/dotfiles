@@ -31,7 +31,7 @@ hi VertSplit      term=reverse ctermfg=8 ctermbg=232 gui=bold guifg=#7f7f7f guib
 hi Title          ctermfg=209 guifg=#ff875f
 hi Visual         term=reverse ctermfg=255 ctermbg=95 guifg=#eeeeee guibg=#875f5f
 hi VisualNOS      ctermfg=255 ctermbg=95 guifg=#eeeeee guibg=#875f5f
-hi WarningMsg     term=standout ctermfg=15 ctermbg=236 gui=bold guifg=#ffffff guibg=#303030
+hi WarningMsg     term=standout ctermfg=15 ctermbg=236 gui=bold guifg=#000000 guibg=#eeee33
 hi WildMenu       term=standout ctermfg=81 ctermbg=233 guifg=#5fd7ff guibg=#121212
 hi Folded         term=standout ctermfg=66 ctermbg=0 guifg=#465457 guibg=#000000
 hi FoldColumn     term=standout ctermfg=66 ctermbg=0 guifg=#465457 guibg=#000000
