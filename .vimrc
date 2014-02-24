@@ -134,40 +134,40 @@ command -bar Hexmode call ToggleHex()
 
 " helper function to toggle hex mode
 function ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
+	" hex mode should be considered a read-only operation
+	" save values for modified and read-only for restoration later,
+	" and clear the read-only flag for now
+	let l:modified=&mod
+	let l:oldreadonly=&readonly
+	let &readonly=0
+	let l:oldmodifiable=&modifiable
+	let &modifiable=1
+	if !exists("b:editHex") || !b:editHex
+		" save old options
+		let b:oldft=&ft
+		let b:oldbin=&bin
+		" set new options
+		setlocal binary " make sure it overrides any textwidth, etc.
+		let &ft="xxd"
+		" set status
+		let b:editHex=1
+		" switch to hex editor
+		%!xxd
+	else
+		" restore old options
+		let &ft=b:oldft
+		if !b:oldbin
+			setlocal nobinary
+		endif
+		" set status
+		let b:editHex=0
+		" return to normal editing
+		%!xxd -r
+	endif
+	" restore values for modified and read only state
+	let &mod=l:modified
+	let &readonly=l:oldreadonly
+	let &modifiable=l:oldmodifiable
 endfunction
 
 nmap <leader>h :Hexmode<CR>
@@ -192,37 +192,37 @@ nmap <leader>` :set list! list? <CR>
 
 " Print current function
 function WhatFunctionAreWeIn()
-  let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case", "switch", "do"]
-  let foundcontrol = 1
-  let position = ""
-  let pos=getpos(".")          " This saves the cursor position
-  let view=winsaveview()       " This saves the window view
-  while (foundcontrol)
-    let foundcontrol = 0
-    normal [{
-    call search('\S','bW')
-    let tempchar = getline(".")[col(".") - 1]
-    if (match(tempchar, ")") >=0 )
-      normal %
-      call search('\S','bW')
-    endif
-    let tempstring = getline(".")
-    for item in strList
-      if( match(tempstring,item) >= 0 )
-        let position = item . " - " . position
-        let foundcontrol = 1
-        break
-      endif
-    endfor
-    if(foundcontrol == 0)
-      call cursor(pos)
-      call winrestview(view)
-      return tempstring.position
-    endif
-  endwhile
-  call cursor(pos)
-  call winrestview(view)
-  return tempstring.position
+	let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case", "switch", "do"]
+	let foundcontrol = 1
+	let position = ""
+	let pos=getpos(".")    " This saves the cursor position
+	let view=winsaveview() " This saves the window view
+	while (foundcontrol)
+		let foundcontrol = 0
+		normal [{
+		call search('\S','bW')
+		let tempchar = getline(".")[col(".") - 1]
+		if (match(tempchar, ")") >=0 )
+			normal %
+			call search('\S','bW')
+		endif
+		let tempstring = getline(".")
+		for item in strList
+			if( match(tempstring,item) >= 0 )
+				let position = item . " - " . position
+				let foundcontrol = 1
+				break
+			endif
+		endfor
+		if(foundcontrol == 0)
+			call cursor(pos)
+			call winrestview(view)
+			return tempstring.position
+		endif
+	endwhile
+	call cursor(pos)
+	call winrestview(view)
+	return tempstring.position
 endfunction
 nmap <leader>f :let name = WhatFunctionAreWeIn()<CR> :echo name<CR>
 
@@ -238,7 +238,7 @@ nmap <leader>l :TagbarToggle<CR>
 "	\ ]
 "\ }
 let g:tagbar_type_markdown = {
-\ 'ctagstype' : 'markdown',
+	\ 'ctagstype' : 'markdown',
 	\ 'kinds' : [
 		\ 'h:Heading_L1',
 		\ 'i:Heading_L2',
@@ -277,38 +277,38 @@ let g:syntastic_cpp_auto_refresh_includes = 1
 
 command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
 function! s:Dec2hex(line1, line2, arg) range
-  if empty(a:arg)
-    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
-      let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
-    else
-      let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
-    endif
-    try
-      execute a:line1 . ',' . a:line2 . cmd
-    catch
-      echo 'Error: No decimal number found'
-    endtry
-  else
-    echo printf('%x', a:arg + 0)
-  endif
+	if empty(a:arg)
+		if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+			let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+		else
+			let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+		endif
+		try
+			execute a:line1 . ',' . a:line2 . cmd
+		catch
+			echo 'Error: No decimal number found'
+		endtry
+	else
+		echo printf('%x', a:arg + 0)
+	endif
 endfunction
 
 command! -nargs=? -range Hex2dec call s:Hex2dec(<line1>, <line2>, '<args>')
 function! s:Hex2dec(line1, line2, arg) range
-  if empty(a:arg)
-    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
-      let cmd = 's/\%V0x\x\+/\=submatch(0)+0/g'
-    else
-      let cmd = 's/0x\x\+/\=submatch(0)+0/g'
-    endif
-    try
-      execute a:line1 . ',' . a:line2 . cmd
-    catch
-      echo 'Error: No hex number starting "0x" found'
-    endtry
-  else
-    echo (a:arg =~? '^0x') ? a:arg + 0 : ('0x'.a:arg) + 0
-  endif
+	if empty(a:arg)
+		if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+			let cmd = 's/\%V0x\x\+/\=submatch(0)+0/g'
+		else
+			let cmd = 's/0x\x\+/\=submatch(0)+0/g'
+		endif
+		try
+			execute a:line1 . ',' . a:line2 . cmd
+		catch
+			echo 'Error: No hex number starting "0x" found'
+		endtry
+	else
+		echo (a:arg =~? '^0x') ? a:arg + 0 : ('0x'.a:arg) + 0
+	endif
 endfunction
 
 " Mojolicious
