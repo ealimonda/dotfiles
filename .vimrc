@@ -313,3 +313,39 @@ endfunction
 
 " Mojolicious
 let mojo_highlight_data = 1
+
+" vim-airline
+set laststatus=2
+set noshowmode
+let g:airline_mode_map = {
+	\ '__' : '----',
+	\ 'n'  : 'NORM',
+	\ 'i'  : 'INS ',
+	\ 'R'  : 'REPL',
+	\ 'c'  : 'CMD ',
+	\ 'v'  : 'VIS ',
+	\ 'V'  : 'V-LN',
+	\ '' : 'V-BL',
+	\ 's'  : 'SEL ',
+	\ 'S'  : 'S-LN',
+	\ '' : 'S-BL',
+\ }
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+" unicode symbols
+"let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline#extensions#whitespace#trailing_format = 'trail[%s]'
+let g:airline#extensions#whitespace#mixed_indent_format = 'mix-ind[%s]'
+let g:airline_theme='wombat'
