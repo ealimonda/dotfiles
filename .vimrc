@@ -354,3 +354,6 @@ let g:airline_theme='wombat'
 let g:Gitv_OpenPreviewOnLaunch = 1
 
 set lazyredraw
+
+" vim-signify
+let g:signify_vcs_list = [ 'git' ]
