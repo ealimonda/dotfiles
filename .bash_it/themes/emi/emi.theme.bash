@@ -8,6 +8,8 @@ if [ "$BASH_IT_SAFE_CHARSET" == "true" ]; then
   SCM_HG_CHAR="${bold_red}m${normal}"
   STATUSOK_CHAR="${green}*${normal}"
   STATUSERR_CHAR="${red}@${normal}"
+  SCM_GIT_BEHIND_CHAR="b:"
+  SCM_GIT_AHEAD_CHAR="a:"
 else
   SCM_CLEAN_CHAR="✓"
   SCM_DIRTY_CHAR="✗"
@@ -17,6 +19,8 @@ else
   SCM_HG_CHAR="${bold_red}☿${normal}"
   STATUSOK_CHAR="${green}•${normal}"
   STATUSERR_CHAR="${red}▪${normal}"
+  SCM_GIT_BEHIND_CHAR="↓"
+  SCM_GIT_AHEAD_CHAR="↑"
 fi
 SCM_THEME_PROMPT_CLEAN=" ${green}${SCM_CLEAN_CHAR}${normal}"
 SCM_THEME_PROMPT_DIRTY=" ${bold_red}${SCM_DIRTY_CHAR}${normal}"
@@ -56,13 +60,13 @@ function prompt_setter() {
     local LASTSTATUS="$STATUSOK_CHAR"
   fi
   # Prepend some useful info to the $PS1
-  local PREPS1
+  local PREPS1=''
   # If we're inside ranger (and how many levels)
-  [ -n "$RANGER_LEVEL" ] && PREPS1="${bold_yellow}R${RANGER_LEVEL}${normal}|"
+  [ -n "$RANGER_LEVEL" ] && PREPS1="${bold_yellow}R${RANGER_LEVEL}${normal}|$PREPS1"
   # If we're inside a vcsh (and which repository it belongs to)
-  [ -n "$VCSH_REPO_NAME" ] && PREPS1="${bold_yellow}(${VCSH_REPO_NAME})${normal}|"
+  [ -n "$VCSH_REPO_NAME" ] && PREPS1="${bold_yellow}(${VCSH_REPO_NAME})${normal}|$PREPS1"
   # vim shell
-  [ -n "$VIMRUNTIME" ] && PREPS1="${yellow}v${normal}|"
+  [ -n "$VIMRUNTIME" ] && PREPS1="${yellow}v${normal}|$PREPS1"
   #[ -n "$PREPS1" ] && PREPS1="$PREPS1 "
 
   #PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)$(battery_charge)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
@@ -96,8 +100,8 @@ git_prompt_status() {
 
   local ahead_re='.+ahead ([0-9]+).+'
   local behind_re='.+behind ([0-9]+).+'
-  [[ "${git_status_branch}" =~ ${ahead_re} ]] && SCM_GIT_AHEAD="|${yellow}a:${SCM_GIT_AHEAD_CHAR}${BASH_REMATCH[1]}${normal}"
-  [[ "${git_status_branch}" =~ ${behind_re} ]] && SCM_GIT_BEHIND="|${green}b:${SCM_GIT_BEHIND_CHAR}${BASH_REMATCH[1]}${normal}"
+  [[ "${git_status_branch}" =~ ${ahead_re} ]] && SCM_GIT_AHEAD="|${yellow}${SCM_GIT_AHEAD_CHAR}${BASH_REMATCH[1]}${normal}"
+  [[ "${git_status_branch}" =~ ${behind_re} ]] && SCM_GIT_BEHIND="|${green}${SCM_GIT_BEHIND_CHAR}${BASH_REMATCH[1]}${normal}"
   local stash_count="$(git stash list | wc -l | tr -d ' ')"
   [[ "${stash_count}" -gt 0 ]] && SCM_GIT_STASH=" {${stash_count}}"
   echo "${git_color}$(scm_prompt_info)${normal}${SCM_GIT_AHEAD}${SCM_GIT_BEHIND}${SCM_GIT_STASH}${git_char}"
