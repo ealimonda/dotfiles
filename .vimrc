@@ -349,3 +349,8 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#whitespace#trailing_format = 'trail[%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mix-ind[%s]'
 let g:airline_theme='wombat'
+
+" Gitv
+let g:Gitv_OpenPreviewOnLaunch = 1
+
+set lazyredraw
