@@ -56,6 +56,7 @@
 	vimdiff = difftool -t cvim
 	vim-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; vim `f`"
 	mvim-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; mvim `f`"
+	graph = log --graph --decorate --oneline
 
 [push]
 	default = upstream
