@@ -7,7 +7,7 @@
 "*******************************************************************************************************************
 
 " Import ~/.vim/bundle through Pathogen
-call pathogen#infect()
+execute pathogen#infect()
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -130,10 +130,10 @@ endif " has("autocmd")
 
 " Hex editor
 " ex command for toggling hex mode - define mapping if desired
-command -bar Hexmode call ToggleHex()
+command! -bar Hexmode call ToggleHex()
 
 " helper function to toggle hex mode
-function ToggleHex()
+function! ToggleHex()
 	" hex mode should be considered a read-only operation
 	" save values for modified and read-only for restoration later,
 	" and clear the read-only flag for now
@@ -191,7 +191,7 @@ set listchars=eol:¶,tab:\|_,trail:·,extends:>,precedes:<,nbsp:•
 nmap <leader>` :set list! list? <CR>
 
 " Print current function
-function WhatFunctionAreWeIn()
+function! WhatFunctionAreWeIn()
 	let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case", "switch", "do"]
 	let foundcontrol = 1
 	let position = ""
@@ -357,3 +357,6 @@ set lazyredraw
 
 " vim-signify
 let g:signify_vcs_list = [ 'git' ]
+
+" scratch
+nmap <leader>s :Scratch<CR>

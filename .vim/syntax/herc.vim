@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:    Hercules/*Athena Script
 " Maintainer:  Haru <haru@dotalux.com>
-" Last Change: 2014-01-13
+" Last Change: 2014-02-27
 
 
 " For version 5.x: Clear all syntax items
@@ -177,7 +177,6 @@ syn keyword hConstant EAJ_SORCERER_T EAJ_MINSTRELWANDERER_T EAJ_SURA_T EAJ_GENET
 syn keyword hConstant EAJ_SUPER_BABY_E EAJ_BABY_RUNE EAJ_BABY_WARLOCK EAJ_BABY_RANGER EAJ_BABY_BISHOP EAJ_BABY_MECHANIC
 syn keyword hConstant EAJ_BABY_CROSS EAJ_BABY_GUARD EAJ_BABY_SORCERER EAJ_BABY_MINSTRELWANDERER EAJ_BABY_SURA
 syn keyword hConstant EAJ_BABY_GENETIC EAJ_BABY_CHASER
-syn keyword hConstant Option_Wedding Option_Xmas Option_Summer Option_Wug Option_Wugrider
 syn keyword hConstant bc_all bc_map bc_area bc_self bc_pc bc_npc bc_yellow bc_blue bc_woe
 syn keyword hConstant mf_nomemo mf_noteleport mf_nosave mf_nobranch mf_nopenalty mf_nozenypenalty mf_pvp mf_pvp_noparty
 syn keyword hConstant mf_pvp_noguild mf_gvg mf_gvg_noparty mf_notrade mf_noskill mf_nowarp mf_partylock mf_noicewall
@@ -326,7 +325,7 @@ syn keyword hConstant SC_GRANITIC_ARMOR SC_MAGMA_FLOW SC_PYROCLASTIC SC_NEEDLE_O
 syn keyword hConstant SC_EXTREMITYFIST2 SC_RAID SC_DARKCROW SC_FULL_THROTTLE SC_REBOUND SC_UNLIMIT SC_KINGS_GRACE
 syn keyword hConstant SC_TELEKINESIS_INTENSE SC_OFFERTORIUM SC_FRIGG_SONG SC_ALL_RIDING SC_HANBOK SC_MONSTER_TRANSFORM
 syn keyword hConstant SC_ANGEL_PROTECT SC_ILLUSIONDOPING SC_MTF_ASPD SC_MTF_RANGEATK SC_MTF_MATK SC_MTF_MLEATKED
-syn keyword hConstant SC_MTF_CRIDAMAGE SC_MOONSTAR SC_SUPER_STAR SC_OKTOBERFEST
+syn keyword hConstant SC_MTF_CRIDAMAGE SC_MOONSTAR SC_SUPER_STAR SC_OKTOBERFEST SC_STRANGELIGHTS SC_DECORATION_OF_MUSIC
 syn keyword hConstant e_gasp e_what e_ho e_lv e_swt e_ic e_an e_ag e_cash e_dots e_scissors e_rock e_paper e_korea
 syn keyword hConstant e_lv2 e_thx e_wah e_sry e_heh e_swt2 e_hmm e_no1 e_no e_omg e_oh e_X e_hlp e_go e_sob e_gg e_kis
 syn keyword hConstant e_kis2 e_pif e_ok e_mute e_indonesia e_bzz e_rice e_awsm e_meh e_shy e_pat e_mp e_slur e_com
@@ -338,11 +337,6 @@ syn keyword hConstant PET_CLASS PET_NAME PET_LEVEL PET_HUNGRY PET_INTIMATE
 syn keyword hConstant MOB_NAME MOB_LV MOB_MAXHP MOB_BASEEXP MOB_JOBEXP MOB_ATK1 MOB_ATK2 MOB_DEF MOB_MDEF MOB_STR
 syn keyword hConstant MOB_AGI MOB_VIT MOB_INT MOB_DEX MOB_LUK MOB_RANGE MOB_RANGE2 MOB_RANGE3 MOB_SIZE MOB_RACE
 syn keyword hConstant MOB_ELEMENT MOB_MODE MOB_MVPEXP
-syn keyword hConstant AI_ACTION_TYPE AI_ACTION_TAR_TYPE AI_ACTION_TAR AI_ACTION_SRC AI_ACTION_TAR_TYPE_PC
-syn keyword hConstant AI_ACTION_TAR_TYPE_MOB AI_ACTION_TAR_TYPE_PET AI_ACTION_TAR_TYPE_HOMUN AI_ACTION_TAR_TYPE_ITEM
-syn keyword hConstant AI_ACTION_TYPE_NPCCLICK AI_ACTION_TYPE_ATTACK AI_ACTION_TYPE_DETECT AI_ACTION_TYPE_DEAD
-syn keyword hConstant AI_ACTION_TYPE_ASSIST AI_ACTION_TYPE_KILL AI_ACTION_TYPE_UNLOCK AI_ACTION_TYPE_WALKACK
-syn keyword hConstant AI_ACTION_TYPE_WARPACK
 syn keyword hConstant ALL_CLIENT ALL_SAMEMAP AREA
 syn keyword hConstant AREA_WOS AREA_WOC AREA_WOSC AREA_CHAT_WOC CHAT
 syn keyword hConstant CHAT_WOS PARTY
@@ -639,7 +633,14 @@ syn keyword hConstant IT_HEALING IT_USABLE IT_ETC IT_WEAPON IT_ARMOR IT_CARD IT_
 syn keyword hConstant IT_DELAYCONSUME IT_CASH
 syn keyword hConstant HQO_OnLogout HQO_OnDeath HQO_OnMapChange
 syn keyword hConstant IOT_NONE IOT_CHAR IOT_PARTY IOT_GUILD false true
-syn keyword hConstant NST_ZENY NST_CASH NST_MARKET NST_CUSTOM
+syn keyword hConstant NST_ZENY NST_CASH NST_MARKET NST_CUSTOM PACKETVER
+syn keyword hConstant MAX_LEVEL MAX_STORAGE MAX_GUILD_STORAGE MAX_CART MAX_INVENTORY MAX_ZENY MAX_BG_MEMBERS
+syn keyword hConstant MAX_CHAT_USERS
+syn keyword hConstant Option_Nothing Option_Sight Option_Hide Option_Cloak Option_Falcon Option_Riding Option_Invisible
+syn keyword hConstant Option_Orcish Option_Wedding Option_Chasewalk Option_Flying Option_Xmas Option_Transform
+syn keyword hConstant Option_Summer Option_Dragon1 Option_Wug Option_Wugrider Option_Madogear Option_Dragon2
+syn keyword hConstant Option_Dragon3 Option_Dragon4 Option_Dragon5 Option_Hanbok Option_Oktoberfest Option_Dragon
+syn keyword hConstant Option_Costume
 
 " Maps (imported from db/map_index.txt)
 syn match hMapName contained display "\%(alb_ship\|alb2trea\|alberta\|alberta_in\|alde_dun01\|alde_dun02\|alde_dun03\)"
@@ -941,16 +942,16 @@ syn keyword hSkillId GN_WALLOFTHORN GN_CRAZYWEED GN_CRAZYWEED_ATK GN_DEMONIC_FIR
 syn keyword hSkillId GN_FIRE_EXPANSION_SMOKE_POWDE GN_FIRE_EXPANSION_TEAR_GAS GN_FIRE_EXPANSION_ACID GN_HELLS_PLANT
 syn keyword hSkillId GN_HELLS_PLANT_ATK GN_MANDRAGORA GN_SLINGITEM GN_CHANGEMATERIAL GN_MIX_COOKING GN_MAKEBOMB
 syn keyword hSkillId GN_S_PHARMACY GN_SLINGITEM_RANGEMELEEATK AB_SECRAMENT WM_SEVERE_RAINSTORM_MELEE SR_HOWLINGOFLION
-syn keyword hSkillId SR_RIDEINLIGHTNING RETURN_TO_ELDICASTES ALL_BUYING_STORE ALL_GUARDIAN_RECALL ALL_ODINS_POWER
-syn keyword hSkillId KO_YAMIKUMO KO_RIGHT KO_LEFT KO_JYUMONJIKIRI KO_SETSUDAN KO_BAKURETSU KO_HAPPOKUNAI KO_MUCHANAGE
-syn keyword hSkillId KO_HUUMARANKA KO_MAKIBISHI KO_MEIKYOUSISUI KO_ZANZOU KO_KYOUGAKU KO_JYUSATSU KO_KAHU_ENTEN
-syn keyword hSkillId KO_HYOUHU_HUBUKI KO_KAZEHU_SEIRAN KO_DOHU_KOUKAI KO_KAIHOU KO_ZENKAI KO_GENWAKU KO_IZAYOI
-syn keyword hSkillId KG_KAGEHUMI KG_KYOMU KG_KAGEMUSYA OB_ZANGETSU OB_OBOROGENSOU OB_OBOROGENSOU_TRANSITION_ATK
-syn keyword hSkillId OB_AKAITSUKI ECL_SNOWFLIP ECL_PEONYMAMY ECL_SADAGUI ECL_SEQUOIADUST ECLAGE_RECALL GC_DARKCROW
-syn keyword hSkillId RA_UNLIMIT GN_ILLUSIONDOPING RK_DRAGONBREATH_WATER RK_LUXANIMA NC_MAGMA_ERUPTION WM_FRIGG_SONG
-syn keyword hSkillId SO_ELEMENTAL_SHIELD SR_FLASHCOMBO SC_ESCAPE AB_OFFERTORIUM WL_TELEKINESIS_INTENSE LG_KINGS_GRACE
-syn keyword hSkillId ALL_FULL_THROTTLE SR_FLASHCOMBO_ATK_STEP1 SR_FLASHCOMBO_ATK_STEP2 SR_FLASHCOMBO_ATK_STEP3
-syn keyword hSkillId SR_FLASHCOMBO_ATK_STEP4
+syn keyword hSkillId SR_RIDEINLIGHTNING LG_OVERBRAND_BRANDISH RETURN_TO_ELDICASTES ALL_BUYING_STORE ALL_GUARDIAN_RECALL
+syn keyword hSkillId ALL_ODINS_POWER KO_YAMIKUMO KO_RIGHT KO_LEFT KO_JYUMONJIKIRI KO_SETSUDAN KO_BAKURETSU
+syn keyword hSkillId KO_HAPPOKUNAI KO_MUCHANAGE KO_HUUMARANKA KO_MAKIBISHI KO_MEIKYOUSISUI KO_ZANZOU KO_KYOUGAKU
+syn keyword hSkillId KO_JYUSATSU KO_KAHU_ENTEN KO_HYOUHU_HUBUKI KO_KAZEHU_SEIRAN KO_DOHU_KOUKAI KO_KAIHOU KO_ZENKAI
+syn keyword hSkillId KO_GENWAKU KO_IZAYOI KG_KAGEHUMI KG_KYOMU KG_KAGEMUSYA OB_ZANGETSU OB_OBOROGENSOU
+syn keyword hSkillId OB_OBOROGENSOU_TRANSITION_ATK OB_AKAITSUKI ECL_SNOWFLIP ECL_PEONYMAMY ECL_SADAGUI ECL_SEQUOIADUST
+syn keyword hSkillId ECLAGE_RECALL GC_DARKCROW RA_UNLIMIT GN_ILLUSIONDOPING RK_DRAGONBREATH_WATER RK_LUXANIMA
+syn keyword hSkillId NC_MAGMA_ERUPTION WM_FRIGG_SONG SO_ELEMENTAL_SHIELD SR_FLASHCOMBO SC_ESCAPE AB_OFFERTORIUM
+syn keyword hSkillId WL_TELEKINESIS_INTENSE LG_KINGS_GRACE ALL_FULL_THROTTLE SR_FLASHCOMBO_ATK_STEP1
+syn keyword hSkillId SR_FLASHCOMBO_ATK_STEP2 SR_FLASHCOMBO_ATK_STEP3 SR_FLASHCOMBO_ATK_STEP4
 
 " Mobs (imported from db/*/mob_db.txt)
 syn keyword hMobId SCORPION PORING HORNET FARMILIAR FABRE PUPA CONDOR WILOW CHONCHON RODA_FROG WOLF SPORE ZOMBIE
@@ -2068,7 +2069,7 @@ syn keyword hCommand strtoupper strtolower charisupper charislower substr explod
 syn keyword hCommand replacestr countstr setnpcdisplay compare getiteminfo setiteminfo getequipcardid sqrt pow distance
 syn keyword hCommand md5 petstat callshop npcshopitem npcshopadditem npcshopdelitem npcshopattach equip autoequip
 syn keyword hCommand setbattleflag getbattleflag setitemscript disguise undisguise getmonsterinfo addmonsterdrop
-syn keyword hCommand delmonsterdrop axtoi query_sql query_logsql escape_sql atoi rid2name pcfollow pcstopfollow
+syn keyword hCommand delmonsterdrop axtoi query_sql query_logsql escape_sql atoi strtol rid2name pcfollow pcstopfollow
 syn keyword hCommand pcblockmove unitwalk unitkill unitwarp unitattack unitstop unittalk unitemote unitskilluseid
 syn keyword hCommand unitskillusepos getvariableofnpc warpportal homevolution hommutate morphembryo checkhomcall
 syn keyword hCommand homshuffle eaclass roclass checkvending checkchatting checkidle openmail openauction checkcell

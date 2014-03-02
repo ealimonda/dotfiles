@@ -1,7 +1,7 @@
 " Vim syntastic definition
 " Language:    Hercules/*Athena Script
 " Maintainer:  Haru <haru@dotalux.com>
-" Last Change: 2013-12-11
+" Last Change: 2014-02-27
 
 
 " It is possible to add additional compiler options to the syntax
