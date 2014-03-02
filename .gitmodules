@@ -49,3 +49,21 @@
 [submodule ".vim/bundle/vim-signify"]
 	path = .vim/bundle/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule ".vim/bundle/numbers.vim"]
+	path = .vim/bundle/numbers.vim
+	url = https://github.com/myusuf3/numbers.vim.git
+[submodule ".vim/bundle/scratch.vim"]
+	path = .vim/bundle/scratch.vim
+	url = https://github.com/mtth/scratch.vim
+[submodule ".vim/bundle/vim-localrc"]
+	path = .vim/bundle/vim-localrc
+	url = https://github.com/thinca/vim-localrc.git
+[submodule ".vim/sources/mojo.vim"]
+	path = .vim/sources/mojo.vim
+	url = https://github.com/yko/mojo.vim.git
+[submodule ".vim/sources/vim-hilinks"]
+	path = .vim/sources/vim-hilinks
+	url = https://github.com/kergoth/vim-hilinks.git
+[submodule ".vim/sources/vim-pathogen"]
+	path = .vim/sources/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
