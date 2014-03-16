@@ -6,39 +6,41 @@
 "*                   Public Domain                                                                                 *
 "*******************************************************************************************************************
 
+" Note: This file uses folding. If you don't know how to unfold, press zR or check :help folding.
+
+" Pathogen
+" {{{
 " Import ~/.vim/bundle through Pathogen
 execute pathogen#infect()
+" }}}
+
+" Base settings
+" {{{
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Allow modelines
 set modeline
 set modelines=5
 
-" allow backspacing over everything in insert mode
+" Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-if has("vms")
-	set nobackup		" do not keep a backup file, use versions instead
-else
-	set backup		" keep a backup file
-endif
+"if has("vms")
+"	set nobackup		" do not keep a backup file, use versions instead
+"else
+"	set backup		" keep a backup file
+"endif
+" Don't write annoying *~ files
+set nowritebackup " nowb
+set nobackup " nobk
+
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" This is an alternative that also works in block mode, but the deleted
-" text is lost and it only works for putting the current register.
-"vnoremap p "_dp
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -65,11 +67,28 @@ set number " nu
 " Disable search highlight
 set nohlsearch " nohls
 
-" Don't write annoying *~ files
-set nowritebackup " nowb
-set nobackup " nobk
+" Folding for c files
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
 
-" Various Mac-only settings
+" Tab-completion mode
+set wildmenu
+set wildmode=longest:full,list,full
+
+" prevent swapfiles in the current directory, since dropbox is broken
+set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
+
+" highlight whitespace in a meaningful way
+set listchars=eol:¶,tab:\|_,trail:·,extends:>,precedes:<,nbsp:•
+
+" Set max number of tabs to 50
+set tabpagemax=50
+
+" }}}
+
+" Various Mac-only settings (note: some of them would work on other platforms too)
+" {{{
 "if v:progname == "Vim"
 if has("gui_macvim")
 	set nowrap  " window word wrap
@@ -89,18 +108,10 @@ if has("gui_macvim")
 	set confirm " cf
 endif
 
-" Smart Home function http://vim.wikia.com/wiki/Smart_home
-function! SmartHome()
-	let s:col = col(".")
-	normal! ^
-	if s:col == col(".")
-		normal! 0
-	endif
-endfunction
-nnoremap <silent> <Home> :call SmartHome()<CR>
-inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
-" Smart Home Function end
+" }}}
 
+" Autocommands
+" {{{
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 	" Enable file type detection.
@@ -127,8 +138,41 @@ if has("autocmd")
 else
 	set autoindent		" always set autoindenting on
 endif " has("autocmd")
+" }}}
+
+" Mappings
+" {{{
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" This is an alternative that also works in block mode, but the deleted
+" text is lost and it only works for putting the current register.
+"vnoremap p "_dp
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+nmap <leader>q :bdelete<CR>
+
+" }}}
+
+" Smart Home function http://vim.wikia.com/wiki/Smart_home
+" {{{
+function! SmartHome()
+	let s:col = col(".")
+	normal! ^
+	if s:col == col(".")
+		normal! 0
+	endif
+endfunction
+nnoremap <silent> <Home> :call SmartHome()<CR>
+inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
+" Smart Home Function end
+" }}}
 
 " Hex editor
+" {{{
 " ex command for toggling hex mode - define mapping if desired
 command! -bar Hexmode call ToggleHex()
 
@@ -171,26 +215,10 @@ function! ToggleHex()
 endfunction
 
 nmap <leader>h :Hexmode<CR>
+" }}}
 
-" Folding for c files
-set foldmethod=syntax
-set foldnestmax=10
-set nofoldenable
-
-" Tab-completion mode
-set wildmenu
-set wildmode=longest:full,list,full
-
-" prevent swapfiles in the current directory, since dropbox is broken
-set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
-
-nmap <leader>q :bdelete<CR>
-
-" highlight whitespace in a meaningful way
-set listchars=eol:¶,tab:\|_,trail:·,extends:>,precedes:<,nbsp:•
-nmap <leader>` :set list! list? <CR>
-
-" Print current function
+" Print current function --- DEPRECATED in favor of vim-airline
+" {{{
 function! WhatFunctionAreWeIn()
 	let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case", "switch", "do"]
 	let foundcontrol = 1
@@ -225,8 +253,10 @@ function! WhatFunctionAreWeIn()
 	return tempstring.position
 endfunction
 nmap <leader>f :let name = WhatFunctionAreWeIn()<CR> :echo name<CR>
+" }}}
 
 " -- TAGBAR --
+" {{{
 " map C-L to toggle the tagbar list
 nmap <leader>l :TagbarToggle<CR>
 "let g:tagbar_type_css = {
@@ -245,14 +275,21 @@ let g:tagbar_type_markdown = {
 		\ 'k:Heading_L3'
 	\ ]
 \ }
+" }}}
+
 " -- UNDOTREE --
+" {{{
 nmap <leader>u :UndotreeToggle<CR>
+" }}}
 
 " -- BUFEXPLORER --
+" {{{
 let g:bufExplorerSortBy='fullpath' " Sort by full file path name.
 nmap <leader>t :BufExplorer<CR>
+" }}}
 
 " -- CLANG_COMPLETE --
+" {{{
 let g:clang_auto_select = 1
 let g:clang_snippets = 1
 let g:clang_trailing_placeholder = 1
@@ -260,9 +297,10 @@ let g:clang_close_preview = 1
 let g:clang_complete_macros = 1
 "let g:clang_use_library = 1
 imap <M-Tab> <C-X><C-U>
+" }}}
 
-set tabpagemax=50
-
+" -- SYNTASTIC --
+" {{{
 let g:syntastic_auto_loc_list = 1
 
 let g:syntastic_c_config_file = '.clang_complete'
@@ -274,7 +312,10 @@ let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_auto_refresh_includes = 1
 
+" }}}
 
+" hex2dec/dec2hex
+" {{{
 command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
 function! s:Dec2hex(line1, line2, arg) range
 	if empty(a:arg)
@@ -310,11 +351,15 @@ function! s:Hex2dec(line1, line2, arg) range
 		echo (a:arg =~? '^0x') ? a:arg + 0 : ('0x'.a:arg) + 0
 	endif
 endfunction
+" }}}
 
 " Mojolicious
+" {{{
 let mojo_highlight_data = 1
+" }}}
 
 " vim-airline
+" {{{
 set laststatus=2
 set noshowmode
 let g:airline_mode_map = {
@@ -349,14 +394,26 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#whitespace#trailing_format = 'trail[%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mix-ind[%s]'
 let g:airline_theme='wombat'
+" }}}
 
 " Gitv
+" {{{
 let g:Gitv_OpenPreviewOnLaunch = 1
 
 set lazyredraw
+" }}}
 
 " vim-signify
+" {{{
 let g:signify_vcs_list = [ 'git' ]
+" }}}
 
 " scratch
+" {{{
 nmap <leader>s :Scratch<CR>
+" }}}
+
+"nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+"nnoremap <silent> <leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
+
+" vim: set ft=vim foldmethod=marker foldenable :
