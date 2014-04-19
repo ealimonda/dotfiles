@@ -55,7 +55,10 @@ set-window-option -g automatic-rename off
 
 # And some hack to get a better window name than 'reattach-to-user-namespace'
 unbind c
-bind c new-window -n ...
+bind c new-window -c "#{pane_current_path}" -n ...
+unbind C
+bind C new-window -c . -n ...
+
 # }}}
 
 # vim: set ft=conf foldmethod=marker foldenable :

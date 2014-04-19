@@ -44,7 +44,7 @@ unbind Tab
 bind Tab last-window
 
 # \: Quit
-unbind "\"
+unbind \\
 bind \ confirm-before "kill-server"
 
 # k: Kill window
@@ -57,13 +57,18 @@ bind & delete-buffer
 
 # |,-: Split (left/right, top/bottom
 unbind |
-bind | split-window -h
+bind | split-window -c "#{pane_current_path}" -h
 unbind -
-bind - split-window -v
+bind - split-window -c "#{pane_current_path}" -v
 
 # ": Windowlist
 unbind '"'
 bind '"' choose-window
+
+# c: Create new window at the current path
+bind C new-window -c "#{pane_current_path}"
+# C: Create new window disregarding current path
+bind C new-window -c ~
 
 # Some vim-like bindings
 # P: Paste
@@ -90,7 +95,7 @@ set-option -g bell-action any
 set-option -g visual-bell off
 # Terminal emulator window title
 set-option -g set-titles on
-set-option -g set-titles-string '#H:#S.#I.#P #W #T' # Hostname:session.window.pane WindowName Title
+set-option -g set-titles-string '#{host}:#{session_name}.#{window_index}.#{pane_index} #{window_name} #{pane_title}' # Hostname:session.window.pane WindowName Title
 # Vi-style
 set-option -g status-keys vi
 setw -g mode-keys vi
@@ -109,27 +114,19 @@ set-option -g status-interval 15
 set-option -g status-left-length 40
 set-option -g status-right-length 40
 # Colors
-set-option -g status-bg black
-set-option -g status-fg white
-set-option -g pane-active-border-fg green
-set-option -g pane-active-border-bg black
-set-option -g pane-border-fg white
-set-option -g pane-border-bg black
-set-option -g message-fg black
-set-option -g message-bg yellow
-setw -g window-status-bg black
-setw -g window-status-current-fg green
-#setw -g window-status-alert-attr default
-#setw -g window-status-alert-fg yellow
-setw -g window-status-bell-attr default
-setw -g window-status-bell-fg red
-setw -g window-status-content-attr default
-setw -g window-status-content-fg cyan
-setw -g window-status-activity-attr default
-setw -g window-status-activity-fg yellow
+set-option -g status-style bg=black,fg=white
+set-option -g pane-active-border-style fg=green,bg=black
+set-option -g pane-border-style fg=white,bg=black
+set-option -g message-style fg=black,bg=yellow
+setw -g window-status-style bg=black
+setw -g window-status-current-style fg=green
+#setw -g window-status-alert-style fg=yellow
+setw -g window-status-bell-style fg=red
+setw -g window-status-content-style fg=cyan
+setw -g window-status-activity-style fg=yellow
 
 # Strings to display
-set -g status-left '#[fg=red]#(hostname -s)#[fg=green]:#[fg=white]#S#[fg=green]][#[default]'
+set -g status-left '#[fg=red]#(hostname -s)#[fg=green]:#[fg=white]#{session_name}#[fg=green]][#[default]'
 set -g status-right '#[fg=green]][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[fg=green]][#[fg=white]#(cat /proc/loadavg |cut -d" " -f1,2,3,4)#[default]'
 # }}}
 

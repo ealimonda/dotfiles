@@ -34,7 +34,7 @@ unbind F1
 ### Statusbar
 # {{{
 # hostname -s is broken on s1, better to use hostname
-set -g status-left '#[fg=red]#(hostname)#[fg=green]:#[fg=white]#S#[fg=green]][#[default]'
+set -g status-left '#[fg=red]#(hostname)#[fg=green]:#[fg=white]#{session_name}#[fg=green]][#[default]'
 # }}}
 
 ### Extra settings and bindings
