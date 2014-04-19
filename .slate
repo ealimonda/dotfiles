@@ -237,13 +237,17 @@ alias mon-mbp 1280x800
 alias mon-benq 1280x1024
 alias mon-imac 2560x1440
 alias mon-proj 1024x768
+alias mon-dell 1920x1200
 
 ### Position Aliases
 ## Some fixed screen/position settings I often use
-alias pos-mbp-full            move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-mbp}
-alias pos-benq-full           move screenOriginX;screenOriginY                              screenSizeX;screenSizeY   ${mon-benq}
-alias pos-benqleft-itunesmini move screenOriginX+880;screenOriginY                          400;800                   ${mon-benq}
-alias pos-mbp-itunesmini      move screenOriginX;screenOriginY                              310;640                   ${mon-mbp}
+alias pos-mbp-full            move screenOriginX;screenOriginY                              screenSizeX;screenSizeY     ${mon-mbp}
+alias pos-benq-full           move screenOriginX;screenOriginY                              screenSizeX;screenSizeY     ${mon-benq}
+alias pos-benqleft-itunesmini move screenOriginX+880;screenOriginY                          400;800                     ${mon-benq}
+alias pos-dell-full           move screenOriginX;screenOriginY                              screenSizeX;screenSizeY     ${mon-dell}
+alias pos-dell-twothirds      move screenOriginX+screenSizeX/3-1;screenOriginY              screenSizeX/3*2;screenSizeY ${mon-dell}
+alias pos-dellleft-itunesmini move screenOriginX;screenOriginY                              400;800                     ${mon-dell}
+alias pos-mbp-itunesmini      move screenOriginX;screenOriginY                              310;640                     ${mon-mbp}
 
 ## Generic positions (1/2)
 alias pos-left                move screenOriginX;screenOriginY                              screenSizeX/2;screenSizeY
@@ -276,20 +280,26 @@ layout 1-mbp 'iTunes':TITLE_ORDER='MiniPlayer' ${pos-mbp-itunesmini}
 layout 2-benqleft 'iTerm':REPEAT ${pos-mbp-full}
 layout 2-benqleft 'iTunes':TITLE_ORDER='MiniPlayer' ${pos-benqleft-itunesmini}
 layout 2-benqleft 'Nightly':IGNORE_FAIL ${pos-benq-full}
+layout 3-dellleft 'iTerm':REPEAT ${pos-mbp-full}
+layout 3-dellleft 'iTunes':TITLE_ORDER='MiniPlayer' ${pos-dellleft-itunesmini}
+layout 3-dellleft 'Nightly':IGNORE_FAIL ${pos-dell-twothirds}
 
 ## Default layouts
 default 1-mbp resolutions:${mon-mbp}
 default 2-benqleft resolutions:${mon-benq};${mon-mbp}
 default 2-benqright resolutions:${mon-mbp};${mon-benq}
+default 3-dellleft resolutions:${mon-dell};${mon-mbp}
 
 ### Key bindings
 ## Trow windows to screens [by screen name]
 bind f1:f1,shift throw ${mon-benq}
-bind f2:f1,shift throw ${mon-mbp}
-bind f3:f1,shift throw ${mon-imac}
+bind f2:f1,shift throw ${mon-dell}
+bind f3:f1,shift throw ${mon-mbp}
+bind f4:f1,shift throw ${mon-imac}
 bind f5:f1,shift throw ${mon-benq} resize
-bind f6:f1,shift throw ${mon-mbp} resize
-bind f7:f1,shift throw ${mon-imac} resize
+bind f6:f1,shift throw ${mon-dell} resize
+bind f7:f1,shift throw ${mon-mbp} resize
+bind f8:f1,shift throw ${mon-imac} resize
 
 ## Move windows around [current screen]
 # 1/3 vertical
@@ -351,14 +361,14 @@ bind `:f1,shift grid padding:5 ${mon-mbp}:6,3 ${mon-benq}:6,4
 ##`##(reset vim highlighting)
 
 # Direct switching to apps
-bind 1:f2,shift focus 'iTerm'
-bind 2:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt skuld'
-bind 3:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt serenity'
-bind 4:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt s1'
-bind 5:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt s2'
-bind 6:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt oberon'
-bind 7:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt ks21'
-bind 8:f2,shift focus 'MacVim'
+bind 1:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt skuld'
+bind 2:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt donnerschlag'
+bind 3:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt wirbelwind'
+bind 4:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt s4'
+bind 5:f2,shift focus 'iTerm'
+bind 6:f2,shift focus 'MacVim'
+bind 7:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt oberon'
+bind 8:f2,shift sequence focus 'iTerm' | shell path:~/Library/Scripts/Applications/iTerm '/usr/bin/osascript TermSwitcher.scpt ks21'
 bind 9:f2,shift focus 'Nightly'
 bind 0:f2,shift focus 'iTunes'
 
