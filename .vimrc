@@ -77,7 +77,11 @@ set wildmenu
 set wildmode=longest:full,list,full
 
 " prevent swapfiles in the current directory, since dropbox is broken
-set directory=~/Library/Caches/org.vim.MacVim//,.,/var/tmp//,/tmp//
+if has("mac")
+	set directory=~/Library/Caches/org.vim.MacVim//,/var/tmp//,/tmp//,.
+else
+	set directory=/var/tmp//,/tmp//,.
+endif
 
 " highlight whitespace in a meaningful way
 set listchars=eol:¶,tab:\|_,trail:·,extends:>,precedes:<,nbsp:•
@@ -91,10 +95,12 @@ set tabpagemax=50
 " {{{
 "if v:progname == "Vim"
 if has("gui_macvim")
-	set nowrap  " window word wrap
-	"set mousem=popup_setpos " mousemodel
 	" A nice font
 	set gfn=Monaco:h11
+endif
+if has("gui_running")
+	set nowrap  " window word wrap
+	"set mousem=popup_setpos " mousemodel
 	" Ring the bell on error
 	set eb " errorbell
 	set sel=inclusive "selection mode
@@ -342,13 +348,16 @@ nmap <leader>t :BufExplorer<CR>
 
 " -- CLANG_COMPLETE --
 " {{{
-let g:clang_auto_select = 1
-let g:clang_snippets = 1
-let g:clang_trailing_placeholder = 1
-let g:clang_close_preview = 1
-let g:clang_complete_macros = 1
+"let g:clang_auto_select = 1
+"let g:clang_snippets = 1
+"let g:clang_trailing_placeholder = 1
+"let g:clang_close_preview = 1
+"let g:clang_complete_macros = 1
 "let g:clang_use_library = 1
-imap <M-Tab> <C-X><C-U>
+"if has("mac")
+	"let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+"endif
+"imap <M-Tab> <C-X><C-U>
 " }}}
 
 " -- SYNTASTIC --
@@ -363,6 +372,8 @@ let g:syntastic_cpp_config_file = '.clang_complete'
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_auto_refresh_includes = 1
+let g:syntastic_java_javac_config_file_enabled = 1
+let g:syntastic_enable_perl_checker = 1
 
 " }}}
 
@@ -463,6 +474,33 @@ let g:signify_vcs_list = [ 'git' ]
 " scratch
 " {{{
 nmap <leader>s :Scratch<CR>
+" }}}
+
+" UltiSnips
+" {{{
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<c-z>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger="<None>"
+let g:UltiSnipsJumpForwardTrigger="<None>"
+let g:UltiSnipsJumpBackwardTrigger="<None>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" }}}
+
+" YouCompleteMe
+" {{{
+let g:ycm_key_invoke_completion="<M-Tab>"
+let g:ycm_always_populate_location_list=1
+nnoremap <C-F5> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <C-S> :YcmDiag<CR>
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_auto_start_csharp_server = 0
+let g:ycm_key_list_select_completion = ['<M-TAB>', '<Down>']
+let g:ycm_key_detailed_diagnostics = '<F5>'
+let g:ycm_confirm_extra_conf = 0
 " }}}
 
 "nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
