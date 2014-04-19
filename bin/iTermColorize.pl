@@ -7,12 +7,33 @@
 ##*                   Public Domain                                                                                 *
 ##*******************************************************************************************************************
 
+use strict;
+use Getopt::Long ();
+
+our %opts = {
+	verbose => 0,
+	tmuxoverride => 1,
+	preview => 0,
+};
+
 sub usage {
-	my ($name) = @_;
-	print "Colorize terminal tab based on the current host name.\n";
-	print "Usage: $name [0-1.0] [0-1.0] # Lightness and saturation values\n";
-	print "An iTerm 2 example (recolorize dark grey background and black text):\n";
-	print "  $name 0.7 0.4\n";
+	my $message = $_[0];
+	if (defined $message && length $message) {
+		$message .= "\n"
+		unless $message =~ /\n$/;
+	}
+
+	my $command = $0;
+	$command =~ s#^.*/##;
+
+	print STDERR (
+		$message,
+		"Usage: $command [0-1.0] [0-1.0] # Lightness and saturation values\n" .
+		"Colorize terminal tab based on the current host name.\n" .
+		"An iTerm 2 example (recolorize dark grey background and black text):\n" .
+		"  $command 0.7 0.4\n"
+	);
+	die("\n");
 }
 
 sub hashCode {
@@ -21,6 +42,7 @@ sub hashCode {
 	foreach(split //,shift) {
 		$hash = (127*abs($hash)+ord($_))%4194304;
 	}
+	print "Hash: $hash\n" if $opts{verbose} ge 3;
 	return $hash;
 }
 
@@ -38,7 +60,8 @@ sub decorate_terminal {
 
 	#:param color: tuple of (r, g, b)
 
-	my ($red, $green, $blue, $tmuxoverride) = @_;
+	my ($red, $green, $blue) = @_;
+	print "R:$red G:$green B:$blue\n" if $opts{verbose} ge 1;
 
 	# iTerm 2
 	# http://www.iterm2.com/#/section/documentation/escape_codes"
@@ -46,10 +69,10 @@ sub decorate_terminal {
 	#sys.stdout.write("\033]6;1;bg;green;brightness;%d\a" % int(g * 255))
 	#sys.stdout.write("\033]6;1;bg;blue;brightness;%d\a" % int(b * 255))
 	my ($prefix, $suffix);
-	($prefix, $suffix) = ("\033Ptmux;\033", "\033\\") if ($tmuxoverride and exists $ENV{TMUX});
-	print "$prefix\033]6;1;bg;red;brightness;${red}\a$suffix";
-	print "$prefix\033]6;1;bg;green;brightness;${green}\a$suffix";
-	print "$prefix\033]6;1;bg;blue;brightness;${blue}\a$suffix";
+	($prefix, $suffix) = ("\033Ptmux;\033", "\033\\") if ($opts{tmuxoverride} and exists $ENV{TMUX});
+	print "$prefix\033]6;1;bg;red;brightness;${red}\a$suffix" unless $opts{preview};
+	print "$prefix\033]6;1;bg;green;brightness;${green}\a$suffix" unless $opts{preview};
+	print "$prefix\033]6;1;bg;blue;brightness;${blue}\a$suffix" unless $opts{preview};
 
 	# Konsole
 	# TODO
@@ -64,15 +87,16 @@ sub rainbow_unicorn {
 
 	# http://games.adultswim.com/robot-unicorn-attack-twitchy-online-game.html
 
-	my ($lightness, $saturation, $tmuxoverride) = @_;
+	my ($lightness, $saturation) = @_;
 	my $name = `hostname -f`;
+	print "Name: $name\n" if $opts{verbose} ge 2;
 
 	my $hue = get_random_by_string($name);
 
 	my ($r, $g, $b) = hsv_to_rgb($hue, $saturation, $lightness);
 	#my ($r, $g, $b) = hsv_to_rgb(0.7,0.4,0.7);
 
-	decorate_terminal($r, $g, $b, $tmuxoverride);
+	decorate_terminal($r, $g, $b);
 }
 
 sub hsv_to_rgb {
@@ -101,19 +125,15 @@ sub hsv_to_rgb {
 	return ($v, $p, $q);
 }
 
-if ($#ARGV < 1) {
-	usage($0);
-	exit;
-}
+Getopt::Long::GetOptions(
+	'tmux!' => \$opts{tmuxoverride},
+	'v+' => \$opts{verbose},
+	'preview' => \$opts{preview},
+) or usage("Invalid commmand line options.");
 
-my $tmuxoverride = 1;
-
-if ($ARGV[0] eq "--notmux") {
-	shift;
-	$tmuxoverride = 0;
-}
+usage("Invalid command line options.") if $#ARGV < 1;
 
 my ($lightness, $saturation) = @ARGV;
 
-rainbow_unicorn($lightness, $saturation, $tmuxoverride)
+rainbow_unicorn($lightness, $saturation)
 
