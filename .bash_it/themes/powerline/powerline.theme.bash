@@ -13,6 +13,12 @@ SCM_NONE_CHAR=""
 SCM_GIT_CHAR=" "
 SCM_GIT_BEHIND_CHAR="↓"
 SCM_GIT_AHEAD_CHAR="↑"
+if [[ -z "$THEME_SCM_TAG_PREFIX" ]]; then
+    SCM_TAG_PREFIX="tag > "
+else
+    SCM_TAG_PREFIX="$THEME_SCM_TAG_PREFIX"
+fi
+
 SCM_THEME_PROMPT_CLEAN=""
 SCM_THEME_PROMPT_DIRTY=""
 SCM_THEME_PROMPT_COLOR=238
@@ -47,9 +53,16 @@ function powerline_shell_prompt {
 }
 
 function powerline_virtualenv_prompt {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        virtualenv=$(basename "$VIRTUAL_ENV")
-        VIRTUALENV_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${VIRTUALENV_THEME_PROMPT_COLOR})${THEME_PROMPT_SEPARATOR}${normal}$(set_rgb_color - ${VIRTUALENV_THEME_PROMPT_COLOR}) ${VIRTUALENV_CHAR}$virtualenv ${normal}"
+    local environ=""
+
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        environ="conda: $CONDA_DEFAULT_ENV"
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        environ=$(basename "$VIRTUAL_ENV")
+    fi
+
+    if [[ -n "$environ" ]]; then
+        VIRTUALENV_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${VIRTUALENV_THEME_PROMPT_COLOR})${THEME_PROMPT_SEPARATOR}${normal}$(set_rgb_color - ${VIRTUALENV_THEME_PROMPT_COLOR}) ${VIRTUALENV_CHAR}$environ ${normal}"
         LAST_THEME_COLOR=${VIRTUALENV_THEME_PROMPT_COLOR}
     else
         VIRTUALENV_PROMPT=""
@@ -75,7 +88,13 @@ function powerline_scm_prompt {
         else
             SCM_PROMPT="$(set_rgb_color ${SCM_THEME_PROMPT_CLEAN_COLOR} ${SCM_THEME_PROMPT_COLOR})"
         fi
-        [[ "${SCM_GIT_CHAR}" == "${SCM_CHAR}" ]] && SCM_PROMPT+=" ${SCM_CHAR}${SCM_BRANCH}${SCM_STATE}${SCM_GIT_BEHIND}${SCM_GIT_AHEAD}${SCM_GIT_STASH}"
+        if [[ "${SCM_GIT_CHAR}" == "${SCM_CHAR}" ]]; then
+            local tag=""
+            if [[ $SCM_IS_TAG -eq "1" ]]; then
+                tag=$SCM_TAG_PREFIX
+            fi
+            SCM_PROMPT+=" ${SCM_CHAR}${tag}${SCM_BRANCH}${SCM_STATE}${SCM_GIT_BEHIND}${SCM_GIT_AHEAD}${SCM_GIT_STASH}"
+        fi
         SCM_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${SCM_THEME_PROMPT_COLOR})${THEME_PROMPT_SEPARATOR}${normal}${SCM_PROMPT} ${normal}"
         LAST_THEME_COLOR=${SCM_THEME_PROMPT_COLOR}
     else

@@ -32,9 +32,9 @@ RBFU_THEME_PROMPT_SUFFIX='|'
 
 function scm {
   if [[ -f .git/HEAD ]]; then SCM=$SCM_GIT
-  elif [[ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]]; then SCM=$SCM_GIT
+  elif which git &> /dev/null && [[ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]]; then SCM=$SCM_GIT
   elif [[ -d .hg ]]; then SCM=$SCM_HG
-  elif [[ -n "$(hg root 2> /dev/null)" ]]; then SCM=$SCM_HG
+  elif which hg &> /dev/null && [[ -n "$(hg root 2> /dev/null)" ]]; then SCM=$SCM_HG
   elif [[ -d .svn ]]; then SCM=$SCM_SVN
   else SCM=$SCM_NONE
   fi
@@ -73,24 +73,39 @@ function git_prompt_vars {
   SCM_GIT_AHEAD=''
   SCM_GIT_BEHIND=''
   SCM_GIT_STASH=''
-  local status="$(git status -bs --porcelain 2> /dev/null)"
-  if [[ -n "$(grep -v ^# <<< "${status}")" ]]; then
-    SCM_DIRTY=1
-    SCM_STATE=${GIT_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
+  if [[ "$(git config --get bash-it.hide-status)" != "1" ]]; then
+    local status="$(git status -bs --porcelain 2> /dev/null)"
+    if [[ -n "$(grep -v ^# <<< "${status}")" ]]; then
+      SCM_DIRTY=1
+      SCM_STATE=${GIT_THEME_PROMPT_DIRTY:-$SCM_THEME_PROMPT_DIRTY}
+    else
+      SCM_DIRTY=0
+      SCM_STATE=${GIT_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
+    fi
   else
     SCM_DIRTY=0
     SCM_STATE=${GIT_THEME_PROMPT_CLEAN:-$SCM_THEME_PROMPT_CLEAN}
   fi
   SCM_PREFIX=${GIT_THEME_PROMPT_PREFIX:-$SCM_THEME_PROMPT_PREFIX}
   SCM_SUFFIX=${GIT_THEME_PROMPT_SUFFIX:-$SCM_THEME_PROMPT_SUFFIX}
-  local ref=$(git symbolic-ref HEAD 2> /dev/null)
-  SCM_BRANCH=${ref#refs/heads/}
+
+  local ref=$(git symbolic-ref -q --short HEAD 2> /dev/null)
+  if [[ -n "$ref" ]]; then
+    SCM_BRANCH=$ref
+    SCM_IS_BRANCH=1
+    SCM_IS_TAG=0
+  else
+    SCM_BRANCH=$(git describe --tags --exact-match 2> /dev/null)
+    SCM_IS_TAG=1
+    SCM_IS_BRANCH=0
+  fi
+  # SCM_BRANCH=$(git symbolic-ref -q --short HEAD || git describe --tags --exact-match 2> /dev/null)
   SCM_CHANGE=$(git rev-parse HEAD 2>/dev/null)
   local ahead_re='.+ahead ([0-9]+).+'
   local behind_re='.+behind ([0-9]+).+'
   [[ "${status}" =~ ${ahead_re} ]] && SCM_GIT_AHEAD=" ${SCM_GIT_AHEAD_CHAR}${BASH_REMATCH[1]}"
   [[ "${status}" =~ ${behind_re} ]] && SCM_GIT_BEHIND=" ${SCM_GIT_BEHIND_CHAR}${BASH_REMATCH[1]}"
-  local stash_count="$(git stash list | wc -l | tr -d ' ')"
+  local stash_count="$(git stash list 2> /dev/null | wc -l | tr -d ' ')"
   [[ "${stash_count}" -gt 0 ]] && SCM_GIT_STASH=" {${stash_count}}"
 }
 
