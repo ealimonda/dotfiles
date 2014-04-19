@@ -1,0 +1,1 @@
+../sources/kirikiri.vim/syntax/kirikiri.vim
