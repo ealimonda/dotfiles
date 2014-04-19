@@ -22,6 +22,7 @@ export LESS="-RM"
 if [ "$(uname)" == "Darwin" ]; then
 	# Append homebrew to the $PATH
 	export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+	export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages$( [ -n "$PYTHONPATH" ] && echo ":$PYTHONPATH" )"
 fi
 
 # vim: ts=4 sw=4
