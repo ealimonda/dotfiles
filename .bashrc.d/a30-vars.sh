@@ -10,8 +10,8 @@
 export LANG='en_US.UTF-8'
 # And a good editor
 export EDITOR=vim
-# Append ~/bin to $PATH
-export PATH="$PATH:$HOME/bin"
+# Prepend ~/bin to $PATH
+export PATH="$HOME/bin:$PATH"
 # Make various commands a bit more colorful
 export GREP_OPTIONS='--color=auto'
 export LESS="-RM"
