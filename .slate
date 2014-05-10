@@ -264,6 +264,10 @@ alias pos-onethirdleft        move screenOriginX;screenOriginY                  
 alias pos-onethirdcenter      move screenOriginX+screenSizeX/3;screenOriginY                screenSizeX/3;screenSizeY
 alias pos-onethirdright       move screenOriginX+2*screenSizeX/3;screenOriginY              screenSizeX/3;screenSizeY
 
+## Generic positions (2/3)
+alias pos-twothirdsleft       move screenOriginX;screenOriginY                              screenSizeX/3*2;screenSizeY
+alias pos-twothirdsright      move screenOriginX+screenSizeX/3;screenOriginY                screenSizeX/3*2;screenSizeY
+
 ## Generic positions (vertical expand/contract to 3/4)
 alias pos-verticalexpand      move windowTopLeftX;screenOriginY                             windowSizeX;screenSizeY
 alias pos-verticalcontract    move windowTopLeftX;screenOriginY+screenSizeY/8               windowSizeX;6*screenSizeY/8
@@ -309,6 +313,10 @@ bind pad/:f1,shift ${pos-onethirdright}
 bind r:f1,shift ${pos-onethirdleft}
 bind t:f1,shift ${pos-onethirdcenter}
 bind y:f1,shift ${pos-onethirdright}
+
+# 2/3 vertical
+bind v:f1,shift ${pos-twothirdsleft}
+bind b:f1,shift ${pos-twothirdsright}
 
 # Resize vertically
 bind pad-:f1,shift ${pos-verticalcontract}
