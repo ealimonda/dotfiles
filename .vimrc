@@ -479,10 +479,10 @@ nmap <leader>s :Scratch<CR>
 " UltiSnips
 " {{{
 " " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<S-Enter>"
 "let g:UltiSnipsJumpForwardTrigger="<tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsExpandTrigger="<None>"
+"let g:UltiSnipsExpandTrigger="<None>"
 let g:UltiSnipsJumpForwardTrigger="<None>"
 let g:UltiSnipsJumpBackwardTrigger="<None>"
 " If you want :UltiSnipsEdit to split your window.
@@ -491,16 +491,27 @@ let g:UltiSnipsEditSplit="vertical"
 
 " YouCompleteMe
 " {{{
-let g:ycm_key_invoke_completion="<M-Tab>"
+let g:ycm_key_invoke_completion="<C-Tab>"
 let g:ycm_always_populate_location_list=1
 nnoremap <C-F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <C-S> :YcmDiag<CR>
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_auto_start_csharp_server = 0
-let g:ycm_key_list_select_completion = ['<M-TAB>', '<Down>']
 let g:ycm_key_detailed_diagnostics = '<F5>'
 let g:ycm_confirm_extra_conf = 0
+" Use syntastic instead
+let g:ycm_show_diagnostics_ui = 0
+" UltiSnips compatibility (through supertab)
+let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-P>', '<Up>']
+" }}}
+
+" Supertab
+" {{{
+" For YouCompleteMe+UltiSnips
+let g:SuperTabDefaultCompletionType = '<C-N>'
+let g:SuperTabMappingForward = '<M-Tab>'
 " }}}
 
 "nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>

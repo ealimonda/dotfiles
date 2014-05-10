@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:    Hercules/*Athena Script
 " Maintainer:  Haru <haru@dotalux.com>
-" Last Change: 2014-02-27
+" Last Change: 2014-04-20
 
 
 " For version 5.x: Clear all syntax items
@@ -16,7 +16,7 @@ endif
 " Allowed characters in a keyword
 setlocal iskeyword=@,',_,a-z,A-Z,48-57
 
-syn match	hVariable	display "\<\%(\|\.\|\.@\|@\|\$\|'\|##\?\)\I\i*$\?\>"
+syn match	hVariable	display "\<\%(\.\?\.@\?\|\$\|'\|##\?\)\I\i*\$\?\>"
 
 syn keyword	hKeyword	break continue
 " FIXME hKeyword function
@@ -47,7 +47,6 @@ syn region	hString		start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end='$' co
 "  endif
 "endif
 
-" This should be before cErrInParen to avoid problems with #define ({ xxx })
 if exists("c_curly_error")
   syntax match hCurlyError	"}"
   syntax region hBlock		start="{" end="}" contains=ALLBUT,hCurlyError,@hParenGroup,hErrInParen,hErrInBracket,hString,@hTopLevel,@Spell fold
@@ -337,14 +336,6 @@ syn keyword hConstant PET_CLASS PET_NAME PET_LEVEL PET_HUNGRY PET_INTIMATE
 syn keyword hConstant MOB_NAME MOB_LV MOB_MAXHP MOB_BASEEXP MOB_JOBEXP MOB_ATK1 MOB_ATK2 MOB_DEF MOB_MDEF MOB_STR
 syn keyword hConstant MOB_AGI MOB_VIT MOB_INT MOB_DEX MOB_LUK MOB_RANGE MOB_RANGE2 MOB_RANGE3 MOB_SIZE MOB_RACE
 syn keyword hConstant MOB_ELEMENT MOB_MODE MOB_MVPEXP
-syn keyword hConstant ALL_CLIENT ALL_SAMEMAP AREA
-syn keyword hConstant AREA_WOS AREA_WOC AREA_WOSC AREA_CHAT_WOC CHAT
-syn keyword hConstant CHAT_WOS PARTY
-syn keyword hConstant PARTY_WOS PARTY_SAMEMAP PARTY_SAMEMAP_WOS PARTY_AREA PARTY_AREA_WOS GUILD
-syn keyword hConstant GUILD_WOS GUILD_SAMEMAP GUILD_SAMEMAP_WOS GUILD_AREA GUILD_AREA_WOS GUILD_NOBG DUEL
-syn keyword hConstant DUEL_WOS
-syn keyword hConstant CHAT_MAINCHAT SELF BG
-syn keyword hConstant BG_WOS BG_SAMEMAP BG_SAMEMAP_WOS BG_AREA BG_AREA_WOS
 syn keyword hConstant ARCH_MERC_GUILD
 syn keyword hConstant SPEAR_MERC_GUILD
 syn keyword hConstant SWORD_MERC_GUILD
@@ -641,6 +632,13 @@ syn keyword hConstant Option_Orcish Option_Wedding Option_Chasewalk Option_Flyin
 syn keyword hConstant Option_Summer Option_Dragon1 Option_Wug Option_Wugrider Option_Madogear Option_Dragon2
 syn keyword hConstant Option_Dragon3 Option_Dragon4 Option_Dragon5 Option_Hanbok Option_Oktoberfest Option_Dragon
 syn keyword hConstant Option_Costume
+syn keyword hConstant ALL_CLIENT ALL_SAMEMAP AREA
+syn keyword hConstant AREA_WOS AREA_WOC AREA_WOSC AREA_CHAT_WOC CHAT
+syn keyword hConstant CHAT_WOS PARTY
+syn keyword hConstant PARTY_WOS PARTY_SAMEMAP PARTY_SAMEMAP_WOS PARTY_AREA PARTY_AREA_WOS GUILD
+syn keyword hConstant GUILD_WOS GUILD_SAMEMAP GUILD_SAMEMAP_WOS GUILD_AREA GUILD_AREA_WOS GUILD_NOBG DUEL
+syn keyword hConstant DUEL_WOS SELF BG
+syn keyword hConstant BG_WOS BG_SAMEMAP BG_SAMEMAP_WOS BG_AREA BG_AREA_WOS BG_QUEUE
 
 " Maps (imported from db/map_index.txt)
 syn match hMapName contained display "\%(alb_ship\|alb2trea\|alberta\|alberta_in\|alde_dun01\|alde_dun02\|alde_dun03\)"
@@ -2063,9 +2061,9 @@ syn keyword hCommand petskillattack2 petskillsupport skilleffect npcskilleffect 
 syn keyword hCommand mapwarp atcommand charcommand movenpc message npctalk mobcount getlook getsavepoint npcspeed
 syn keyword hCommand npcwalkto npcstop getmapxy checkoption1 checkoption2 guildgetexp guildchangegm logmes summon
 syn keyword hCommand isnight isday isequipped isequippedcnt cardscnt getrefine night day defpattern activatepset
-syn keyword hCommand deactivatepset deletepset dispbottom getusersname recovery getpetinfo gethominfo getmercinfo
-syn keyword hCommand checkequipedcard globalmes unequip getstrlen charisalpha charat setchar insertchar delchar
-syn keyword hCommand strtoupper strtolower charisupper charislower substr explode implode sprintf sscanf strpos
+syn keyword hCommand deactivatepset deletepset pcre_match dispbottom getusersname recovery getpetinfo gethominfo
+syn keyword hCommand getmercinfo checkequipedcard globalmes unequip getstrlen charisalpha charat setchar insertchar
+syn keyword hCommand delchar strtoupper strtolower charisupper charislower substr explode implode sprintf sscanf strpos
 syn keyword hCommand replacestr countstr setnpcdisplay compare getiteminfo setiteminfo getequipcardid sqrt pow distance
 syn keyword hCommand md5 petstat callshop npcshopitem npcshopadditem npcshopdelitem npcshopattach equip autoequip
 syn keyword hCommand setbattleflag getbattleflag setitemscript disguise undisguise getmonsterinfo addmonsterdrop
@@ -2081,13 +2079,13 @@ syn keyword hCommand bg_monster_set_team bg_leave bg_destroy areapercentheal bg_
 syn keyword hCommand instance_create instance_destroy instance_attachmap instance_detachmap instance_attach instance_id
 syn keyword hCommand instance_set_timeout instance_init instance_announce instance_npcname has_instance
 syn keyword hCommand instance_warpall instance_check_party instance_mapname instance_set_respawn has_instance2 makerune
-syn keyword hCommand checkdragon setdragon ismounting setmounting checkre getargcount getcharip is_function
-syn keyword hCommand get_revision freeloop getrandgroupitem cleanmap cleanarea npcskill itemeffect consumeitem delequip
-syn keyword hCommand bindatcmd unbindatcmd useatcmd getitembound getitembound2 countbound questinfo setquest erasequest
-syn keyword hCommand completequest checkquest changequest showevent queue queuesize queueadd queueremove queueopt
-syn keyword hCommand queuedel queueiterator qicheck qiget qiclear packageitem sit stand issit montransform
-syn keyword hCommand bg_create_team bg_join_team bg_match_over openshop sellitem stopselling setcurrency tradertype
-syn keyword hCommand purchaseok shopcount
+syn keyword hCommand checkdragon setdragon ismounting setmounting checkre getargcount getcharip is_function freeloop
+syn keyword hCommand getrandgroupitem cleanmap cleanarea npcskill itemeffect consumeitem delequip bindatcmd unbindatcmd
+syn keyword hCommand useatcmd getitembound getitembound2 countbound questinfo setquest erasequest completequest
+syn keyword hCommand checkquest changequest showevent queue queuesize queueadd queueremove queueopt queuedel
+syn keyword hCommand queueiterator qicheck qiget qiclear packageitem sit stand issit montransform bg_create_team
+syn keyword hCommand bg_join_team bg_match_over openshop sellitem stopselling setcurrency tradertype purchaseok
+syn keyword hCommand shopcount
 syn keyword hKeyword end close close2 next return callfunc callsub
 syn keyword hDeprecated menu goto set setr jump_zero
 syn keyword hStatement mes select prompt getarg input setarray cleararray copyarray getarraysize deletearray
