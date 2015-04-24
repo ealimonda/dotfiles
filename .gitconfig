@@ -28,7 +28,7 @@
 	cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/araxisgitmerge-w.sh \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 # vim, autoselect console or gui
@@ -62,3 +62,8 @@
 	default = upstream
 [rerere]
 	enabled = true
+
+[filter "utf16"]
+	clean = "iconv -f utf-16le -t utf-8"
+	smudge = "iconv -f utf-8 -t utf-16le"
+	required
