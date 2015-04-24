@@ -11,9 +11,19 @@ function tab() {
     end
     tell application "Terminal"
       activate
-      do script with command " cd \"$PWD\"; $*" in window 1
+      do script with command " cd \"$PWD\"; $*" in window 0
     end tell
 EOF
+}
+
+# renames the current os x terminal tab title
+function tabname {
+  printf "\e]1;$1\a"
+}
+
+# renames the current os x terminal window title
+function winname {
+  printf "\e]2;$1\a"
 }
 
 # this one switches your os x dock between 2d and 3d

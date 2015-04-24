@@ -10,6 +10,8 @@ if [ "$BASH_IT_SAFE_CHARSET" == "true" ]; then
   STATUSERR_CHAR="${red}@${normal}"
   SCM_GIT_BEHIND_CHAR="b:"
   SCM_GIT_AHEAD_CHAR="a:"
+  RBENV_THEME_PROMPT_PREFIX="|r:"
+  RBENV_THEME_PROMPT_SUFFIX=""
 else
   SCM_CLEAN_CHAR="✓"
   SCM_DIRTY_CHAR="✗"
@@ -21,19 +23,13 @@ else
   STATUSERR_CHAR="${red}▪${normal}"
   SCM_GIT_BEHIND_CHAR="↓"
   SCM_GIT_AHEAD_CHAR="↑"
+  RBENV_THEME_PROMPT_PREFIX="|${yellow}◆"
+  RBENV_THEME_PROMPT_SUFFIX="${normal}"
 fi
 SCM_THEME_PROMPT_CLEAN=" ${green}${SCM_CLEAN_CHAR}${normal}"
 SCM_THEME_PROMPT_DIRTY=" ${bold_red}${SCM_DIRTY_CHAR}${normal}"
 SCM_THEME_PROMPT_PREFIX=""
 SCM_THEME_PROMPT_SUFFIX=""
-case "$(id -u)" in
-  0)
-    my_user_color="${light_red}"
-    ;;
-  *)
-    my_user_color="${green}"
-    ;;
-esac
 
 export MYSQL_PS1="(\u@\h) [\d]> "
 
@@ -46,6 +42,16 @@ emi_scm_prompt() {
     echo "$SCM_CHAR:$(git_prompt_status)"
   else
     echo "$SCM_CHAR:$(scm_prompt_info)"
+  fi
+}
+
+function rbenv_version_prompt {
+  if type rbenv &> /dev/null; then
+    rbenv=$(rbenv version-name) || return
+    #$(rbenv commands | grep -q gemset) && gemset=$(rbenv gemset active 2> /dev/null) && rbenv="$rbenv@${gemset%% *}"
+    if [ -n "$rbenv" -a "$rbenv" != 'system' ]; then
+      echo -e "$RBENV_THEME_PROMPT_PREFIX$rbenv$RBENV_THEME_PROMPT_SUFFIX"
+    fi
   fi
 }
 
@@ -70,7 +76,20 @@ function prompt_setter() {
   #[ -n "$PREPS1" ] && PREPS1="$PREPS1 "
 
   #PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)$(battery_charge)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
-  PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)${normal}] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
+  case "$(id -u)" in
+    0)
+      my_user_color="${light_red}"
+      ;;
+    *)
+      local CAN_I_RUN_SUDO=$(sudo -n uptime 2>&1 | grep "load" | wc -l)
+      if [ ${CAN_I_RUN_SUDO} -gt 0 ]; then
+        my_user_color="${yellow}"
+      else
+        my_user_color="${green}"
+      fi
+      ;;
+  esac
+  PS1="${LASTSTATUS}${normal}[${PREPS1}$(emi_scm_prompt)${normal}$(rbenv_version_prompt)] ${my_user_color}\u@\h ${bold_blue}\w${normal} ${blue}\$${normal} "
 }
 
 PROMPT_COMMAND=prompt_setter

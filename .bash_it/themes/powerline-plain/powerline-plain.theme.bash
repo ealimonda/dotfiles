@@ -9,13 +9,15 @@ VIRTUALENV_THEME_PROMPT_COLOR=35
 
 SCM_NONE_CHAR=""
 SCM_GIT_CHAR="⎇  "
-SCM_GIT_BEHIND_CHAR="↓"
-SCM_GIT_AHEAD_CHAR="↑"
+
 SCM_THEME_PROMPT_CLEAN=""
 SCM_THEME_PROMPT_DIRTY=""
+
 SCM_THEME_PROMPT_COLOR=238
 SCM_THEME_PROMPT_CLEAN_COLOR=231
-SCM_THEME_PROMPT_DIRTY_COLOR=220
+SCM_THEME_PROMPT_DIRTY_COLOR=196
+SCM_THEME_PROMPT_STAGED_COLOR=220
+SCM_THEME_PROMPT_UNSTAGED_COLOR=166
 
 CWD_THEME_PROMPT_COLOR=240
 
@@ -41,9 +43,17 @@ function powerline_shell_prompt {
 }
 
 function powerline_virtualenv_prompt {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        virtualenv=$(basename "$VIRTUAL_ENV")
-        VIRTUALENV_PROMPT="$(set_rgb_color - ${VIRTUALENV_THEME_PROMPT_COLOR}) ${VIRTUALENV_CHAR}$virtualenv ${normal}"
+    local environ=""
+
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        environ="conda: $CONDA_DEFAULT_ENV"
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        environ=$(basename "$VIRTUAL_ENV")
+    fi
+
+    if [[ -n "$environ" ]]; then
+        VIRTUALENV_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${VIRTUALENV_THEME_PROMPT_COLOR})${THEME_PROMPT_SEPARATOR}${normal}$(set_rgb_color - ${VIRTUALENV_THEME_PROMPT_COLOR}) ${VIRTUALENV_CHAR}$environ ${normal}"
+        LAST_THEME_COLOR=${VIRTUALENV_THEME_PROMPT_COLOR}
     else
         VIRTUALENV_PROMPT=""
     fi
@@ -53,13 +63,19 @@ function powerline_scm_prompt {
     scm_prompt_vars
 
     if [[ "${SCM_NONE_CHAR}" != "${SCM_CHAR}" ]]; then
-        if [[ "${SCM_DIRTY}" -eq 1 ]]; then
+        if [[ "${SCM_DIRTY}" -eq 3 ]]; then
+            SCM_PROMPT="$(set_rgb_color ${SCM_THEME_PROMPT_STAGED_COLOR} ${SCM_THEME_PROMPT_COLOR})"
+        elif [[ "${SCM_DIRTY}" -eq 2 ]]; then
+            SCM_PROMPT="$(set_rgb_color ${SCM_THEME_PROMPT_UNSTAGED_COLOR} ${SCM_THEME_PROMPT_COLOR})"
+        elif [[ "${SCM_DIRTY}" -eq 1 ]]; then
             SCM_PROMPT="$(set_rgb_color ${SCM_THEME_PROMPT_DIRTY_COLOR} ${SCM_THEME_PROMPT_COLOR})"
         else
             SCM_PROMPT="$(set_rgb_color ${SCM_THEME_PROMPT_CLEAN_COLOR} ${SCM_THEME_PROMPT_COLOR})"
         fi
-        [[ "${SCM_GIT_CHAR}" == "${SCM_CHAR}" ]] && SCM_PROMPT+=" ${SCM_CHAR}${SCM_BRANCH}${SCM_STATE}${SCM_GIT_BEHIND}${SCM_GIT_AHEAD}${SCM_GIT_STASH}"
-        SCM_PROMPT="${SCM_PROMPT} ${normal}"
+        if [[ "${SCM_GIT_CHAR}" == "${SCM_CHAR}" ]]; then
+            SCM_PROMPT+=" ${SCM_CHAR}${SCM_BRANCH}${SCM_STATE} "
+        fi
+        SCM_PROMPT="${SCM_PROMPT}${normal}"
     else
         SCM_PROMPT=""
     fi
