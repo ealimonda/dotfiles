@@ -53,7 +53,7 @@ function! SyntaxCheckers_ath_hercules_GetLocList() dict
     "let makeprg = g:syntastic_ath_compiler . ''
     let makeprg = self.makeprgBuild({
         \ 'exe' : g:syntastic_ath_compiler,
-        \ 'args' : '',
+        \ 'args' : g:syntastic_ath_compiler_options,
         \ 'filetype' : 'ath',
         \ 'subchecker' : 'hercules' })
 

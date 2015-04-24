@@ -1,12 +1,12 @@
-" Vim indent file
+" Vim filetype plugin file
 " Language:    Hercules/*Athena Script
 " Maintainer:  Haru <haru@dotalux.com>
-" Last Change: 2013-12-18
+" Last Change: 2014-06-28
 
 
-" Only load this indent file when no other was loaded.
-if exists("b:did_indent")
-   finish
+" Only do this when not done yet for this buffer
+if exists("b:did_ftplugin")
+  finish
 endif
 
 " Behaves just like Hercules

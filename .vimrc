@@ -89,6 +89,10 @@ set listchars=eol:¶,tab:\|_,trail:·,extends:>,precedes:<,nbsp:•
 " Set max number of tabs to 50
 set tabpagemax=50
 
+" Show cursor line/column
+set cursorline
+set nocursorcolumn
+
 " }}}
 
 " Various Mac-only settings (note: some of them would work on other platforms too)
@@ -373,8 +377,14 @@ let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_auto_refresh_includes = 1
 let g:syntastic_java_javac_config_file_enabled = 1
+let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 let g:syntastic_enable_perl_checker = 1
 
+if has("mac")
+	let g:syntastic_ath_compiler = '/usr/local/OriginsRO-ath/script-checker'
+	let g:syntastic_ath_compiler_options = '--no-color'
+	let g:syntastic_herc_compiler = '/usr/local/Hercules/script-checker'
+endif
 " }}}
 
 " hex2dec/dec2hex
@@ -479,7 +489,8 @@ nmap <leader>s :Scratch<CR>
 " UltiSnips
 " {{{
 " " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<S-Enter>"
+"let g:UltiSnipsExpandTrigger="<S-Enter>"
+let g:UltiSnipsExpandTrigger="<F4>"
 "let g:UltiSnipsJumpForwardTrigger="<tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "let g:UltiSnipsExpandTrigger="<None>"
@@ -512,6 +523,11 @@ let g:ycm_key_list_previous_completion = ['<C-P>', '<Up>']
 " For YouCompleteMe+UltiSnips
 let g:SuperTabDefaultCompletionType = '<C-N>'
 let g:SuperTabMappingForward = '<M-Tab>'
+" }}}
+
+" NERDTree
+" {{{
+noremap <leader>n :NERDTreeToggle<CR>
 " }}}
 
 "nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>

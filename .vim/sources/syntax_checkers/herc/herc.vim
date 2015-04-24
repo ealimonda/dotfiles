@@ -1,7 +1,7 @@
 " Vim syntastic definition
 " Language:    Hercules/*Athena Script
 " Maintainer:  Haru <haru@dotalux.com>
-" Last Change: 2014-02-27
+" Last Change: 2014-10-27
 
 
 " It is possible to add additional compiler options to the syntax
@@ -53,7 +53,7 @@ function! SyntaxCheckers_herc_hercules_GetLocList() dict
     "let makeprg = g:syntastic_herc_compiler . ''
     let makeprg = self.makeprgBuild({
         \ 'exe' : g:syntastic_herc_compiler,
-        \ 'args' : '',
+        \ 'args' : g:syntastic_herc_compiler_options,
         \ 'filetype' : 'herc',
         \ 'subchecker' : 'hercules' })
 
