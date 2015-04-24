@@ -13,7 +13,6 @@ export EDITOR=vim
 # Prepend ~/bin to $PATH
 export PATH="$HOME/bin:$PATH"
 # Make various commands a bit more colorful
-export GREP_OPTIONS='--color=auto'
 export LESS="-RM"
 #R:Raw color codes in output (don't remove color codes);
 #M:Long prompts ("Line X of Y")
@@ -23,6 +22,13 @@ if [ "$(uname)" == "Darwin" ]; then
 	# Append homebrew to the $PATH
 	export PATH=$PATH:/usr/local/bin:/usr/local/sbin
 	export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages$( [ -n "$PYTHONPATH" ] && echo ":$PYTHONPATH" )"
+	export HOMEBREW_TEMP=/usr/local/temp
+	export PGDATA=/usr/local/var/postgres
+fi
+
+if type rbenv 2>&1 >/dev/null; then
+	[ -d "/usr/local/var/rbenv" ] && export RBENV_ROOT="/usr/local/var/rbenv"
+	eval "$(rbenv init -)"
 fi
 
 # vim: ts=4 sw=4

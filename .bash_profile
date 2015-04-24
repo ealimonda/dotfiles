@@ -11,7 +11,10 @@
 # order, and reads and executes commands from the first one that exists and is readable.  The --noprofile option  may  be  used  when  the  shell  is
 # started to inhibit this behavior.
 __hostname="$(hostname)"
-
+if [ -f /etc/profile ]; then
+    PATH=""
+    source /etc/profile
+fi
 if [[ "$__hostname" =~ ^freya[a-z.-]* ]]; then
 	UNISONLOCALHOSTNAME=Freya.local
 fi
