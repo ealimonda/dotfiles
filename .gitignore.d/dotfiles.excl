@@ -23,6 +23,7 @@
 /.htoprc
 /.infinote-records/
 /.irssi/*.log
+/.irssi/saved_colors
 /.irssi/scripts/autorun/
 /.irssi/scripts/autorun_disabled/
 /.irssi/scrollbuffer
@@ -38,6 +39,7 @@
 /.pgpass
 /.php_history
 /.profile
+/.psql_history
 /.python-eggs/
 /.subversion/
 /.tmux.conf

@@ -204,7 +204,9 @@ abstracts = {
   # the default foreground color for statusbar items.
   #sb_background = "%4%w";
   #sb_background = "%0%w";
-  sb_background = "%N";
+  #sb_background = "%N";
+  sb_background = "%n";
+  # If stuff stops working and black status bars show up on other colors, revert to the above line (~Syao)
   # default backround for "default" statusbar group
   #sb_default_bg = "%4";
   # background for prompt / input line
@@ -513,6 +515,8 @@ formats = {
     #completion_header = "%#Key        Value                                    Auto";
     #completion_line = "%#$[10]0 $[!40]1 $2";
     #completion_footer = "";
+    pubmsg = "{pubmsgnick $2 {pubnick $0}}$1";
+    pubmsg_channel = "{pubmsgnick $2 {pubnick $0}}$1";
   };
   "fe-text" = {
     #lastlog_too_long = "/LASTLOG would print $0 lines. If you really want to print all these lines use -force option.";
