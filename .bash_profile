@@ -12,7 +12,6 @@
 # started to inhibit this behavior.
 __hostname="$(hostname)"
 if [ -f /etc/profile ]; then
-    PATH=""
     source /etc/profile
 fi
 if [[ "$__hostname" =~ ^freya[a-z.-]* ]]; then
