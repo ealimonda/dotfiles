@@ -1,6 +1,15 @@
+[submodule ".vim/bundle/bufexplorer.zip"]
+	path = .vim/bundle/bufexplorer.zip
+	url = git://github.com/vim-scripts/bufexplorer.zip.git
+[submodule ".vim/bundle/DirDiff.vim"]
+	path = .vim/bundle/DirDiff.vim
+	url = git://github.com/grota/DirDiff.vim.git
 [submodule ".vim/bundle/gitv"]
 	path = .vim/bundle/gitv
 	url = git://github.com/gregsexton/gitv.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -31,12 +40,6 @@
 [submodule ".vim/bundle/clang_complete"]
 	path = .vim/bundle/clang_complete
 	url = git://github.com/Rip-Rip/clang_complete.git
-[submodule ".vim/bundle/bufexplorer.zip"]
-	path = .vim/bundle/bufexplorer.zip
-	url = git://github.com/vim-scripts/bufexplorer.zip.git
-[submodule ".vim/bundle/DirDiff.vim"]
-	path = .vim/bundle/DirDiff.vim
-	url = git://github.com/grota/DirDiff.vim.git
 [submodule ".vim/bundle/vim-unimpaired"]
 	path = .vim/bundle/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
@@ -103,3 +106,9 @@
 [submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
 	url = https://github.com/ervandew/supertab.git
+[submodule ".vim/bundle/vim-objc"]
+	path = .vim/bundle/vim-objc
+	url = https://github.com/b4winckler/vim-objc.git
+[submodule ".vim/bundle/vim-twig"]
+	path = .vim/bundle/vim-twig
+	url = https://github.com/evidens/vim-twig.git
