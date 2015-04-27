@@ -26,7 +26,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	export PGDATA=/usr/local/var/postgres
 fi
 
-if type rbenv 2>&1 >/dev/null; then
+if type rbenv &>/dev/null; then
 	[ -d "/usr/local/var/rbenv" ] && export RBENV_ROOT="/usr/local/var/rbenv"
 	eval "$(rbenv init -)"
 fi
