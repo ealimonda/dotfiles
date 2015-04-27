@@ -31,21 +31,42 @@
 [submodule ".vim/bundle/ultisnips"]
 	path = .vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule ".vim/bundle/vim-fugitive"]
-	path = .vim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
-[submodule ".vim/bundle/vim-markdown"]
-	path = .vim/bundle_disabled/vim-markdown
-	url = git://github.com/tpope/vim-markdown.git
 [submodule ".vim/bundle/undotree"]
 	path = .vim/bundle/undotree
 	url = git://github.com/mbbill/undotree.git
+[submodule ".vim/bundle/vim-airline"]
+	path = .vim/bundle/vim-airline
+	url = https://github.com/bling/vim-airline
 [submodule ".vim/bundle/vim-commentary"]
 	path = .vim/bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
+[submodule ".vim/bundle/vim-fugitive"]
+	path = .vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/vim-localrc"]
+	path = .vim/bundle/vim-localrc
+	url = https://github.com/thinca/vim-localrc.git
+[submodule ".vim/bundle/vim-objc"]
+	path = .vim/bundle/vim-objc
+	url = https://github.com/b4winckler/vim-objc.git
+[submodule ".vim/bundle/vim-perl"]
+	path = .vim/bundle/vim-perl
+	url = https://github.com/vim-perl/vim-perl.git
 [submodule ".vim/bundle/vim-repeat"]
 	path = .vim/bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
+[submodule ".vim/bundle/vim-signature"]
+	path = .vim/bundle/vim-signature
+	url = https://github.com/kshenoy/vim-signature.git
+[submodule ".vim/bundle/vim-signify"]
+	path = .vim/bundle/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
+[submodule ".vim/bundle/vim-slim"]
+	path = .vim/bundle/vim-slim
+	url = git://github.com/slim-template/vim-slim.git
+[submodule ".vim/bundle/vim-markdown"]
+	path = .vim/bundle_disabled/vim-markdown
+	url = git://github.com/tpope/vim-markdown.git
 [submodule ".vim/bundle/vim-speeddating"]
 	path = .vim/bundle/vim-speeddating
 	url = git://github.com/tpope/vim-speeddating.git
@@ -58,18 +79,6 @@
 [submodule ".vim/bundle/vim-unimpaired"]
 	path = .vim/bundle/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
-[submodule ".vim/bundle/vim-signature"]
-	path = .vim/bundle/vim-signature
-	url = https://github.com/kshenoy/vim-signature.git
-[submodule ".vim/bundle/vim-airline"]
-	path = .vim/bundle/vim-airline
-	url = https://github.com/bling/vim-airline
-[submodule ".vim/bundle/vim-signify"]
-	path = .vim/bundle/vim-signify
-	url = https://github.com/mhinz/vim-signify.git
-[submodule ".vim/bundle/vim-localrc"]
-	path = .vim/bundle/vim-localrc
-	url = https://github.com/thinca/vim-localrc.git
 [submodule ".vim/sources/mojo.vim"]
 	path = .vim/sources/mojo.vim
 	url = https://github.com/yko/mojo.vim.git
@@ -79,9 +88,6 @@
 [submodule ".vim/sources/vim-pathogen"]
 	path = .vim/sources/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-[submodule ".vim/bundle/vim-perl"]
-	path = .vim/bundle/vim-perl
-	url = https://github.com/vim-perl/vim-perl.git
 [submodule ".vim/bundle/vim-snippets"]
 	path = .vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
@@ -109,9 +115,6 @@
 [submodule ".vim/sources/tjs.vim"]
 	path = .vim/sources/tjs.vim
 	url = https://github.com/Aixile/tjs.vim.git
-[submodule ".vim/bundle/vim-objc"]
-	path = .vim/bundle/vim-objc
-	url = https://github.com/b4winckler/vim-objc.git
 [submodule ".vim/bundle/vim-twig"]
 	path = .vim/bundle/vim-twig
 	url = https://github.com/evidens/vim-twig.git
