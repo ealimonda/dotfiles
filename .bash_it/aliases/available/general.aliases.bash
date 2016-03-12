@@ -32,7 +32,10 @@ alias q='exit'
 
 alias irc="$IRC_CLIENT"
 
+# Language aliases
 alias rb='ruby'
+alias py='python'
+alias ipy='ipython'
 
 # Pianobar can be found here: http://github.com/PromyLOPh/pianobar/
 
@@ -53,5 +56,16 @@ then
 fi
 
 # Directory
-alias	md='mkdir -p'
-alias	rd='rmdir'
+alias md='mkdir -p'
+alias rd='rmdir'
+
+# Display whatever file is regular file or folder
+catt() {
+  for i in "$@"; do
+    if [ -d "$i" ]; then
+      ls "$i"
+    else
+      cat "$i"
+    fi
+  done
+}

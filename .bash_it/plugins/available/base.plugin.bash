@@ -5,7 +5,15 @@ function ips ()
 {
     about 'display all ip addresses for this host'
     group 'base'
-    ifconfig | awk '/inet /{ print $2 }'
+    if command -v ifconfig &>/dev/null
+    then
+        ifconfig | awk '/inet /{ print $2 }'
+    elif command -v ip &>/dev/null
+    then
+        ip addr | grep -oP 'inet \K[\d.]+'
+    else
+        echo "You don't have ifconfig or ip command installed!"
+    fi
 }
 
 function down4me ()
@@ -80,8 +88,8 @@ function mkcd ()
     example '$ mkcd foo'
     example '$ mkcd /tmp/img/photos/large'
     group 'base'
-    mkdir -p "$*"
-    cd "$*"
+    mkdir -p -- "$*"
+    cd -- "$*"
 }
 
 function lsgrep ()
@@ -89,33 +97,6 @@ function lsgrep ()
     about 'search through directory contents with grep'
     group 'base'
     ls | grep "$*"
-}
-
-function pman ()
-{
-    about 'view man documentation in Preview'
-    param '1: man page to view'
-    example '$ pman bash'
-    group 'base'
-    man -t "${1}" | open -f -a $PREVIEW
-}
-
-function pcurl ()
-{
-    about 'download file and Preview it'
-    param '1: download URL'
-    example '$ pcurl http://www.irs.gov/pub/irs-pdf/fw4.pdf'
-    group 'base'
-    curl "${1}" | open -f -a $PREVIEW
-}
-
-function pri ()
-{
-    about 'display information about Ruby classes, modules, or methods, in Preview'
-    param '1: Ruby method, module, or class'
-    example '$ pri Array'
-    group 'base'
-    ri -T "${1}" | open -f -a $PREVIEW
 }
 
 function quiet ()
@@ -214,4 +195,12 @@ function buf ()
     local filename=$1
     local filetime=$(date +%Y%m%d_%H%M%S)
     cp -a "${filename}" "${filename}_${filetime}"
+}
+
+function del() { 
+    about 'move files to hidden folder in tmp, that gets cleared on each reboot'
+    param 'file or folder to be deleted'
+    example 'del ./file.txt'
+    group 'base'
+    mkdir -p /tmp/.trash && mv "$@" /tmp/.trash; 
 }

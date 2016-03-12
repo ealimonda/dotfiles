@@ -18,7 +18,7 @@ else
   SCM_NONE_CHAR="${bold_yellow}○${normal}"
   SCM_GIT_CHAR="${bold_cyan}±${normal}"
   SCM_SVN_CHAR="${bold_cyan}⑆${normal}"
-  SCM_HG_CHAR="${bold_red}☿${normal}"
+  SCM_HG_CHAR="${bold_cyan}☿${normal}"
   STATUSOK_CHAR="${green}•${normal}"
   STATUSERR_CHAR="${red}▪${normal}"
   SCM_GIT_BEHIND_CHAR="↓"
@@ -81,8 +81,7 @@ function prompt_setter() {
       my_user_color="${light_red}"
       ;;
     *)
-      local CAN_I_RUN_SUDO=$(sudo -n uptime 2>&1 | grep "load" | wc -l)
-      if [ ${CAN_I_RUN_SUDO} -gt 0 ]; then
+      if sudo -n uptime 2>&1 | grep -q "load"; then
         my_user_color="${yellow}"
       else
         my_user_color="${green}"

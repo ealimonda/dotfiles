@@ -67,7 +67,7 @@ battery_percentage(){
     #local IOREG_OUTPUT_10_6=$(ioreg -l | grep -i capacity | tr '\n' ' | ' | awk '{printf("%.2f%%", $10/$5 * 100)}')
     #local IOREG_OUTPUT_10_5=$(ioreg -l | grep -i capacity | grep -v Legacy| tr '\n' ' | ' | awk '{printf("%.2f%%", $14/$7 * 100)}')
     local IOREG_OUTPUT="$(ioreg -n AppleSmartBattery -r)"
-    local IOREG_PARSED=$(echo "$IOREG_OUTPUT" | awk '$1~/Capacity/{c[$1]=$3} END{OFMT="%.2f%%"; max=c["\"MaxCapacity\""]; print (max>0? 100*c["\"CurrentCapacity\""]/max: "?")}')
+    local IOREG_OUTPUT=$(echo "$IOREG_OUTPUT" | awk '$1~/Capacity/{c[$1]=$3} END{OFMT="%05.2f%%"; max=c["\"MaxCapacity\""]; print (max>0? 100*c["\"CurrentCapacity\""]/max: "?")}')
     local OUT=""
     if [ "$1" == "chargestatus" ]; then
 	    if echo "$IOREG_OUTPUT" | grep '"ExternalConnected" = No' >/dev/null; then
@@ -76,12 +76,12 @@ battery_percentage(){
 		    OUT="Y|"
 	    fi
     fi
-    case $IOREG_PARSED in
+    case $IOREG_OUTPUT in
       100*)
         echo "${OUT}99"
         ;;
       *)
-        echo "${OUT}${IOREG_PARSED:0:2}"
+        echo "${OUT}${IOREG_OUTPUT:0:2}"
         ;;
     esac
   else
