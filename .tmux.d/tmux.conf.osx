@@ -39,10 +39,6 @@ set -g status-right "#[fg=green]][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[fg=green]
 
 ### Extra settings and bindings
 # {{{
-# No clockywock available, let's use normal clock mode
-unbind F5
-bind F5 clock-mode
-
 # vlock is not available on Mac OS X, let's just use screen blanking
 set -g lock-command 'tput civis && echo "Press Enter to resume..." && read -s -n1'
 bind F6 lock-client

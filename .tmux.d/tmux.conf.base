@@ -44,7 +44,7 @@ unbind Tab
 bind Tab last-window
 
 # \: Quit
-unbind \\
+unbind '\'
 bind \ confirm-before "kill-server"
 
 # k: Kill window
@@ -86,10 +86,7 @@ bind -t vi-copy Escape cancel
 # TERM
 set-option -g default-terminal "screen-256color"
 # Mouse settings
-set-option -g mouse-select-pane on
-set-option -g mouse-resize-pane on
-set-option -g mouse-select-window on
-setw -g mode-mouse copy-mode
+set-option -g -q mouse on
 # Bells
 set-option -g bell-action any
 set-option -g visual-bell off
@@ -122,7 +119,7 @@ setw -g window-status-style bg=black
 setw -g window-status-current-style fg=green
 #setw -g window-status-alert-style fg=yellow
 setw -g window-status-bell-style fg=red
-setw -g window-status-content-style fg=cyan
+#setw -g window-status-content-style fg=cyan
 setw -g window-status-activity-style fg=yellow
 
 # Strings to display
@@ -134,7 +131,7 @@ set -g status-right '#[fg=green]][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[fg=green]
 # {{{
 # Clock
 setw -g clock-mode-colour blue
-setw -g clock-mode-style 12
+setw -g clock-mode-style 24
 
 setw -g alternate-screen off
 
@@ -148,9 +145,9 @@ bind F6 set lock-command 'tput civis && read -s -n1' \; lock-client \; set lock-
 
 # Toggle mouse reporting (handy for iSSH)
 unbind m
-bind m set -g mouse-select-pane off\; set -g mouse-resize-pane off\; set -g mouse-select-window off\; set -g mode-mouse off
+bind m set -g mouse off
 unbind M
-bind M set -g mouse-select-pane on \; set -g mouse-resize-pane on \; set -g mouse-select-window on \; set -g mode-mouse copy-mode
+bind M set -g mouse on
 
 # Zoom pane to its own window (info: http://tangledhelix.com/blog/2012/07/16/tmux-and-mouse-mode/)
 unbind +
