@@ -18,6 +18,7 @@
 /.fonts/
 /.gem/
 /.gdb_history
+/.gitsh_history
 /.hgignore*
 /.hgrc
 /.htoprc

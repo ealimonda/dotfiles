@@ -57,6 +57,13 @@
 	vim-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; vim `f`"
 	mvim-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; mvim `f`"
 	graph = log --graph --decorate --oneline
+	incoming = !sh -c 'git log --graph --decorate $1@{1}..$1@{0} "$@"'
+	logs = log --graph --abbrev-commit --decorate \
+		--format=format:'%C(yellow)%h%C(reset) %C(bold cyan)%aD%C(reset) - %C(white)%s%C(reset) %C(bold blue)[%an]%C(reset)%C(bold green)%d%C(reset)'
+	logx = log --graph --abbrev-commit --decorate \
+		--format=format:'%C(yellow)%h%C(reset) %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(cyan)(committed: %cD)%C(reset) %C(bold red)%d%C(reset)%n\
+		''        %C(white)%s%C(reset)%n\
+		''        %C(bold blue)- %an <%ae> %C(reset) %C(dim blue)(committer: %cn <%ce>)%C(reset)'
 
 [push]
 	default = upstream
