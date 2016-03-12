@@ -100,8 +100,14 @@ set nocursorcolumn
 "if v:progname == "Vim"
 if has("gui_macvim")
 	" A nice font
-	set gfn=Monaco:h11
+	set gfn=Monaco:h11 " guifont
+elseif has("gui_win32")
+	" Windows compatbility
+	set gfn=Consolas:h10:b " guifont
+	"set guifontwide=Yu\ Gothic:h10 "For windows to display mixed character sets
+	set encoding=utf-8
 endif
+
 if has("gui_running")
 	set nowrap  " window word wrap
 	"set mousem=popup_setpos " mousemodel
@@ -206,7 +212,7 @@ function! ToggleHex()
 		" set status
 		let b:editHex=1
 		" switch to hex editor
-		%!xxd
+		%!xxd -g 1
 	else
 		" restore old options
 		let &ft=b:oldft
@@ -279,44 +285,6 @@ autocmd FileType cpp nnoremap <leader>m :call ExpandCMacro()<CR>
 autocmd FileType c nnoremap <leader>m :call ExpandCMacro()<CR>
 " }}}
 
-" Print current function --- DEPRECATED in favor of vim-airline
-" {{{
-function! WhatFunctionAreWeIn()
-	let strList = ["while", "foreach", "ifelse", "if else", "for", "if", "else", "try", "catch", "case", "switch", "do"]
-	let foundcontrol = 1
-	let position = ""
-	let pos=getpos(".")    " This saves the cursor position
-	let view=winsaveview() " This saves the window view
-	while (foundcontrol)
-		let foundcontrol = 0
-		normal [{
-		call search('\S','bW')
-		let tempchar = getline(".")[col(".") - 1]
-		if (match(tempchar, ")") >=0 )
-			normal %
-			call search('\S','bW')
-		endif
-		let tempstring = getline(".")
-		for item in strList
-			if( match(tempstring,item) >= 0 )
-				let position = item . " - " . position
-				let foundcontrol = 1
-				break
-			endif
-		endfor
-		if(foundcontrol == 0)
-			call cursor(pos)
-			call winrestview(view)
-			return tempstring.position
-		endif
-	endwhile
-	call cursor(pos)
-	call winrestview(view)
-	return tempstring.position
-endfunction
-nmap <leader>f :let name = WhatFunctionAreWeIn()<CR> :echo name<CR>
-" }}}
-
 " -- TAGBAR --
 " {{{
 " map C-L to toggle the tagbar list
@@ -379,6 +347,12 @@ let g:syntastic_cpp_auto_refresh_includes = 1
 let g:syntastic_java_javac_config_file_enabled = 1
 let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 let g:syntastic_enable_perl_checker = 1
+let g:syntastic_html_tidy_ignore_errors = [
+	\"trimming empty <i>",
+	\"trimming empty <span>",
+	\"<iframe> proprietary attribute \"allowfullscreen\"",
+	\"<textarea> proprietary attribute \"placeholder\"",
+\]
 
 if has("mac")
 	let g:syntastic_ath_compiler = '/usr/local/OriginsRO-ath/script-checker'
@@ -452,21 +426,35 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 " unicode symbols
-"let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
+if has("win32")
+	let g:airline_left_sep = '»'
+	let g:airline_right_sep = '«'
+	let g:airline_symbols.paste = 'ρ'
+	let g:airline_symbols.branch = 'µ'
+else
+	"let g:airline_left_sep = '»'
+	"let g:airline_left_sep = '▶'
+	"let g:airline_left_sep = '⡷'
+	let g:airline_left_sep = '》'
+	"let g:airline_right_sep = '«'
+	"let g:airline_right_sep = '◀'
+	"let g:airline_right_sep = '⢾'
+	let g:airline_right_sep = '《'
+	let g:airline_symbols.branch = '⎇'
+	"let g:airline_symbols.paste = 'ρ'
+	"let g:airline_symbols.paste = 'Þ'
+	let g:airline_symbols.paste = '∥'
+endif
 "let g:airline_symbols.linenr = '␊'
 "let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_theme='wombat'
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline#extensions#whitespace#trailing_format = 'trail[%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mix-ind[%s]'
-let g:airline_theme='wombat'
+let g:airline#extensions#whitespace#mixed_indent_file_format = 'mix-ind-file[%s]'
+" let g:airline#extensions#ycm#enabled = 1 (currently using syntastic)
 " }}}
 
 " Gitv
@@ -506,6 +494,7 @@ let g:ycm_key_invoke_completion="<C-Tab>"
 let g:ycm_always_populate_location_list=1
 nnoremap <C-F5> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <C-S> :YcmDiag<CR>
+map <leader>? :YcmCompleter GetDoc<CR>
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_auto_start_csharp_server = 0
@@ -528,6 +517,15 @@ let g:SuperTabMappingForward = '<M-Tab>'
 " NERDTree
 " {{{
 noremap <leader>n :NERDTreeToggle<CR>
+" }}}
+
+" EasyAlign
+" {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 " }}}
 
 "nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
