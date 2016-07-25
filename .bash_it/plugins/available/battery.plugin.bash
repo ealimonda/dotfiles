@@ -2,15 +2,15 @@ cite about-plugin
 about-plugin 'display info about your battery charge level'
 
 ac_adapter_connected(){
-    if command_exists acpi;
-    then
-        acpi -a | grep "on-line"
-        if [[ "$?" -eq 0 ]]; then
-           return 1
-        else
-           return 0
-        fi
-    fi
+  if command_exists acpi;
+  then
+    acpi -a | grep -q "on-line"
+    return $?
+  elif command_exists ioreg;
+  then
+    ioreg -n AppleSmartBattery -r | grep -q '"ExternalConnected" = Yes'
+    return $?
+  fi
 }
 
 battery_percentage(){
@@ -32,30 +32,13 @@ battery_percentage(){
             ;;
         esac
         ;;
-      *" Discharging"*)
-        local PERC_OUTPUT=$(echo $ACPI_OUTPUT | head -c 26 | tail -c 2)
-        case $PERC_OUTPUT in
-          *%)
-            echo "0${PERC_OUTPUT}" | head -c 2
-            ;;
-          *)
-            echo ${PERC_OUTPUT}
-            ;;
-        esac
-        ;;
-      *" Charging"*)
-        local PERC_OUTPUT=$(echo $ACPI_OUTPUT | head -c 23 | tail -c 2)
-        case $PERC_OUTPUT in
-          *%)
-            echo "0${PERC_OUTPUT}" | head -c 2
-            ;;
-          *)
-            echo ${PERC_OUTPUT}
-            ;;
-        esac
+
+      *" Charging"* | *" Discharging"*)
+        local PERC_OUTPUT=$(echo $ACPI_OUTPUT | awk -F, '/,/{gsub(/ /, "", $0); gsub(/%/,"", $0); print $2}' )
+        echo ${PERC_OUTPUT}
         ;;
       *" Full"*)
-        echo '99'
+        echo '100'
         ;;
       *)
         echo '-1'
@@ -66,22 +49,13 @@ battery_percentage(){
     # http://hints.macworld.com/article.php?story=20100130123935998
     #local IOREG_OUTPUT_10_6=$(ioreg -l | grep -i capacity | tr '\n' ' | ' | awk '{printf("%.2f%%", $10/$5 * 100)}')
     #local IOREG_OUTPUT_10_5=$(ioreg -l | grep -i capacity | grep -v Legacy| tr '\n' ' | ' | awk '{printf("%.2f%%", $14/$7 * 100)}')
-    local IOREG_OUTPUT="$(ioreg -n AppleSmartBattery -r)"
-    local IOREG_OUTPUT=$(echo "$IOREG_OUTPUT" | awk '$1~/Capacity/{c[$1]=$3} END{OFMT="%05.2f%%"; max=c["\"MaxCapacity\""]; print (max>0? 100*c["\"CurrentCapacity\""]/max: "?")}')
-    local OUT=""
-    if [ "$1" == "chargestatus" ]; then
-	    if echo "$IOREG_OUTPUT" | grep '"ExternalConnected" = No' >/dev/null; then
-		    OUT="N|"
-	    else
-		    OUT="Y|"
-	    fi
-    fi
+    local IOREG_OUTPUT=$(ioreg -n AppleSmartBattery -r | awk '$1~/Capacity/{c[$1]=$3} END{OFMT="%05.2f%%"; max=c["\"MaxCapacity\""]; print (max>0? 100*c["\"CurrentCapacity\""]/max: "?")}')
     case $IOREG_OUTPUT in
       100*)
-        echo "${OUT}99"
+        echo '100'
         ;;
       *)
-        echo "${OUT}${IOREG_OUTPUT:0:2}"
+        echo $IOREG_OUTPUT | head -c 2
         ;;
     esac
   else
@@ -92,42 +66,21 @@ battery_percentage(){
 battery_charge(){
   about 'graphical display of your battery charge'
   group 'battery'
+
+  # Full char
+  local F_C='▸'
+  # Depleted char
+  local D_C='▹'
   local DEPLETED_COLOR="${normal}"
   local FULL_COLOR="${green}"
   local HALF_COLOR="${yellow}"
   local DANGER_COLOR="${red}"
-  local BATTERY_STATUS=$(battery_percentage chargestatus)
-  local BATTERY_PERC=${BATTERY_STATUS#*|}
-  # Full char
-  local F_C=""
-  # Depleted char
-  local D_C=""
-  # A/C char
-  local AC_C=""
-  if [ "$BASH_IT_SAFE_CHARSET" == "true" ]; then
-    if [ "${BATTERY_STATUS%|*}" == "N" ]; then
-      F_C="+"
-      D_C="-"
-    else
-      F_C='#'
-      D_C='>'
-    fi
-    AC_C="z"
-  else
-    if [ "${BATTERY_STATUS%|*}" == "N" ]; then
-      F_C='■'
-      D_C='□'
-    else
-      F_C='▸'
-      D_C='▹'
-    fi
-    AC_C='⚡'
-  fi
+  local BATTERY_OUTPUT="${DEPLETED_COLOR}${D_C}${D_C}${D_C}${D_C}${D_C}"
+  local BATTERY_PERC=$(battery_percentage)
 
   case $BATTERY_PERC in
     no)
-      echo "${FULL_COLOR}${AC_C}${normal}"
-      #echo ""
+      echo ""
       ;;
     9*)
       echo "${FULL_COLOR}${F_C}${F_C}${F_C}${F_C}${F_C}${normal}"
@@ -172,8 +125,7 @@ battery_charge(){
       echo "${HALF_COLOR}${F_C}${DEPLETED_COLOR}${D_C}${D_C}${D_C}${D_C}${normal}"
       ;;
     *)
-      echo "${FULL_COLOR}${AC_C}${normal}"
-      #echo "${DANGER_COLOR}UNPLG${normal}"
+      echo "${DANGER_COLOR}UNPLG${normal}"
       ;;
   esac
 }

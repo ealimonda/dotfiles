@@ -4,6 +4,7 @@ about-alias 'common git abbreviations'
 # Aliases
 alias gcl='git clone'
 alias ga='git add'
+alias gap='git add -p'
 alias gall='git add -A'
 alias gf='git fetch --all --prune'
 alias gft='git fetch --all --prune --tags'
@@ -55,6 +56,7 @@ alias gtl="git tag -l"
 alias gnew="git log HEAD@{1}..HEAD@{0}"
 # Add uncommitted and unstaged changes to the last commit
 alias gcaa="git commit -a --amend -C HEAD"
+alias ggui="git gui"
 
 case $OSTYPE in
   darwin*)

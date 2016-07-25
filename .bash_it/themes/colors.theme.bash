@@ -1,88 +1,270 @@
 #!/usr/bin/env bash
 
-__ansiprefix="\[\e["
-__ansisuffix="m\]"
-__echoprefix="\033["
-__echosuffix="m"
+function __ {
+  echo "$@"
+}
 
-__reset="0;"
-__resetx="0;"
-__bold=";1"
-__fgbright="9"
-__normal="3"
+function __make_ansi {
+  next=$1; shift
+  echo "\[\e[$(__$next $@)m\]"
+}
 
-__black=0
-__red=1
-__green=2
-__yellow=3
-__blue=4
-__magenta=5
-__cyan=6
-__white=7
+function __make_echo {
+  next=$1; shift
+  echo "\033[$(__$next $@)m"
+}
 
-black="${__ansiprefix}${__reset}${__normal}${__black}${__ansisuffix}"
-red="${__ansiprefix}${__reset}${__normal}${__red}${__ansisuffix}"
-green="${__ansiprefix}${__reset}${__normal}${__green}${__ansisuffix}"
-yellow="${__ansiprefix}${__reset}${__normal}${__yellow}${__ansisuffix}"
-blue="${__ansiprefix}${__reset}${__normal}${__blue}${__ansisuffix}"
-purple="${__ansiprefix}${__reset}${__normal}${__magenta}${__ansisuffix}"
-cyan="${__ansiprefix}${__reset}${__normal}${__cyan}${__ansisuffix}"
-white="${__ansiprefix}${__reset}${__normal}${__white}${__bold}${__ansisuffix}"
-orange="${__ansiprefix}${__reset}${__fgbright}${__red}${__ansisuffix}"
 
-bold_black="${__ansiprefix}${__normal}${__black}${__bold}${__ansisuffix}"
-bold_red="${__ansiprefix}${__normal}${__red}${__bold}${__ansisuffix}"
-bold_green="${__ansiprefix}${__normal}${__green}${__bold}${__ansisuffix}"
-bold_yellow="${__ansiprefix}${__normal}${__yellow}${__bold}${__ansisuffix}"
-bold_blue="${__ansiprefix}${__normal}${__blue}${__bold}${__ansisuffix}"
-bold_purple="${__ansiprefix}${__normal}${__magenta}${__bold}${__ansisuffix}"
-bold_cyan="${__ansiprefix}${__normal}${__cyan}${__bold}${__ansisuffix}"
-bold_white="${__ansiprefix}${__normal}${__white}${__bold}${__ansisuffix}"
-bold_orange="${__ansiprefix}${__fgbright}${__red}${__bold}${__ansisuffix}"
+function __reset {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "0${out:+;${out}}"
+}
 
-normal="${__ansiprefix}${__resetx}${__ansisuffix}"
-reset_color="${__ansiprefix}39${__ansisuffix}"
+function __bold {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "${out:+${out};}1"
+}
+
+function __faint {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "${out:+${out};}2"
+}
+
+function __italic {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "${out:+${out};}3"
+}
+
+function __underline {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "${out:+${out};}4"
+}
+
+function __negative {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "${out:+${out};}7"
+}
+
+function __crossed {
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "${out:+${out};}8"
+}
+
+
+function __color_normal_fg {
+  echo "3$1"
+}
+
+function __color_normal_bg {
+  echo "4$1"
+}
+
+function __color_bright_fg {
+  echo "9$1"
+}
+
+function __color_bright_bg {
+  echo "10$1"
+}
+
+
+function __color_black   {
+  echo "0"
+}
+
+function __color_red   {
+  echo "1"
+}
+
+function __color_green   {
+  echo "2"
+}
+
+function __color_yellow  {
+  echo "3"
+}
+
+function __color_blue  {
+  echo "4"
+}
+
+function __color_magenta {
+  echo "5"
+}
+
+function __color_cyan  {
+  echo "6"
+}
+
+function __color_white   {
+  echo "7"
+}
+
+function __color_rgb {
+  r=$1 && g=$2 && b=$3
+  [[ r == g && g == b ]] && echo $(( $r / 11 + 232 )) && return # gray range above 232
+  echo "8;5;$(( ($r * 36  + $b * 6 + $g) / 51 + 16 ))"
+}
+
+function __color {
+  color=$1; shift
+  case "$1" in
+    fg|bg) side="$1"; shift ;;
+    *) side=fg;;
+  esac
+  case "$1" in
+    normal|bright) mode="$1"; shift;;
+    *) mode=normal;;
+  esac
+  [[ $color == "rgb" ]] && rgb="$1 $2 $3"; shift 3
+
+  next=$1; shift
+  out="$(__$next $@)"
+  echo "$(__color_${mode}_${side} $(__color_${color} $rgb))${out:+;${out}}"
+}
+
+
+function __black   {
+  echo "$(__color black $@)"
+}
+
+function __red   {
+  echo "$(__color red $@)"
+}
+
+function __green   {
+  echo "$(__color green $@)"
+}
+
+function __yellow  {
+  echo "$(__color yellow $@)"
+}
+
+function __blue  {
+  echo "$(__color blue $@)"
+}
+
+function __magenta {
+  echo "$(__color magenta $@)"
+}
+
+function __cyan  {
+  echo "$(__color cyan $@)"
+}
+
+function __white   {
+  echo "$(__color white $@)"
+}
+
+function __rgb {
+  echo "$(__color rgb $@)"
+}
+
+
+function __color_parse {
+  next=$1; shift
+  echo "$(__$next $@)"
+}
+
+function color {
+  echo "$(__color_parse make_ansi $@)"
+}
+
+function echo_color {
+  echo "$(__color_parse make_echo $@)"
+}
+
+
+black="\[\e[0;30m\]"
+red="\[\e[0;31m\]"
+green="\[\e[0;32m\]"
+yellow="\[\e[0;33m\]"
+blue="\[\e[0;34m\]"
+purple="\[\e[0;35m\]"
+cyan="\[\e[0;36m\]"
+white="\[\e[0;37;1m\]"
+orange="\[\e[0;91m\]"
+
+bold_black="\[\e[30;1m\]"
+bold_red="\[\e[31;1m\]"
+bold_green="\[\e[32;1m\]"
+bold_yellow="\[\e[33;1m\]"
+bold_blue="\[\e[34;1m\]"
+bold_purple="\[\e[35;1m\]"
+bold_cyan="\[\e[36;1m\]"
+bold_white="\[\e[37;1m\]"
+bold_orange="\[\e[91;1m\]"
+
+underline_black="\[\e[30;4m\]"
+underline_red="\[\e[31;4m\]"
+underline_green="\[\e[32;4m\]"
+underline_yellow="\[\e[33;4m\]"
+underline_blue="\[\e[34;4m\]"
+underline_purple="\[\e[35;4m\]"
+underline_cyan="\[\e[36;4m\]"
+underline_white="\[\e[37;4m\]"
+underline_orange="\[\e[91;4m\]"
+
+background_black="\[\e[40m\]"
+background_red="\[\e[41m\]"
+background_green="\[\e[42m\]"
+background_yellow="\[\e[43m\]"
+background_blue="\[\e[44m\]"
+background_purple="\[\e[45m\]"
+background_cyan="\[\e[46m\]"
+background_white="\[\e[47;1m\]"
+background_orange="\[\e[101m\]"
+
+normal="\[\e[0m\]"
+reset_color="\[\e[39m\]"
 
 # These colors are meant to be used with `echo -e`
-echo_black="${__echoprefix}${__reset}${__normal}${__black}${__echosuffix}"
-echo_red="${__echoprefix}${__reset}${__normal}${__red}${__echosuffix}"
-echo_green="${__echoprefix}${__reset}${__normal}${__green}${__echosuffix}"
-echo_yellow="${__echoprefix}${__reset}${__normal}${__yellow}${__echosuffix}"
-echo_blue="${__echoprefix}${__reset}${__normal}${__blue}${__echosuffix}"
-echo_purple="${__echoprefix}${__reset}${__normal}${__magenta}${__echosuffix}"
-echo_cyan="${__echoprefix}${__reset}${__normal}${__cyan}${__echosuffix}"
-echo_white="${__echoprefix}${__reset}${__normal}${__white}${__bold}${__echosuffix}"
-echo_orange="${__echoprefix}${__reset}${__fgbright}${__red}${__echosuffix}"
+echo_black="\033[0;30m"
+echo_red="\033[0;31m"
+echo_green="\033[0;32m"
+echo_yellow="\033[0;33m"
+echo_blue="\033[0;34m"
+echo_purple="\033[0;35m"
+echo_cyan="\033[0;36m"
+echo_white="\033[0;37;1m"
+echo_orange="\033[0;91m"
 
-echo_bold_black="${__echoprefix}${__normal}${__black}${__bold}${__echosuffix}"
-echo_bold_red="${__echoprefix}${__normal}${__red}${__bold}${__echosuffix}"
-echo_bold_green="${__echoprefix}${__normal}${__green}${__bold}${__echosuffix}"
-echo_bold_yellow="${__echoprefix}${__normal}${__yellow}${__bold}${__echosuffix}"
-echo_bold_blue="${__echoprefix}${__normal}${__blue}${__bold}${__echosuffix}"
-echo_bold_purple="${__echoprefix}${__normal}${__magenta}${__bold}${__echosuffix}"
-echo_bold_cyan="${__echoprefix}${__normal}${__cyan}${__bold}${__echosuffix}"
-echo_bold_white="${__echoprefix}${__normal}${__white}${__bold}${__echosuffix}"
-echo_bold_orange="${__echoprefix}${__fgbright}${__red}${__bold}${__echosuffix}"
+echo_bold_black="\033[30;1m"
+echo_bold_red="\033[31;1m"
+echo_bold_green="\033[32;1m"
+echo_bold_yellow="\033[33;1m"
+echo_bold_blue="\033[34;1m"
+echo_bold_purple="\033[35;1m"
+echo_bold_cyan="\033[36;1m"
+echo_bold_white="\033[37;1m"
+echo_bold_orange="\033[91;1m"
 
-echo_normal="${__echoprefix}${__resetx}${__echosuffix}"
-echo_reset_color="${__echoprefix}39${__echosuffix}"
+echo_underline_black="\033[30;4m"
+echo_underline_red="\033[31;4m"
+echo_underline_green="\033[32;4m"
+echo_underline_yellow="\033[33;4m"
+echo_underline_blue="\033[34;4m"
+echo_underline_purple="\033[35;4m"
+echo_underline_cyan="\033[36;4m"
+echo_underline_white="\033[37;4m"
+echo_underline_orange="\033[91;4m"
 
-unset __reset
-unset __resetx
-unset __bold
-unset __fgbright
-unset __normal
+echo_background_black="\033[40m"
+echo_background_red="\033[41m"
+echo_background_green="\033[42m"
+echo_background_yellow="\033[43m"
+echo_background_blue="\033[44m"
+echo_background_purple="\033[45m"
+echo_background_cyan="\033[46m"
+echo_background_white="\033[47;1m"
+echo_background_orange="\033[101m"
 
-unset __black
-unset __red
-unset __green
-unset __yellow
-unset __blue
-unset __magenta
-unset __cyan
-unset __white
-
-unset __ansiprefix
-unset __echoprefix
-unset __ansisuffix
-unset __echosuffix
+echo_normal="\033[0m"
+echo_reset_color="\033[39m"

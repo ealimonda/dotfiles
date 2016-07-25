@@ -32,14 +32,15 @@ function reload_plugins() {
 bash-it ()
 {
     about 'Bash-it help and maintenance'
-    param '1: verb [one of: help | show | enable | disable | update ] '
-    param '2: component type [one of: alias(es) | completion(s) | plugin(s) ]'
+    param '1: verb [one of: help | show | enable | disable | update | search ] '
+    param '2: component type [one of: alias(es) | completion(s) | plugin(s) ] or search term(s)'
     param '3: specific component [optional]'
     example '$ bash-it show plugins'
     example '$ bash-it help aliases'
     example '$ bash-it enable plugin git [tmux]...'
     example '$ bash-it disable alias hg [tmux]...'
     example '$ bash-it update'
+    example '$ bash-it search ruby [[-]rake]... [--enable | --disable]'
     typeset verb=${1:-}
     shift
     typeset component=${1:-}
@@ -54,6 +55,9 @@ bash-it ()
              func=_disable-$component;;
          help)
              func=_help-$component;;
+         search)
+             _bash-it-search $component $*
+             return;;
          update)
              func=_bash-it_update;;
          *)
@@ -123,8 +127,11 @@ _bash-it_update() {
   _group 'lib'
 
   cd "${BASH_IT}"
+  if [ -z $BASH_IT_REMOTE ]; then
+    BASH_IT_REMOTE="origin"
+  fi
   git fetch &> /dev/null
-  local status="$(git rev-list master..origin/master 2> /dev/null)"
+  local status="$(git rev-list master..${BASH_IT_REMOTE}/master 2> /dev/null)"
   if [[ -n "${status}" ]]; then
     git pull --rebase &> /dev/null
     if [[ $? -eq 0 ]]; then
