@@ -455,6 +455,7 @@ let g:airline#extensions#whitespace#trailing_format = 'trail[%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mix-ind[%s]'
 let g:airline#extensions#whitespace#mixed_indent_file_format = 'mix-ind-file[%s]'
 " let g:airline#extensions#ycm#enabled = 1 (currently using syntastic)
+let g:airline#extensions#c_like_langs = [ 'c', 'cpp', 'cuda', 'javascript', 'ld', 'php', 'c.doxygen', 'cpp.doxygen', 'ath', 'herc' ]
 " }}}
 
 " Gitv
@@ -502,6 +503,7 @@ let g:ycm_key_detailed_diagnostics = '<F5>'
 let g:ycm_confirm_extra_conf = 0
 " Use syntastic instead
 let g:ycm_show_diagnostics_ui = 0
+let g:ycm_register_as_syntastic_checker = 0
 " UltiSnips compatibility (through supertab)
 let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-P>', '<Up>']
@@ -514,9 +516,10 @@ let g:SuperTabDefaultCompletionType = '<C-N>'
 let g:SuperTabMappingForward = '<M-Tab>'
 " }}}
 
-" NERDTree
+" netrw :Explore
 " {{{
-noremap <leader>n :NERDTreeToggle<CR>
+noremap <leader>n :Lexplore<CR>
+let g:netrw_liststyle = 3 " Tree style
 " }}}
 
 " EasyAlign
@@ -526,6 +529,19 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+" }}}
+
+" QuickHL
+" {{{
+" Toggle QuickHL current word
+nmap <leader>w :QuickhlCwordToggle<CR>
+" }}}
+
+" Incsearch
+" {{{
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 " }}}
 
 "nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>

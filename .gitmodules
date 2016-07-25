@@ -7,7 +7,7 @@
 [submodule ".vim/bundle/gitv"]
 	path = .vim/bundle/gitv
 	url = git://github.com/gregsexton/gitv.git
-[submodule ".vim/bundle/nerdtree"]
+[submodule ".vim/bundle_disabled/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
 [submodule ".vim/bundle/NrrwRgn"]
