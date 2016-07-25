@@ -10,6 +10,8 @@
 	quotepath = false
 #	askpass = ~/bin/git-password
 	excludesfile = ~/.gitignore_global
+	whitespace = trailing-space,space-before-tab
+	precomposeUnicode = true
 
 [color]
 	# Let's use some colors
@@ -59,14 +61,29 @@
 	graph = log --graph --decorate --oneline
 	incoming = !sh -c 'git log --graph --decorate $1@{1}..$1@{0} "$@"'
 	logs = log --graph --abbrev-commit --decorate \
-		--format=format:'%C(yellow)%h%C(reset) %C(bold cyan)%aD%C(reset) - %C(white)%s%C(reset) %C(bold blue)[%an]%C(reset)%C(bold green)%d%C(reset)'
+		--format=format:'%C(yellow)%h%C(reset) %C(bold cyan)%aD%C(reset) %C(yellow)%G?%C(reset) - %C(white)%s%C(reset)\
+		%C(bold blue)[%an]%C(reset) %C(bold green)%d%C(reset)'
 	logx = log --graph --abbrev-commit --decorate \
 		--format=format:'%C(yellow)%h%C(reset) %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(cyan)(committed: %cD)%C(reset) %C(bold red)%d%C(reset)%n\
 		''        %C(white)%s%C(reset)%n\
 		''        %C(bold blue)- %an <%ae> %C(reset) %C(dim blue)(committer: %cn <%ce>)%C(reset)'
+	forcepush = push --force-with-lease
+	authors = "!git log --pretty=format:%aN | sort | uniq -c | sort -rn"
+	ls-ignored = ls-files --exclude-standard --ignored --others
+	turbomerge = merge -s recursive -X patience
+	conflicted = grep --name-only --full-name '^<<<<<<< '
+	news = log -p HEAD@{1}..HEAD@{0}
+	logf = log --pretty=format:'%C(yellow)%h %C(green)%G?%C(red)%d %C(reset)%s%C(blue) [%cn]' --decorate --numstat
+	filelog = log -u
+	showconflict = !git show "$(cat .git/rebase-merge/stopped-sha)"
+	gpg-rebase = "!EDITOR='sed -i -re s/^pick/e/' sh -c 'git rebase -i $1 && while test -f .git/rebase-merge/interactive; do git commit --amend --gpg-sign --no-edit && git rebase --continue; done' -"
 
 [push]
 	default = upstream
+
+[user]
+	useconfigonly = true
+
 [rerere]
 	enabled = true
 
@@ -74,3 +91,32 @@
 	clean = "iconv -f utf-16le -t utf-8"
 	smudge = "iconv -f utf-8 -t utf-16le"
 	required
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red
+	new = green
+
+[color "status"]
+	added = yellow
+	#changed = green
+	untracked = cyan
+	branch = blue bold
+	nobranch = red
+	unmerged = red
+
+[diff]
+	renames = copies
+	mnemonicprefix = true
+	algorithm = histogram
+	#tool = araxis
+	#tool = vimdiff
+	#tool = vimdiff2
+	#tool = vimdiff3
+
+[status]
+	submodulesummary = true
+
+[diff "plist"]
+	textconv = "plutil -convert xml1 -o -"
