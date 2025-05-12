@@ -9,16 +9,7 @@
 {{-   end -}}
 {{- end -}}
 
-{{- $computertype := "" -}}
-{{- if hasKey . "computertype" -}}
-{{-   $computertype = .computertype -}}
-{{- else -}}
-{{-   writeToStdout "Computer type (client or server)\n" -}}
-{{-   $computertype = promptString "server" -}}
-{{-   if ne $computertype "server" -}}
-{{-     $computertype = "client" -}}
-{{-   end -}}
-{{- end -}}
+{{- $computertype := promptChoiceOnce . "computertype" "What computer type is this" (list "server" "client") "server" -}}
 
 {{- $tools_flavor := "unknown" -}}
 {{- if eq .chezmoi.os "darwin" "dragonfly" "dragonfly" "freebsd" "ios" "netbsd" "openbsd" -}}
