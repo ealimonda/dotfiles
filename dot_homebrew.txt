@@ -1,5 +1,6 @@
 aria2
 autoconf
+bear
 bison
 bitwise
 blink1
@@ -10,16 +11,12 @@ cmake
 colordiff
 convmv
 cpanminus
-cppcheck
-ctags
 dos2unix
 doxygen
 eslint
 ffmpeg
 figlet
-flawfinder
 flex
-fortune
 gcc
 gcovr
 git-lfs
@@ -36,7 +33,6 @@ highlight
 htop
 httpie
 imagemagick
-imagemagick@6
 imagesnap
 iperf
 jq
@@ -49,8 +45,10 @@ md5deep
 md5sha1sum
 media-info
 mplayer
+ninja
 nnn
 p7zip
+pcre
 perl
 rclone
 reattach-to-user-namespace
@@ -59,7 +57,6 @@ smartmontools
 snapraid
 tmux
 unison
-vcpkg
 vifm
 wakeonlan
 wdiff

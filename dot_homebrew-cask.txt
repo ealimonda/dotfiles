@@ -1,5 +1,4 @@
 1password-cli
-adium
 aegisub
 appcleaner
 aria-maestosa
@@ -14,6 +13,7 @@ disk-inventory-x
 dosbox-x
 drawio
 find-any-file
+freecad
 gimp
 gpg-suite-no-mail
 gramps
@@ -39,12 +39,10 @@ mkvtoolnix
 moneydance
 musicbrainz-picard
 namechanger
-nocturne
 openemu
 openoffice
 packages
 paintbrush
-pikopixel
 poedit
 prusaslicer
 qlcolorcode
@@ -54,8 +52,6 @@ qlvideo
 quicklook-json
 raspberry-pi-imager
 scummvm
-seamonkey
-sequential
 simple-comic
 stats
 stellarium
