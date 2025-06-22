@@ -637,11 +637,13 @@ format = '[\[](fg:244)[$symbol$status]($style)[\]](fg:244)'
 # sigint_symbol = '🧱'
 # signal_symbol = '⚡'
 #style = 'bold red'
+##failure_style = 'bold red'
+success_style = ''
 #map_symbol = false
 #recognize_signal_code = true
 pipestatus = true
 #pipestatus_separator = '|'
-pipestatus_format = '[\[](fg:244)$pipestatus [=>](fg:244) [$symbol$common_meaning$signal_name$maybe_int]($style)[\]](fg:244)'
+pipestatus_format = '[\[](fg:244)$pipestatus [=>](fg:244) [$symbol$common_meaning$signal_name$maybe_int]($style)[\]](fg:244) '
 disabled = false
 
 [sudo]
