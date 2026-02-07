@@ -1,7 +1,6 @@
 aria2
 autoconf
 bear
-bison
 bitwise
 blink1
 chezmoi
@@ -16,7 +15,6 @@ doxygen
 eslint
 ffmpeg
 figlet
-flex
 gcc
 gcovr
 git-lfs
@@ -33,7 +31,6 @@ highlight
 htop
 httpie
 imagemagick
-imagesnap
 iperf
 jq
 knock
@@ -50,12 +47,15 @@ nnn
 p7zip
 pcre
 perl
+python@3.12
+python@3.13
 rclone
 reattach-to-user-namespace
 rrdtool
 smartmontools
 snapraid
 tmux
+topiary
 unison
 vifm
 wakeonlan
