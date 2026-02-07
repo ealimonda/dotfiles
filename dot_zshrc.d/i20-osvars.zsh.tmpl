@@ -62,13 +62,14 @@ eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
 
 # Homebrew
 #export HOMEBREW_AUTO_UPDATE_SECS=3600
+#export HOMEBREW_TEMP=/usr/local/temp
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_EMOJI=1
 export HOMEBREW_NO_GITHUB_API=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_INSTALL_UPGRADE=1
-export HOMEBREW_TEMP=/usr/local/temp
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+export HOMEBREW_DOWNLOAD_CONCURRENCY=2
 
 alias snapraid='snapraid -c /usr/local/etc/snapraid.conf'
 {{- end }}
