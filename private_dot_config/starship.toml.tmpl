@@ -18,6 +18,8 @@ $os\
 \
 $fill\
 \
+$c\
+$cpp\
 $cmake\
 $container\
 $dart\
@@ -52,7 +54,6 @@ $shell\
 #$battery\
 #$buf\
 #$bun\
-#$c\
 #$conda\
 #$cobol\
 #$crystal\
@@ -82,8 +83,10 @@ $shell\
 #$lua\
 #$memory_usage\
 #$hg_branch\
+#$mise\
 #$mojo\
 #$nats\
+#$netns\
 #$nim\
 #$nix_shell\
 #$ocaml\
@@ -92,6 +95,7 @@ $shell\
 #$openstack\
 #$package\
 #$pijul_channel\
+#$pixi\
 #$pulumi\
 #$purescript\
 #$quarto\
@@ -144,9 +148,17 @@ disabled = true
 
 [c]
 # https://starship.rs/config/#c
-format = '[\[](fg:244)[$symbol([:](fg:244)$version(-$name))]($style)[\]](fg:244)'
+version_format = '${major}.${minor}'
+format = '[\[](fg:244)[$symbol([:](fg:244)($name-)$version)]($style)[\]](fg:244)'
 symbol = 'C'
 style = '149'
+disabled = true
+
+[cpp]
+# https://starship.rs/config/#cpp
+version_format = '${major}.${minor}'
+format = '[\[](fg:244)[$symbol([:](fg:244)($name-)$version)]($style)[\]](fg:244)'
+symbol = 'C++'
 disabled = true
 
 [character]
@@ -365,6 +377,9 @@ typechanged = ' [⇢$count](yellow)' # U+21E2 Rightwards Dashed Arrow
 #windows_starship = "/mnt/c/ProgramData/chocolatey/bin/starship.exe"
 windows_starship = "/mnt/c/Users/{{ .chezmoi.username }}/scoop/shims/starship.exe"
 {{- end }}
+{{- if .os.wsl }}
+use_git_executable = true
+{{- end }}
 
 [golang]
 # https://starship.rs/config/#go
@@ -454,12 +469,20 @@ disabled = true
 # https://starship.rs/config/#mercurial-branch
 disabled = true
 
+[mise]
+# https://starship.rs/config/#mise
+disabled = true
+
 [mojo]
 # https://starship.rs/config/#mojo
 disabled = true
 
 [nats]
 # https://starship.rs/config/#nats
+disabled = true
+
+[netns]
+# https://starship.rs/config/#netns
 disabled = true
 
 [nim]
@@ -529,6 +552,10 @@ style = '147'
 
 [pijul_channel]
 # https://starship.rs/config/#pijul_channel
+disabled = true
+
+[pixi]
+# https://starship.rs/config/#pixi
 disabled = true
 
 [pulumi]
