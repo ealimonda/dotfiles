@@ -65,6 +65,7 @@ $shell\
 #$elm\
 #$erlang\
 #$fennel\
+#$fortran\
 #$fossil_branch\
 #$fossil_metrics\
 #$gcloud\
@@ -83,6 +84,7 @@ $shell\
 #$lua\
 #$memory_usage\
 #$hg_branch\
+#$hg_state\
 #$mise\
 #$mojo\
 #$nats\
@@ -111,6 +113,7 @@ $shell\
 #$terraform\
 #$vlang\
 #$vcsh\
+#$xmake\
 #$zig\
 #$custom\
 #"""
@@ -296,6 +299,10 @@ style = 'fg:244'
 symbol = '·' # U+C2B7 Middle Dot
 #disabled = false
 
+[fortran]
+# https://starship.rs/config/#fortran
+disabled = true
+
 [fossil_branch]
 # https://starship.rs/config/#fossil_branch
 disabled = true
@@ -317,6 +324,7 @@ style = 'purple'
 #truncation_symbol = '…'
 #only_attached = false
 #always_show_remote = false
+#ignore_bare_repo = false
 #disabled = false
 
 [git_commit]
@@ -467,6 +475,10 @@ disabled = true
 
 [hg_branch]
 # https://starship.rs/config/#mercurial-branch
+disabled = true
+
+[hg_state]
+# https://starship.rs/config/#mercurial-state
 disabled = true
 
 [mise]
@@ -718,6 +730,10 @@ disabled = true
 
 [vcsh]
 # https://starship.rs/config/#vcsh
+disabled = true
+
+[xmake]
+# https://starship.rs/config/#xmake
 disabled = true
 
 [zig]
