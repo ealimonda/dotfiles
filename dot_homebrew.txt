@@ -1,6 +1,7 @@
 aria2
 autoconf
 bear
+bitwarden-cli
 bitwise
 blink1
 chezmoi
@@ -18,7 +19,6 @@ figlet
 gcc
 gcovr
 git-lfs
-glances
 glslang
 gnupg
 go
@@ -41,6 +41,7 @@ mariadb-connector-c
 md5deep
 md5sha1sum
 media-info
+mkp224o
 mplayer
 ninja
 nnn
@@ -56,6 +57,7 @@ smartmontools
 snapraid
 tmux
 topiary
+tor
 unison
 vifm
 wakeonlan
